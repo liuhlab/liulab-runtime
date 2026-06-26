@@ -576,71 +576,74 @@ the software environments we use for data analysis.</p>
 conda environments by hand (and getting slightly different versions of
 everything), this repository defines a handful of ready-made
 environments that everyone can install with a single command. Each one
-bundles the lab's own packages together with the standard bioinformatics
-and plotting tools.</p>
+bundles the lab's own packages together with the standard bioinformatics tools.</p>
 <p>It is built on <a href="https://pixi.sh">pixi</a>, a modern, fast environment
 manager. You don't need to know how pixi works to use it — just follow
 the steps below. If you're curious about <em>what's going on under the
 hood</em>, see <a href="background/">Background</a>.</p>
+<div class="admonition info">
+<p class="admonition-title">Which platform should I use?</p>
+<p><strong>Linux is the primary, fully-supported platform</strong> — this is where
+nearly all real analysis runs (servers, clusters). <strong>macOS</strong> (both
+Intel and Apple Silicon) works for most environments and is great for
+development; note that a few aligners have no Apple Silicon build (see
+<a href="#available-environments">Available environments</a>). <strong>Windows is not
+supported</strong> — install <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>
+and follow the Linux instructions inside it.</p>
+</div>
 <hr />
 <h2 id="setup-from-scratch">Setup from scratch<a class="headerlink" href="#setup-from-scratch" title="Permanent link">&para;</a></h2>
 <h3 id="1-install-pixi">1. Install pixi<a class="headerlink" href="#1-install-pixi" title="Permanent link">&para;</a></h3>
 <p>pixi is a single program that manages everything else. Install it once
 per computer.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS / Linux</label><label for="__tabbed_1_2">Windows (PowerShell)</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pixi.sh/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">iwr </span><span class="n">-useb</span> <span class="n">https</span><span class="p">://</span><span class="n">pixi</span><span class="p">.</span><span class="n">sh</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
-</code></pre></div>
-</div>
-</div>
-</div>
+<p>(On Windows, run this <em>inside</em> a WSL2 Linux terminal — see the platform
+note above.)</p>
 <p>Close and reopen your terminal afterwards so the <code>pixi</code> command is
 available. Check it worked:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pixi<span class="w"> </span>--version
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pixi<span class="w"> </span>--version
 </code></pre></div>
 <h3 id="2-install-the-runtime">2. Install the runtime<a class="headerlink" href="#2-install-the-runtime" title="Permanent link">&para;</a></h3>
 <p>Clone this repository and let pixi build the environments:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/liuhlab/liulab-runtime.git
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>liulab-runtime
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>pixi<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/liuhlab/liulab-runtime.git
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>liulab-runtime
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pixi<span class="w"> </span>install
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Register the Jupyter kernels (run once)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pixi<span class="w"> </span>run<span class="w"> </span>register-kernels
 </code></pre></div>
 <p>This reads the recipe in <code>pyproject.toml</code>, downloads everything, and
-sets up each environment. The first run can take a few minutes; later
+sets up each environment. The first run can take a while; later
 runs are fast because pixi caches what it downloads.</p>
 <h3 id="3-activate-an-environment">3. Activate an environment<a class="headerlink" href="#3-activate-an-environment" title="Permanent link">&para;</a></h3>
 <p>To start working, "enter" an environment. This puts all of its tools on
 your path:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pixi<span class="w"> </span>shell<span class="w">          </span><span class="c1"># enters the default analysis environment</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pixi<span class="w"> </span>shell<span class="w">          </span><span class="c1"># enters the default analysis environment</span>
 </code></pre></div>
 <p>You're now in a shell where <code>python</code>, <code>jupyter</code>, <code>samtools</code>, and the lab
 packages are all available. Type <code>exit</code> to leave.</p>
 <p>To enter a different environment, name it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pixi<span class="w"> </span>shell<span class="w"> </span>-e<span class="w"> </span>align-star
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pixi<span class="w"> </span>shell<span class="w"> </span>-e<span class="w"> </span>align-rna
+</code></pre></div>
+<p>Not sure what's available? List every environment with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>envs<span class="w">        </span><span class="c1"># shortcut for: pixi workspace environment list</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Run one command without entering a shell</p>
 <p>Use <code>pixi run</code> to execute a single command inside an environment:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w">                    </span><span class="c1"># launch Jupyter Lab</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>align-star<span class="w"> </span>STAR<span class="w"> </span>--version
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>align-rna<span class="w"> </span>STAR<span class="w"> </span>--version
 </code></pre></div>
 </div>
 <h3 id="4-use-it-in-jupyter">4. Use it in Jupyter<a class="headerlink" href="#4-use-it-in-jupyter" title="Permanent link">&para;</a></h3>
-<p>Every environment registers itself as a <strong>Jupyter kernel</strong> the first
-time you enter it. So after you've run <code>pixi shell -e align-star</code> once,
-a kernel called <strong>"Python (liulab align-star)"</strong> appears in Jupyter.</p>
+<p>Because you ran <code>pixi run register-kernels</code>, every environment
+shows up in Jupyter as its own <strong>kernel</strong> — e.g. <strong>"Python (liulab
+align-rna)"</strong>.</p>
 <p>Launch Jupyter Lab from the default environment and pick whichever kernel
 you need from the kernel menu:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>lab
 </code></pre></div>
-<p>Want to register every kernel up front, without entering each
-environment? Run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>register-kernels
-</code></pre></div>
+<p>If you add a new environment later, just run <code>pixi run register-kernels</code>
+again to pick it up.</p>
 <hr />
 <h2 id="common-tasks">Common tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h2>
 <table>
@@ -661,7 +664,7 @@ environment? Run:</p>
 </tr>
 <tr>
 <td>Enter a specific environment</td>
-<td><code>pixi shell -e align-star</code></td>
+<td><code>pixi shell -e align-rna</code></td>
 </tr>
 <tr>
 <td>Launch Jupyter Lab</td>
@@ -688,23 +691,39 @@ environment? Run:</p>
 <tr>
 <th>Environment</th>
 <th>Contents</th>
+<th>Platforms</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>default</code></td>
 <td><code>liulab-data</code>, <code>liulab-genome</code>, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools</td>
+<td>Linux, macOS</td>
 </tr>
 <tr>
-<td><code>align-star</code></td>
-<td>STAR aligner, samtools</td>
+<td><code>align-base</code></td>
+<td>Aligner-agnostic read processing &amp; QC: samtools, sambamba, fastqc, multiqc, repaq</td>
+<td>Linux, macOS</td>
+</tr>
+<tr>
+<td><code>align-rna</code></td>
+<td>RNA-seq aligners (on top of <code>align-base</code>): STAR, HISAT2, salmon, alevin-fry</td>
+<td>Linux, Intel macOS</td>
 </tr>
 <tr>
 <td><code>docs</code></td>
 <td>Tools for building this documentation site</td>
+<td>Linux, macOS</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Apple Silicon &amp; <code>align-rna</code></p>
+<p>STAR has no Apple Silicon (<code>osx-arm64</code>) build, so <code>align-rna</code> is
+available only on Linux and Intel macOS. On an M-series Mac, run it
+via a Linux container or on a cluster. The <code>align-base</code> toolkit works
+everywhere.</p>
+</div>
 <p>Need a new environment for a specific task? See
 <a href="background/#adding-your-own-environment">Background → Adding your own environment</a>.</p>
 
