@@ -1,0 +1,111 @@
+[project]
+name = "liulab-runtime"
+description = "Centralized package & environment manager for Liu Lab data analysis, powered by pixi."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+authors = [{ name = "Liu Lab" }]
+keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
+# Date-based (CalVer) versioning: YYYY.M.D
+version = "2026.6.25"
+
+[project.urls]
+Homepage = "https://github.com/liuhlab/liulab-runtime"
+Issues = "https://github.com/liuhlab/liulab-runtime/issues"
+Changelog = "https://github.com/liuhlab/liulab-runtime/blob/main/CHANGELOG.md"
+
+# ======================================================================
+#  pixi — environment & package management
+#
+#  Concepts (see docs/background.md for the friendly version):
+#    * dependencies      -> the "default feature", included in EVERY env
+#    * feature.<name>    -> a named bundle of extra packages
+#    * environments      -> a recipe combining one or more features
+# ======================================================================
+
+[tool.pixi.workspace]
+channels = ["conda-forge", "bioconda"]
+platforms = ["osx-arm64", "osx-64", "linux-64"]
+
+# ---- Base layer: present in every environment ------------------------
+# python + ipykernel mean ANY environment here can back a Jupyter kernel.
+[tool.pixi.dependencies]
+python = "3.13.*"
+ipykernel = "*"
+
+# Runs on every environment activation (`pixi shell` / `pixi run`).
+# The script registers the active environment as a Jupyter kernel the
+# first time you enter it. See scripts/register_kernel.sh.
+[tool.pixi.activation]
+scripts = ["scripts/register_kernel.sh"]
+
+# ---- Default environment: everyday data analysis ---------------------
+[tool.pixi.feature.analysis.dependencies]
+jupyterlab = "*"
+seaborn = "*"
+pandas = ">=2.1,<3"   # liulab-genome requires pandas <3
+numpy = "*"
+bedtools = "*"
+samtools = "*"
+
+# Liu Lab packages, installed straight from GitHub.
+[tool.pixi.feature.analysis.pypi-dependencies]
+liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
+liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
+
+# ---- align-star: RNA-seq alignment with STAR -------------------------
+# STAR has no osx-arm64 build on bioconda, so this feature is limited to
+# the platforms that do. (Apple Silicon users: run it under linux-64 in
+# a container / on a cluster.)
+[tool.pixi.feature.align-star]
+platforms = ["osx-64", "linux-64"]
+
+[tool.pixi.feature.align-star.dependencies]
+star = "*"
+samtools = "*"
+
+# ---- Tooling features ------------------------------------------------
+[tool.pixi.feature.dev.dependencies]
+ruff = "*"
+pre-commit = "*"
+
+[tool.pixi.feature.docs.dependencies]
+mkdocs-material = "*"
+
+# ---- Environments ----------------------------------------------------
+[tool.pixi.environments]
+default    = { features = ["analysis", "dev", "docs"], solve-group = "default" }
+align-star = { features = ["align-star"] }
+docs       = { features = ["docs"], solve-group = "default" }
+
+# ---- Tasks -----------------------------------------------------------
+[tool.pixi.tasks]
+# Register the CURRENT environment as a Jupyter kernel (idempotent).
+register-kernel = "python -m ipykernel install --user --name liulab-$PIXI_ENVIRONMENT_NAME --display-name \"Python (liulab $PIXI_ENVIRONMENT_NAME)\""
+# Register every environment up front, without entering each one.
+register-kernels = "bash scripts/register_all_kernels.sh"
+# Show all environments and what's in them.
+envs = "pixi workspace environment list"
+# Launch Jupyter Lab (from the default env).
+lab = "jupyter lab"
+
+[tool.pixi.feature.docs.tasks]
+docs = "mkdocs serve"
+docs-build = "mkdocs build --strict"
+
+[tool.pixi.feature.dev.tasks]
+lint = "ruff check ."
+fmt = "ruff format ."
+fmt-check = "ruff format --check ."
+
+# ======================================================================
+#  ruff — light linting for the few helper scripts we keep
+# ======================================================================
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B"]
+ignore = ["E501"]
