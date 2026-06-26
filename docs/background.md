@@ -84,6 +84,45 @@ Everything is declared in `pyproject.toml`, in three layers:
 This is why environments share their common pieces but stay small and
 focused.
 
+## Adding a package that lives only on GitHub
+
+Some lab packages are still in development and aren't published on conda
+or PyPI yet — they exist only as a GitHub repository. pixi can install
+these directly from GitHub as a **PyPI (git) dependency**.
+
+That's exactly how `liulab-data` and `liulab-genome` are wired in:
+
+```toml
+[tool.pixi.feature.analysis.pypi-dependencies]
+liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
+liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
+```
+
+To add another, drop a line in the relevant feature's
+`pypi-dependencies` table. You can pin to a specific branch, tag, or
+commit so everyone gets the same code:
+
+```toml
+[tool.pixi.feature.analysis.pypi-dependencies]
+# latest on the default branch
+my-pkg = { git = "https://github.com/liuhlab/my-pkg.git" }
+# pin to a branch / tag / commit
+my-pkg = { git = "https://github.com/liuhlab/my-pkg.git", branch = "dev" }
+my-pkg = { git = "https://github.com/liuhlab/my-pkg.git", tag = "v0.2.0" }
+my-pkg = { git = "https://github.com/liuhlab/my-pkg.git", rev = "a1b2c3d" }
+```
+
+Then run `pixi install` to fetch and build it.
+
+!!! note "A couple of requirements"
+    - The repository must be **pip-installable** — i.e. it has a
+      `pyproject.toml` (or `setup.py`) at its root.
+    - For a **private** repo, make sure your machine can already clone it
+      (e.g. via an SSH key or a cached GitHub credential); pixi uses your
+      normal git access.
+
+
+
 ## How Jupyter kernels are registered
 
 We want every environment to be usable as a kernel inside Jupyter, so you
@@ -96,12 +135,6 @@ align-rna)"**, and so on.
 
 It's safe to run again at any time — for instance after you add a new
 environment.
-
-!!! note "Why a separate command?"
-    pixi doesn't run a hook automatically after `pixi install`, so a
-    single explicit command is the cleanest way to register all kernels
-    at once. The work is done by
-    [`scripts/register_all_kernels.sh`](https://github.com/liuhlab/liulab-runtime/blob/main/scripts/register_all_kernels.sh).
 
 ## Adding your own environment
 

@@ -54,27 +54,14 @@ Clone this repository and let pixi build the environments:
 git clone https://github.com/liuhlab/liulab-runtime.git
 cd liulab-runtime
 pixi install
+# Register the Jupyter kernels (run once)
+pixi run register-kernels
 ```
 
 This reads the recipe in `pyproject.toml`, downloads everything, and
 sets up each environment. The first run can take a while; later
 runs are fast because pixi caches what it downloads.
 
-### 2b. Register the Jupyter kernels (run once)
-
-So you can use every environment inside Jupyter, register them all as
-kernels right after installing:
-
-```bash
-pixi run register-kernels
-```
-
-You only need to do this once per machine (and again if you add a new
-environment).
-
-!!! note "Why isn't this automatic?"
-    pixi doesn't run a hook after `pixi install`, so this one extra
-    command is the cleanest way to set up all kernels at once.
 
 ### 3. Activate an environment
 
@@ -109,7 +96,7 @@ pixi run envs        # shortcut for: pixi workspace environment list
 
 ### 4. Use it in Jupyter
 
-Because you ran `pixi run register-kernels` in step 2b, every environment
+Because you ran `pixi run register-kernels`, every environment
 shows up in Jupyter as its own **kernel** — e.g. **"Python (liulab
 align-rna)"**.
 
