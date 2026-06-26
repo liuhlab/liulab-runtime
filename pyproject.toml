@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.6.25"
+version = "2026.6.26"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -30,15 +30,12 @@ platforms = ["osx-arm64", "osx-64", "linux-64"]
 
 # ---- Base layer: present in every environment ------------------------
 # python + ipykernel mean ANY environment here can back a Jupyter kernel.
+# htslib + pigz are near-universal in our pipelines, so they live here too.
 [tool.pixi.dependencies]
 python = "3.13.*"
 ipykernel = "*"
-
-# Runs on every environment activation (`pixi shell` / `pixi run`).
-# The script registers the active environment as a Jupyter kernel the
-# first time you enter it. See scripts/register_kernel.sh.
-[tool.pixi.activation]
-scripts = ["scripts/register_kernel.sh"]
+htslib = "*"
+pigz = "*"
 
 # ---- Default environment: everyday data analysis ---------------------
 [tool.pixi.feature.analysis.dependencies]
@@ -54,16 +51,28 @@ samtools = "*"
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
 liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
 
-# ---- align-star: RNA-seq alignment with STAR -------------------------
+# ---- align-base: shared, aligner-agnostic read-processing toolkit ----
+# Everything an alignment workflow needs regardless of which aligner you
+# use: BAM handling, FASTQ (de)compression, and QC.
+[tool.pixi.feature.align-base.dependencies]
+samtools = "*"
+sambamba = "*"
+fastqc = "*"
+multiqc = "*"
+repaq = "*"     # fast FASTQ compression
+
+# ---- align-rna: RNA-seq aligners (builds on align-base) --------------
 # STAR has no osx-arm64 build on bioconda, so this feature is limited to
 # the platforms that do. (Apple Silicon users: run it under linux-64 in
 # a container / on a cluster.)
-[tool.pixi.feature.align-star]
+[tool.pixi.feature.align-rna]
 platforms = ["osx-64", "linux-64"]
 
-[tool.pixi.feature.align-star.dependencies]
+[tool.pixi.feature.align-rna.dependencies]
 star = "*"
-samtools = "*"
+hisat2 = "*"
+salmon = "*"
+alevin-fry = "*"
 
 # ---- Tooling features ------------------------------------------------
 [tool.pixi.feature.dev.dependencies]
@@ -76,7 +85,8 @@ mkdocs-material = "*"
 # ---- Environments ----------------------------------------------------
 [tool.pixi.environments]
 default    = { features = ["analysis", "dev", "docs"], solve-group = "default" }
-align-star = { features = ["align-star"] }
+align-base = { features = ["align-base"] }
+align-rna  = { features = ["align-base", "align-rna"] }
 docs       = { features = ["docs"], solve-group = "default" }
 
 # ---- Tasks -----------------------------------------------------------

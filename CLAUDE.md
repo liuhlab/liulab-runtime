@@ -7,9 +7,8 @@ Guidance for working in this repository.
 `liulab-runtime` is **not** a Python library — it ships no importable
 source code. It is a centralized **environment manager**: a single pixi
 workspace that defines the reproducible environments the Liu Lab uses for
-data analysis, aggregating the lab's own packages
-(`liulab-data`, `liulab-genome`) with standard bioinformatics and
-plotting tools.
+data analysis, aggregating the lab's own packages with standard conda and
+pypi tools.
 
 The whole configuration lives in `pyproject.toml` under `[tool.pixi.*]`.
 
@@ -21,7 +20,7 @@ Everything runs through **pixi** (https://pixi.sh). Do not use `pip`,
 ```bash
 pixi install              # build all environments
 pixi shell                # enter default env
-pixi shell -e align-star  # enter a specific env
+pixi shell -e align-rna   # enter a specific env
 pixi run <task>           # run a defined task
 ```
 
@@ -29,9 +28,7 @@ pixi run <task>           # run a defined task
 
 ```
 pyproject.toml            # the source of truth: channels, deps, features, envs, tasks
-scripts/
-  register_kernel.sh      # activation hook: registers active env as a Jupyter kernel
-  register_all_kernels.sh # registers every env up front (`pixi run register-kernels`)
+scripts/                  # register_all_kernels.sh (kernel registration helper)
 docs/                     # MkDocs site (index.md = getting started, background.md)
 mkdocs.yml
 .github/workflows/        # CI (docs build) + docs deploy
@@ -40,25 +37,31 @@ mkdocs.yml
 ## How environments are structured
 
 - `[tool.pixi.dependencies]` is the **base layer**, included in every
-  environment. Keep `python` and `ipykernel` here so every env can back a
-  Jupyter kernel.
+  environment. Keep `python` + `ipykernel` (so every env can back a
+  Jupyter kernel) and near-universal tools (`htslib`, `pigz`) here.
 - `[tool.pixi.feature.<name>]` defines a named bundle of extra packages.
 - `[tool.pixi.environments]` combines features into an environment.
+
+Alignment envs are layered: `align-base` holds aligner-agnostic,
+shared read-processing tools; aligner envs like `align-rna` add the
+aligners on top of `align-base`.
 
 To add an environment: add a `feature`, then list it under
 `environments`. Prefer conda packages (conda-forge / bioconda); use
 `pypi-dependencies` only for things not on conda (e.g. GitHub-hosted lab
 packages).
 
-Some bioinformatics tools lack an `osx-arm64` build. When that happens,
-narrow the feature with `platforms = [...]` (see `align-star`).
+Some bioinformatics tools lack an `osx-arm64` build (e.g. STAR). When
+that happens, narrow the feature with `platforms = [...]` (see
+`align-rna`).
 
 ## Jupyter kernels
 
-Kernels are registered automatically on **first activation** of each env
-via the `scripts/register_kernel.sh` activation hook (pixi has no
-install-time hook). The hook is idempotent — it uses a marker file under
-`.pixi/`. Keep it quiet and dependency-free (POSIX `sh`).
+Kernels are **not** auto-registered. Users run `pixi run register-kernels`
+once after `pixi install` (documented in `docs/index.md`); pixi has no
+install-time hook. The task loops over every environment running the
+per-env `register-kernel` task. Keep `scripts/register_all_kernels.sh`
+quiet and dependency-light (POSIX-ish bash).
 
 ## Conventions
 

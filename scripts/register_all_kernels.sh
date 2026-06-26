@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Register every environment as a Jupyter kernel in one go.
 #
-# Normally you don't need this: each environment registers itself the
-# first time you enter it (see register_kernel.sh). Use this when you'd
-# rather set up all kernels up front.
+# Run this once after `pixi install` to make every environment available
+# as a kernel in Jupyter (the docs tell users to do exactly that).
 #
 # Usage:  pixi run register-kernels
 set -euo pipefail
@@ -12,9 +11,9 @@ set -euo pipefail
 # pyproject.toml. Falls back to the known list if parsing is unavailable.
 if envs=$(pixi workspace environment list 2>/dev/null \
         | sed -n 's/^[[:space:]]*-[[:space:]]*\([A-Za-z0-9_-]*\).*/\1/p'); then
-    [ -z "$envs" ] && envs="default align_star docs"
+    [ -z "$envs" ] && envs="default align-base align-rna docs"
 else
-    envs="default align_star docs"
+    envs="default align-base align-rna docs"
 fi
 
 for env in $envs; do

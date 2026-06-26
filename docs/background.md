@@ -5,6 +5,21 @@ pieces fit together. You don't need any of this to use the package — but
 it helps to know what's happening when something goes wrong, or when you
 want to add your own environment.
 
+## What is PyPI?
+
+**PyPI** (the Python Package Index) is the official home for Python
+libraries — it's what `pip install` downloads from. Almost any pure-Python
+package you can think of lives there.
+
+The catch: PyPI is Python-only. It doesn't handle compiled command-line
+tools like `samtools` or `STAR`, and it doesn't manage non-Python
+dependencies. That's where conda comes in.
+
+In this project we use **both**: conda (via pixi) for tools and most
+libraries, and PyPI for a few Python packages that aren't on conda —
+including the lab's own packages, which pixi installs straight from
+GitHub.
+
 ## What is conda?
 
 A lot of scientific software isn't pure Python. Tools like `samtools` or
@@ -45,8 +60,7 @@ channels (conda-forge, bioconda), but is much nicer to work with:
 - **Fast.** Installs and resolves dependencies far quicker than classic
   conda.
 - **Mixes conda and PyPI.** It can install conda packages *and* Python
-  packages straight from GitHub (which is how we pull in the lab's own
-  `liulab-data` and `liulab-genome`).
+  packages from pypi or straight from GitHub.
 
 So: conda/bioconda provide the *packages*; pixi is the *manager* that
 assembles them into tidy, reproducible environments.
@@ -60,34 +74,34 @@ Everything is declared in `pyproject.toml`, in three layers:
    can act as a Jupyter kernel.
 
 2. **Features** (`[tool.pixi.feature.<name>]`) — named bundles of extra
-   packages. For example, the `align-star` feature adds the STAR aligner.
+   packages. For example, the `align-rna` feature adds RNA-seq aligners.
 
 3. **Environments** (`[tool.pixi.environments]`) — recipes that combine
    features. The `default` environment combines the analysis, dev, and
-   docs features; `align-star` is the base layer plus the `align-star`
-   feature.
+   docs features; `align-rna` is the base layer plus the `align-base`
+   (shared read-processing) and `align-rna` (aligners) features.
 
 This is why environments share their common pieces but stay small and
 focused.
 
 ## How Jupyter kernels are registered
 
-We want every environment to be usable as a kernel inside Jupyter,
-ideally without anyone having to remember an extra step.
+We want every environment to be usable as a kernel inside Jupyter, so you
+can switch between them in a notebook.
 
-pixi runs an **activation script** every time you enter an environment.
-Ours ([`scripts/register_kernel.sh`](https://github.com/liuhlab/liulab-runtime/blob/main/scripts/register_kernel.sh))
-registers the current environment as a Jupyter kernel the first time you
-enter it, then records a marker file so it doesn't repeat the work.
+The `pixi run register-kernels` command (which you run once, right after
+`pixi install`) walks through every environment and registers it as a
+Jupyter kernel. So `align-rna` becomes a kernel named **"Python (liulab
+align-rna)"**, and so on.
 
-The result: the first time you run `pixi shell -e align-star`, a kernel
-named **"Python (liulab align-star)"** shows up in Jupyter Lab.
+It's safe to run again at any time — for instance after you add a new
+environment.
 
-!!! note "Why not at install time?"
-    pixi doesn't run a hook at `pixi install` time, so we register on
-    *first activation* instead. In practice that's the same moment for
-    you — the first time you actually use an environment. If you'd rather
-    register everything up front, run `pixi run register-kernels`.
+!!! note "Why a separate command?"
+    pixi doesn't run a hook automatically after `pixi install`, so a
+    single explicit command is the cleanest way to register all kernels
+    at once. The work is done by
+    [`scripts/register_all_kernels.sh`](https://github.com/liuhlab/liulab-runtime/blob/main/scripts/register_all_kernels.sh).
 
 ## Adding your own environment
 
@@ -110,7 +124,33 @@ pixi shell -e variants
 ```
 
 Because the base layer is in every environment, `variants` automatically
-gets Python and an auto-registered Jupyter kernel too.
+gets Python too. Run `pixi run register-kernels` afterwards to add it as a
+Jupyter kernel.
+
+## How to contribute to this repository
+
+Changes go through a simple branch-and-merge flow:
+
+1. **Create a branch** for your work:
+
+    ```bash
+    git switch -c my-new-env
+    ```
+
+2. **Make your change** — usually editing `pyproject.toml` to add a
+   feature or environment — and check it solves:
+
+    ```bash
+    pixi install
+    ```
+
+3. **Commit and push** your branch, then open a pull request on GitHub.
+
+4. **Merge to `main`** once it's reviewed and the change has matured.
+   Merging to `main` automatically rebuilds and publishes the docs.
+
+When you change the available environments, update the tables in
+`README.md` and `docs/index.md` so they stay accurate.
 
 ## Versioning
 

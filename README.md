@@ -1,16 +1,14 @@
 # liulab-runtime
 
+[![Documentation](https://img.shields.io/badge/docs-liuhlab.github.io-teal)](https://liuhlab.github.io/liulab-runtime/)
+
 The Liu Lab's **one-stop environment manager** for data analysis.
 
 Instead of every project juggling its own conda environments, this
 repository uses [pixi](https://pixi.sh) to provide a small set of
-ready-made, reproducible environments — bundling the lab's own packages
-([liulab-data](https://github.com/liuhlab/liulab-data),
-[liulab-genome](https://github.com/liuhlab/liulab-genome)) together with
-common tools like Jupyter Lab, seaborn, samtools, and bedtools.
-
-Every environment also registers itself as a **Jupyter kernel**, so you
-can switch between them inside a notebook.
+ready-made, reproducible environments — bundling the lab's [own packages](https://github.com/orgs/liuhlab/repositories) together with
+common tools and packages. Full setup and background guides live in the
+**[documentation](https://liuhlab.github.io/liulab-runtime/)**.
 
 ## Quick start
 
@@ -23,27 +21,26 @@ git clone https://github.com/liuhlab/liulab-runtime.git
 cd liulab-runtime
 pixi install
 
-# 3. Drop into the default analysis environment
+# 3. Register every environment as a Jupyter kernel (run once)
+pixi run register-kernels
+
+# 4. Drop into the default analysis environment
 pixi shell
 
-# 4. ...or launch Jupyter Lab
+# 5. ...or launch Jupyter Lab
 pixi run lab
 ```
 
-The first time you enter an environment it registers itself as a Jupyter
-kernel automatically.
+> **Platforms:** Linux is the primary, fully-supported platform. macOS
+> (Intel & Apple Silicon) works for most environments. Windows is not
+> supported — use WSL2.
 
 ## Available environments
 
-| Environment  | What it's for                                   |
-| ------------ | ----------------------------------------------- |
+| Environment  | What it's for                                                          |
+| ------------ | --------------------------------------------------------------------- |
 | `default`    | Everyday analysis: lab packages, Jupyter, plotting, samtools, bedtools |
-| `align-star` | RNA-seq alignment with the STAR aligner          |
-| `docs`       | Building this documentation site                 |
+| `align-base` | Aligner-agnostic read processing & QC (samtools, sambamba, fastqc, multiqc, repaq) |
+| `align-rna`  | RNA-seq alignment: STAR, HISAT2, salmon, alevin-fry (Linux & Intel macOS) |
 
-Enter a specific one with `pixi shell -e align-star`.
-
-## Documentation
-
-Full setup guide and background reading live in [`docs/`](docs/index.md),
-or run `pixi run docs` to browse them locally.
+Enter a specific one with `pixi shell -e align-rna`.
