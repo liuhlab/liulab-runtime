@@ -11,9 +11,9 @@ set -euo pipefail
 # pyproject.toml. Falls back to the known list if parsing is unavailable.
 if envs=$(pixi workspace environment list 2>/dev/null \
         | sed -n 's/^[[:space:]]*-[[:space:]]*\([A-Za-z0-9_-]*\).*/\1/p'); then
-    [ -z "$envs" ] && envs="default align-base align-rna docs"
+    [ -z "$envs" ] && envs="default align-rna align-dna"
 else
-    envs="default align-base align-rna docs"
+    envs="default align-rna align-dna"
 fi
 
 for env in $envs; do

@@ -131,15 +131,14 @@ again to pick it up.
 | Environment  | Contents                                                            | Platforms |
 | ------------ | ------------------------------------------------------------------- | --------- |
 | `default`    | `liulab-data`, `liulab-genome`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
-| `align-base` | Aligner-agnostic read processing & QC: samtools, sambamba, fastqc, multiqc, repaq | Linux, macOS |
-| `align-rna`  | RNA-seq aligners (on top of `align-base`): STAR, HISAT2, salmon, alevin-fry | Linux, Intel macOS |
-| `docs`       | Tools for building this documentation site                         | Linux, macOS |
+| `align-rna`  | RNA-seq aligners + shared read processing & QC: STAR, HISAT2, salmon, alevin-fry, samtools, sambamba, fastqc, multiqc, repaq | Linux, Intel macOS |
+| `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastqc, multiqc, repaq | Linux, macOS |
 
 !!! warning "Apple Silicon & `align-rna`"
     STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` is
     available only on Linux and Intel macOS. On an M-series Mac, run it
-    via a Linux container or on a cluster. The `align-base` toolkit works
-    everywhere.
+    via a Linux container or on a cluster. `align-dna` (with the same
+    shared read-processing & QC tools) works everywhere.
 
 Need a new environment for a specific task? See
 [Background → Adding your own environment](background.md#adding-your-own-environment).

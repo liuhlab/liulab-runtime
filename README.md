@@ -40,7 +40,7 @@ pixi run lab
 | Environment  | What it's for                                                          |
 | ------------ | --------------------------------------------------------------------- |
 | `default`    | Everyday analysis: lab packages, Jupyter, plotting, samtools, bedtools |
-| `align-base` | Aligner-agnostic read processing & QC (samtools, sambamba, fastqc, multiqc, repaq) |
 | `align-rna`  | RNA-seq alignment: STAR, HISAT2, salmon, alevin-fry (Linux & Intel macOS) |
+| `align-dna`  | DNA-seq alignment: chromap |
 
 Enter a specific one with `pixi shell -e align-rna`.
