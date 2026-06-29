@@ -28,6 +28,12 @@ Changelog = "https://github.com/liuhlab/liulab-runtime/blob/main/CHANGELOG.md"
 channels = ["conda-forge", "bioconda"]
 platforms = ["osx-arm64", "osx-64", "linux-64"]
 
+# Solve against the OLDEST glibc we need to support (CentOS/RHEL 7 = glibc 2.17)
+# so the same lock file runs on both old and new Linux servers. Without this,
+# the solver may pick packages requiring glibc >=2.28, which fail on old hosts.
+[tool.pixi.system-requirements]
+libc = "2.17"
+
 # ---- Base layer: present in every environment ------------------------
 # python + ipykernel mean ANY environment here can back a Jupyter kernel.
 # htslib + pigz are near-universal in our pipelines, so they live here too.
