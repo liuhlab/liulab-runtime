@@ -43,6 +43,7 @@ sra-tools = "*"
 # ---- Default environment: everyday data analysis ---------------------
 [tool.pixi.feature.analysis.dependencies]
 jupyterlab = "*"
+socksio = "*"           # lets jupyterlab's httpx talk to a SOCKS proxy
 ipywidgets = "*"
 seaborn = "*"
 pandas = ">=2.1,<3"   # liulab-genome requires pandas <3
