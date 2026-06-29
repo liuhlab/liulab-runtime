@@ -36,6 +36,9 @@ python = "3.13.*"
 ipykernel = "*"
 htslib = "*"
 pigz = "*"
+bedtools = "*"
+samtools = "*"
+sra-tools = "*"
 
 # ---- Default environment: everyday data analysis ---------------------
 [tool.pixi.feature.analysis.dependencies]
@@ -44,11 +47,8 @@ ipywidgets = "*"
 seaborn = "*"
 pandas = ">=2.1,<3"   # liulab-genome requires pandas <3
 numpy = "*"
-bedtools = "*"
-samtools = "*"
 gffutils = "*"          # python dep of liulab-genome (genome.io.gtf)
-# Native CLI tools liulab-genome shells out to (not pip-installable, so the
-# environment must supply them): .2bit conversion/inspection.
+# Other CLI tools
 ucsc-fatotwobit = "*"   # faToTwoBit
 ucsc-twobitinfo = "*"   # twoBitInfo
 
@@ -61,7 +61,6 @@ liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
 # Everything an alignment workflow needs regardless of which aligner you
 # use: BAM handling, FASTQ (de)compression, and QC.
 [tool.pixi.feature.align-base.dependencies]
-samtools = "*"
 sambamba = "*"
 fastp = "*"     # fast all-in-one FASTQ preprocessing
 fastqc = "*"
