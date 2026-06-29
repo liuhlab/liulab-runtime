@@ -108,12 +108,15 @@ register-kernel = "python -m ipykernel install --user --name liulab-$PIXI_ENVIRO
 register-kernels = "bash scripts/register_all_kernels.sh"
 # Show all environments and what's in them.
 envs = "pixi workspace environment list"
-# Launch Jupyter Lab (from the default env).
-lab = "jupyter lab"
 
 [tool.pixi.feature.docs.tasks]
 docs = "mkdocs serve"
 docs-build = "mkdocs build --strict"
+
+[tool.pixi.feature.analysis.tasks]
+# Launch Jupyter Lab. Lives in the analysis feature (the default env) since
+# that's the only env with jupyterlab; other envs are used as kernels.
+lab = "jupyter lab"
 
 [tool.pixi.feature.dev.tasks]
 lint = "ruff check ."
