@@ -10,29 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://liuhlab.github.io/liulab-runtime/">
+        <link rel="canonical" href="https://liuhlab.github.io/liulab-runtime/containers/">
       
       
+        <link rel="prev" href="..">
       
-        <link rel="next" href="containers/">
+      
+        <link rel="next" href="../background/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>liulab-runtime</title>
+        <title>Containers - liulab-runtime</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#liulab-runtime" class="md-skip">
+        <a href="#containers-docker-singularity" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="liulab-runtime" class="md-header__button md-logo" aria-label="liulab-runtime" data-md-component="logo">
+    <a href=".." title="liulab-runtime" class="md-header__button md-logo" aria-label="liulab-runtime" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Getting started
+              Containers
             
           </span>
         </div>
@@ -228,7 +230,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="liulab-runtime" class="md-nav__button md-logo" aria-label="liulab-runtime" data-md-component="logo">
+    <a href=".." title="liulab-runtime" class="md-nav__button md-logo" aria-label="liulab-runtime" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -255,6 +257,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -274,7 +303,7 @@
   <span class="md-ellipsis">
     
   
-    Getting started
+    Containers
   
 
     
@@ -285,14 +314,14 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Getting started
+    Containers
   
 
     
@@ -318,22 +347,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-from-scratch" class="md-nav__link">
+  <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup from scratch
+        Docker
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Setup from scratch">
+    <nav class="md-nav" aria-label="Docker">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-install-pixi" class="md-nav__link">
+  <a href="#build" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Install pixi
+        Build
       
     </span>
   </a>
@@ -341,32 +370,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-install-the-runtime" class="md-nav__link">
+  <a href="#use" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Install the runtime
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-activate-an-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Activate an environment
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-use-it-in-jupyter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Use it in Jupyter
+        Use
       
     </span>
   </a>
@@ -379,24 +386,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-tasks" class="md-nav__link">
+  <a href="#singularity-apptainer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Common tasks
+        Singularity / Apptainer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Singularity / Apptainer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#available-environments" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#use_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available environments
+        Use
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -415,34 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="containers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Containers
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="background/" class="md-nav__link">
+      <a href="../background/" class="md-nav__link">
         
   
   
@@ -489,22 +486,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-from-scratch" class="md-nav__link">
+  <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup from scratch
+        Docker
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Setup from scratch">
+    <nav class="md-nav" aria-label="Docker">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-install-pixi" class="md-nav__link">
+  <a href="#build" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Install pixi
+        Build
       
     </span>
   </a>
@@ -512,32 +509,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-install-the-runtime" class="md-nav__link">
+  <a href="#use" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Install the runtime
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-activate-an-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Activate an environment
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-use-it-in-jupyter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Use it in Jupyter
+        Use
       
     </span>
   </a>
@@ -550,24 +525,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-tasks" class="md-nav__link">
+  <a href="#singularity-apptainer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Common tasks
+        Singularity / Apptainer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Singularity / Apptainer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#available-environments" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#use_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available environments
+        Use
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -588,7 +580,7 @@
 
 
   
-    <a href="https://github.com/liuhlab/liulab-runtime/edit/main/docs/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/liuhlab/liulab-runtime/edit/main/docs/containers.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -596,163 +588,82 @@
   
 
 
-<h1 id="liulab-runtime">liulab-runtime<a class="headerlink" href="#liulab-runtime" title="Permanent link">&para;</a></h1>
-<p>Welcome! <strong>liulab-runtime</strong> is the Liu Lab's central place for managing
-the software environments we use for data analysis.</p>
-<p>Think of it as a shared toolbox. Rather than each person setting up
-conda environments by hand (and getting slightly different versions of
-everything), this repository defines a handful of ready-made
-environments that everyone can install with a single command. Each one
-bundles the lab's own packages together with the standard bioinformatics tools.</p>
-<p>It is built on <a href="https://pixi.sh">pixi</a>, a modern, fast environment
-manager. You don't need to know how pixi works to use it — just follow
-the steps below. If you're curious about <em>what's going on under the
-hood</em>, see <a href="background/">Background</a>.</p>
-<div class="admonition info">
-<p class="admonition-title">Which platform should I use?</p>
-<p><strong>Linux is the primary, fully-supported platform</strong> — this is where
-nearly all real analysis runs (servers, clusters). <strong>macOS</strong> (both
-Intel and Apple Silicon) works for most environments and is great for
-development; note that a few aligners have no Apple Silicon build (see
-<a href="#available-environments">Available environments</a>). <strong>Windows is not
-supported</strong> — install <a href="https://learn.microsoft.com/windows/wsl/install">WSL2</a>
-and follow the Linux instructions inside it.</p>
+<h1 id="containers-docker-singularity">Containers (Docker &amp; Singularity)<a class="headerlink" href="#containers-docker-singularity" title="Permanent link">&para;</a></h1>
+<p>Prefer not to install pixi at all? The whole runtime — <strong>every</strong>
+environment (<code>default</code>, <code>align-rna</code>, <code>align-dna</code>, <code>single-cell</code>) — ships
+as a single container image. This is handy on shared servers and HPC
+clusters, or anywhere you want a guaranteed-identical setup.</p>
+<div class="admonition warning">
+<p class="admonition-title">amd64 only</p>
+<p>The runtime defines a <code>linux-64</code> platform but no <code>linux-aarch64</code>
+one, so the image is <strong>amd64-only</strong>. On an Apple Silicon Mac it runs
+emulated — add <code>--platform=linux/amd64</code> to your <code>docker</code> commands.</p>
 </div>
 <hr />
-<h2 id="setup-from-scratch">Setup from scratch<a class="headerlink" href="#setup-from-scratch" title="Permanent link">&para;</a></h2>
-<h3 id="1-install-pixi">1. Install pixi<a class="headerlink" href="#1-install-pixi" title="Permanent link">&para;</a></h3>
-<p>pixi is a single program that manages everything else. Install it once
-per computer.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pixi.sh/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<h3 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/liuhlab/liulab-runtime.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>liulab-runtime
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>liulab-runtime:latest<span class="w"> </span>.
 </code></pre></div>
-<p>(On Windows, run this <em>inside</em> a WSL2 Linux terminal — see the platform
-note above.)</p>
-<p>Close and reopen your terminal afterwards so the <code>pixi</code> command is
-available. Check it worked:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pixi<span class="w"> </span>--version
+<p>The first build solves and downloads every environment, so it takes a
+while; later builds reuse the cache.</p>
+<h3 id="use">Use<a class="headerlink" href="#use" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Interactive shell in the default analysis environment</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>liulab-runtime
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Pick a different environment for the shell</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-e<span class="w"> </span><span class="nv">LIULAB_ENV</span><span class="o">=</span>align-rna<span class="w"> </span>liulab-runtime
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Run a single command in a specific environment</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>liulab-runtime<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>align-rna<span class="w"> </span>STAR<span class="w"> </span>--version
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># List all environments</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>liulab-runtime<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>envs
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Work on your own data (mount a host folder)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/data:/data&quot;</span><span class="w"> </span>liulab-runtime
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Jupyter Lab — then open http://localhost:8888</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">:/data&quot;</span><span class="w"> </span>liulab-runtime<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser<span class="w"> </span>--allow-root
 </code></pre></div>
-<h3 id="2-install-the-runtime">2. Install the runtime<a class="headerlink" href="#2-install-the-runtime" title="Permanent link">&para;</a></h3>
-<p>Clone this repository and let pixi build the environments:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/liuhlab/liulab-runtime.git
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>liulab-runtime
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pixi<span class="w"> </span>install
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Register the Jupyter kernels (run once)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pixi<span class="w"> </span>run<span class="w"> </span>register-kernels
+<p>Inside the container, switch environments the usual way:
+<code>pixi shell -e single-cell</code> or <code>pixi run -e align-dna &lt;command&gt;</code>.</p>
+<hr />
+<h2 id="singularity-apptainer">Singularity / Apptainer<a class="headerlink" href="#singularity-apptainer" title="Permanent link">&para;</a></h2>
+<p>Most clusters use Singularity (Apptainer) instead of Docker. Build a
+<code>.sif</code> image from the same Docker image.</p>
+<h3 id="build_1">Build<a class="headerlink" href="#build_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># From a published image</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>singularity<span class="w"> </span>build<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>docker://ghcr.io/liuhlab/liulab-runtime:latest
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># ...or from the bundled definition file (pulls the same base)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>singularity<span class="w"> </span>build<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>liulab-runtime.def
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># ...or straight from a local Docker image, no registry needed</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>singularity<span class="w"> </span>build<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>docker-daemon://liulab-runtime:latest
 </code></pre></div>
-<p>This reads the recipe in <code>pyproject.toml</code>, downloads everything, and
-sets up each environment. The first run can take a while; later
-runs are fast because pixi caches what it downloads.</p>
-<h3 id="3-activate-an-environment">3. Activate an environment<a class="headerlink" href="#3-activate-an-environment" title="Permanent link">&para;</a></h3>
-<p>To start working, "enter" an environment. This puts all of its tools on
-your path:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pixi<span class="w"> </span>shell<span class="w">          </span><span class="c1"># enters the default analysis environment</span>
-</code></pre></div>
-<p>You're now in a shell where <code>python</code>, <code>jupyter</code>, <code>samtools</code>, and the lab
-packages are all available. Type <code>exit</code> to leave.</p>
-<p>To enter a different environment, name it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pixi<span class="w"> </span>shell<span class="w"> </span>-e<span class="w"> </span>align-rna
-</code></pre></div>
-<p>Not sure what's available? List every environment with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>envs<span class="w">        </span><span class="c1"># shortcut for: pixi workspace environment list</span>
+<h3 id="use_1">Use<a class="headerlink" href="#use_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Run a command in an environment (set LIULAB_ENV to choose; default: default)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">LIULAB_ENV</span><span class="o">=</span>align-dna<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>chromap<span class="w"> </span>--version
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Or call pixi directly</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>single-cell<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import scanpy&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Interactive shell, then activate an environment</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>singularity<span class="w"> </span>shell<span class="w"> </span>liulab-runtime.sif
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">#   inside:  pixi shell -e align-rna</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># Jupyter Lab on a compute node</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
 </code></pre></div>
 <div class="admonition tip">
-<p class="admonition-title">Run one command without entering a shell</p>
-<p>Use <code>pixi run</code> to execute a single command inside an environment:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>align-rna<span class="w"> </span>STAR<span class="w"> </span>--version
-</code></pre></div>
+<p class="admonition-title">Read-only image</p>
+<p>A <code>.sif</code> is read-only. Run analyses against the environments baked
+into the image and keep your <em>data</em> on bind mounts — don't try to
+<code>pixi install</code>/<code>pixi update</code> inside a running container.</p>
 </div>
-<h3 id="4-use-it-in-jupyter">4. Use it in Jupyter<a class="headerlink" href="#4-use-it-in-jupyter" title="Permanent link">&para;</a></h3>
-<p>Because you ran <code>pixi run register-kernels</code>, every environment
-shows up in Jupyter as its own <strong>kernel</strong> — e.g. <strong>"Python (liulab
-align-rna)"</strong>.</p>
-<p>Launch Jupyter Lab from the default environment and pick whichever kernel
-you need from the kernel menu:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>lab
-</code></pre></div>
-<p>If you add a new environment later, just run <code>pixi run register-kernels</code>
-again to pick it up.</p>
-<hr />
-<h2 id="common-tasks">Common tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>I want to...</th>
-<th>Command</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>See all available environments</td>
-<td><code>pixi run envs</code></td>
-</tr>
-<tr>
-<td>Enter the default environment</td>
-<td><code>pixi shell</code></td>
-</tr>
-<tr>
-<td>Enter a specific environment</td>
-<td><code>pixi shell -e align-rna</code></td>
-</tr>
-<tr>
-<td>Launch Jupyter Lab</td>
-<td><code>pixi run lab</code></td>
-</tr>
-<tr>
-<td>Register all Jupyter kernels</td>
-<td><code>pixi run register-kernels</code></td>
-</tr>
-<tr>
-<td>Update to the latest package versions</td>
-<td><code>pixi update</code></td>
-</tr>
-<tr>
-<td>Run a single command in an env</td>
-<td><code>pixi run -e &lt;env&gt; &lt;command&gt;</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="available-environments">Available environments<a class="headerlink" href="#available-environments" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Environment</th>
-<th>Contents</th>
-<th>Platforms</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>default</code></td>
-<td><code>liulab-data</code>, <code>liulab-genome</code>, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools</td>
-<td>Linux, macOS</td>
-</tr>
-<tr>
-<td><code>align-rna</code></td>
-<td>RNA-seq aligners + shared read processing &amp; QC: STAR, HISAT2, salmon, alevin-fry, samtools, sambamba, fastqc, multiqc, repaq</td>
-<td>Linux, Intel macOS</td>
-</tr>
-<tr>
-<td><code>align-dna</code></td>
-<td>DNA-seq aligner + shared read processing &amp; QC: chromap, samtools, sambamba, fastqc, multiqc, repaq</td>
-<td>Linux, macOS</td>
-</tr>
-<tr>
-<td><code>single-cell</code></td>
-<td>Single-cell RNA-seq analysis: scanpy</td>
-<td>Linux, macOS</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="admonition-title">Apple Silicon &amp; <code>align-rna</code></p>
-<p>STAR has no Apple Silicon (<code>osx-arm64</code>) build, so <code>align-rna</code> is
-available only on Linux and Intel macOS. On an M-series Mac, run it
-via a Linux container or on a cluster. <code>align-dna</code> (with the same
-shared read-processing &amp; QC tools) works everywhere.</p>
-</div>
-<p>Need a new environment for a specific task? See
-<a href="background/#adding-your-own-environment">Background → Adding your own environment</a>.</p>
 
 
 
@@ -804,10 +715,10 @@ shared read-processing &amp; QC tools) works everywhere.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
