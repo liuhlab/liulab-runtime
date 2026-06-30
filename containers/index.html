@@ -590,9 +590,12 @@
 
 <h1 id="containers-docker-singularity">Containers (Docker &amp; Singularity)<a class="headerlink" href="#containers-docker-singularity" title="Permanent link">&para;</a></h1>
 <p>Prefer not to install pixi at all? The whole runtime — <strong>every</strong>
-environment (<code>default</code>, <code>align-rna</code>, <code>align-dna</code>, <code>single-cell</code>) — ships
-as a single container image. This is handy on shared servers and HPC
-clusters, or anywhere you want a guaranteed-identical setup.</p>
+environment — ships as a single container image. This is handy on shared
+servers and HPC clusters, or anywhere you want a guaranteed-identical
+setup. It's especially useful on <strong>older Linux systems</strong> (e.g. CentOS 7),
+where a direct <code>pixi install</code> can be hard or impossible because the host
+is too old: the container carries its own modern userspace, so it only
+needs a compatible kernel — not an up-to-date OS.</p>
 <div class="admonition warning">
 <p class="admonition-title">amd64 only</p>
 <p>The runtime defines a <code>linux-64</code> platform but no <code>linux-aarch64</code>
@@ -632,31 +635,29 @@ while; later builds reuse the cache.</p>
 <code>pixi shell -e single-cell</code> or <code>pixi run -e align-dna &lt;command&gt;</code>.</p>
 <hr />
 <h2 id="singularity-apptainer">Singularity / Apptainer<a class="headerlink" href="#singularity-apptainer" title="Permanent link">&para;</a></h2>
-<p>Most clusters use Singularity (Apptainer) instead of Docker. Build a
-<code>.sif</code> image from the same Docker image.</p>
+<p>Most clusters use Singularity (Apptainer) instead of Docker. Pull the
+same public image straight from GHCR — no Docker, no root needed.</p>
 <h3 id="build_1">Build<a class="headerlink" href="#build_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># From a published image</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>singularity<span class="w"> </span>build<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>docker://ghcr.io/liuhlab/liulab-runtime:latest
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># ...or from the bundled definition file (pulls the same base)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>singularity<span class="w"> </span>build<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>liulab-runtime.def
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># ...or straight from a local Docker image, no registry needed</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>singularity<span class="w"> </span>build<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>docker-daemon://liulab-runtime:latest
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># `pull` converts the image into a single .sif file. Name it with the</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># version (or a short hash) so the filename records what it holds.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>singularity<span class="w"> </span>pull<span class="w"> </span>liulab-runtime_2026.6.26.sif<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>docker://ghcr.io/liuhlab/liulab-runtime:latest
 </code></pre></div>
+<p>(Or build from the bundled definition file instead:
+<code>singularity build liulab-runtime_2026.6.26.sif liulab-runtime.def</code>.)</p>
 <h3 id="use_1">Use<a class="headerlink" href="#use_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Run a command in an environment (set LIULAB_ENV to choose; default: default)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">LIULAB_ENV</span><span class="o">=</span>align-dna<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime.sif<span class="w"> </span>chromap<span class="w"> </span>--version
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">LIULAB_ENV</span><span class="o">=</span>align-dna<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_2026.6.26.sif<span class="w"> </span>chromap<span class="w"> </span>--version
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Or call pixi directly</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>single-cell<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import scanpy&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime_2026.6.26.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>single-cell<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import scanpy&quot;</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Interactive shell, then activate an environment</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>singularity<span class="w"> </span>shell<span class="w"> </span>liulab-runtime.sif
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>singularity<span class="w"> </span>shell<span class="w"> </span>liulab-runtime_2026.6.26.sif
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">#   inside:  pixi shell -e align-rna</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># Jupyter Lab on a compute node</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime_2026.6.26.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Read-only image</p>
