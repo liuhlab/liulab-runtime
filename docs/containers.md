@@ -64,30 +64,29 @@ same public image straight from GHCR — no Docker, no root needed.
 ### Build
 
 ```bash
-# `pull` converts the image into a single .sif file. Name it with the
-# version (or a short hash) so the filename records what it holds.
-singularity pull liulab-runtime_2026.6.26.sif \
-  docker://ghcr.io/liuhlab/liulab-runtime:latest
+# `pull` converts the image into a single .sif file, named after the tag.
+singularity pull docker://ghcr.io/liuhlab/liulab-runtime:latest
+#  -> liulab-runtime_latest.sif
 ```
 
 (Or build from the bundled definition file instead:
-`singularity build liulab-runtime_2026.6.26.sif liulab-runtime.def`.)
+`singularity build liulab-runtime_latest.sif liulab-runtime.def`.)
 
 ### Use
 
 ```bash
 # Run a command in an environment (set LIULAB_ENV to choose; default: default)
-LIULAB_ENV=align-dna singularity run liulab-runtime_2026.6.26.sif chromap --version
+LIULAB_ENV=align-dna singularity run liulab-runtime_latest.sif chromap --version
 
 # Or call pixi directly
-singularity exec liulab-runtime_2026.6.26.sif pixi run -e single-cell python -c "import scanpy"
+singularity exec liulab-runtime_latest.sif pixi run -e single-cell python -c "import scanpy"
 
 # Interactive shell, then activate an environment
-singularity shell liulab-runtime_2026.6.26.sif
+singularity shell liulab-runtime_latest.sif
 #   inside:  pixi shell -e align-rna
 
 # Jupyter Lab on a compute node
-singularity exec liulab-runtime_2026.6.26.sif pixi run lab --ip=0.0.0.0 --no-browser
+singularity exec liulab-runtime_latest.sif pixi run lab --ip=0.0.0.0 --no-browser
 ```
 
 !!! tip "Read-only image"
