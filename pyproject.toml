@@ -111,6 +111,7 @@ mkdocs-material = "*"
 # ---- Environments ----------------------------------------------------
 [tool.pixi.environments]
 default    = { features = ["analysis", "dev", "docs"], solve-group = "default" }
+docs       = { features = ["docs"], solve-group = "default" }
 align-rna  = { features = ["align-base", "align-rna"] }
 align-dna  = { features = ["align-base", "align-dna"] }
 single-cell = { features = ["analysis", "single-cell"] }
