@@ -1,0 +1,20 @@
+# Build the environments fresh from pixi.lock inside the image — never
+# ship the host's solved envs (they're huge and host-specific).
+.pixi/
+
+# VCS / CI / editor cruft
+.git/
+.github/
+.gitignore
+.pre-commit-config.yaml
+
+# Docs site build output and local caches
+site/
+**/__pycache__/
+*.pyc
+
+# Don't copy the Docker context files into the image
+Dockerfile
+.dockerignore
+docker-entrypoint.sh
+liulab-runtime.def

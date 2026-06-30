@@ -1,0 +1,37 @@
+# Singularity / Apptainer definition for liulab-runtime.
+#
+# Bootstraps from the Docker image (built by the repo's Dockerfile), so the
+# Dockerfile stays the single source of truth for what's in the container.
+#
+# Build:
+#   # from a registry
+#   singularity build liulab-runtime.sif docker://ghcr.io/liuhlab/liulab-runtime:latest
+#   # or from this def file (pulls the same base)
+#   singularity build liulab-runtime.sif liulab-runtime.def
+#
+# Note: the workspace has no linux-aarch64 platform, so the underlying image
+# is amd64-only.
+Bootstrap: docker
+From: ghcr.io/liuhlab/liulab-runtime:latest
+
+%labels
+    Maintainer Liu Lab
+    Description Centralized pixi environments for Liu Lab data analysis.
+
+%help
+    Every liulab-runtime environment (default, align-rna, align-dna,
+    single-cell) is available inside this container via pixi.
+
+      singularity run  liulab-runtime.sif <cmd>          # run <cmd> in $LIULAB_ENV (default: default)
+      singularity exec liulab-runtime.sif pixi run -e align-rna STAR --version
+      singularity shell liulab-runtime.sif               # then: pixi shell -e single-cell
+
+    Set the environment used by `run` with the LIULAB_ENV variable:
+      LIULAB_ENV=align-dna singularity run liulab-runtime.sif chromap --version
+
+%environment
+    export LIULAB_ENV="${LIULAB_ENV:-default}"
+
+%runscript
+    cd /app
+    exec pixi run -e "${LIULAB_ENV:-default}" "$@"

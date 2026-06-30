@@ -37,6 +37,7 @@ plugins:
 
 nav:
   - Getting started: index.md
+  - Containers: containers.md
   - Background: background.md
 
 markdown_extensions:

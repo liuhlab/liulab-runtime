@@ -45,3 +45,23 @@ pixi run lab
 | `single-cell` | Single-cell RNA-seq analysis: scanpy |
 
 Enter a specific one with `pixi shell -e align-rna`.
+
+## Containers
+
+Every environment is also available as a single container image — handy
+on shared servers and HPC clusters.
+
+```bash
+# Docker
+docker build -t liulab-runtime:latest .
+docker run --rm -it liulab-runtime                       # default env shell
+docker run --rm liulab-runtime pixi run -e align-rna STAR --version
+
+# Singularity / Apptainer
+singularity build liulab-runtime.sif liulab-runtime.def
+singularity run liulab-runtime.sif pixi run envs
+```
+
+The image is **amd64-only** (no `linux-aarch64` platform); on Apple
+Silicon, build/run with `--platform=linux/amd64`. Full instructions:
+**[Containers guide](https://liuhlab.github.io/liulab-runtime/containers/)**.
