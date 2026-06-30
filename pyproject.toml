@@ -97,6 +97,8 @@ chromap = "*"
 # scanpy is the standard single-cell analysis toolkit (built on anndata).
 [tool.pixi.feature.single-cell.dependencies]
 scanpy = "*"
+python-igraph = "*"
+leidenalg = "*"
 
 # ---- Tooling features ------------------------------------------------
 [tool.pixi.feature.dev.dependencies]
@@ -111,7 +113,7 @@ mkdocs-material = "*"
 default    = { features = ["analysis", "dev", "docs"], solve-group = "default" }
 align-rna  = { features = ["align-base", "align-rna"] }
 align-dna  = { features = ["align-base", "align-dna"] }
-single-cell = { features = ["single-cell"] }
+single-cell = { features = ["analysis", "single-cell"] }
 
 # ---- Tasks -----------------------------------------------------------
 [tool.pixi.tasks]
