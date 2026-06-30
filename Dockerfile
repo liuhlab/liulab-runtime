@@ -39,6 +39,29 @@ RUN for env in default align-rna align-dna single-cell; do \
         pixi shell-hook -e "$env" -s bash > "/app/.pixi/activate-$env.sh" || true; \
     done
 
+# Smoke-test every environment BEFORE stripping, so a green build proves
+# the envs actually work. --frozen runs them as-is (never re-solving or
+# re-downloading, which would undo the cleanup below).
+RUN set -eux; \
+    pixi run --frozen -e default     python -c "import pandas, numpy, gffutils, seaborn, jupyterlab"; \
+    pixi run --frozen -e single-cell python -c "import scanpy, anndata, leidenalg"; \
+    pixi run --frozen -e align-dna   chromap --version; \
+    pixi run --frozen -e align-rna   STAR --version
+
+# Shrink the image: drop files that no tool needs at RUNTIME. Static
+# archives (*.a) are link-time only; *.pyc/__pycache__ regenerate on
+# demand; JS source maps are browser-debug only; man/doc/info pages and
+# prefix-level C headers are dev artifacts. Also clear pixi's solve/
+# download caches (not needed once envs are built). Done LAST so nothing
+# downstream re-creates the deleted files.
+RUN set -eux; \
+    find /app/.pixi/envs -depth -type d -name '__pycache__' -exec rm -rf {} + ; \
+    find /app/.pixi/envs -type f \( -name '*.pyc' -o -name '*.a' -o -name '*.js.map' \) -delete ; \
+    find /app/.pixi/envs -depth -type d \( -name man -o -name doc -o -name info \) \
+        -path '*/share/*' -exec rm -rf {} + ; \
+    for env in /app/.pixi/envs/*/; do rm -rf "${env}include"; done ; \
+    rm -rf /root/.cache/* /app/.pixi/.cache 2>/dev/null || true
+
 # ---- Stage 2: lean runtime image -------------------------------------
 FROM --platform=linux/amd64 ghcr.io/prefix-dev/pixi:latest AS runtime
 
