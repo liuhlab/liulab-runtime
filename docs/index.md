@@ -133,6 +133,7 @@ again to pick it up.
 | `default`    | `liulab-data`, `liulab-genome`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
 | `align-rna`  | RNA-seq aligners + shared read processing & QC: STAR, HISAT2, salmon, alevin-fry, samtools, sambamba, fastqc, multiqc, repaq | Linux, Intel macOS |
 | `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastqc, multiqc, repaq | Linux, macOS |
+| `single-cell` | Single-cell RNA-seq analysis: scanpy | Linux, macOS |
 
 !!! warning "Apple Silicon & `align-rna`"
     STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` is
