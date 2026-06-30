@@ -1,9 +1,12 @@
 # Containers (Docker & Singularity)
 
 Prefer not to install pixi at all? The whole runtime — **every**
-environment (`default`, `align-rna`, `align-dna`, `single-cell`) — ships
-as a single container image. This is handy on shared servers and HPC
-clusters, or anywhere you want a guaranteed-identical setup.
+environment — ships as a single container image. This is handy on shared
+servers and HPC clusters, or anywhere you want a guaranteed-identical
+setup. It's especially useful on **older Linux systems** (e.g. CentOS 7),
+where a direct `pixi install` can be hard or impossible because the host
+is too old: the container carries its own modern userspace, so it only
+needs a compatible kernel — not an up-to-date OS.
 
 !!! warning "amd64 only"
     The runtime defines a `linux-64` platform but no `linux-aarch64`
@@ -55,37 +58,36 @@ Inside the container, switch environments the usual way:
 
 ## Singularity / Apptainer
 
-Most clusters use Singularity (Apptainer) instead of Docker. Build a
-`.sif` image from the same Docker image.
+Most clusters use Singularity (Apptainer) instead of Docker. Pull the
+same public image straight from GHCR — no Docker, no root needed.
 
 ### Build
 
 ```bash
-# From a published image
-singularity build liulab-runtime.sif docker://ghcr.io/liuhlab/liulab-runtime:latest
-
-# ...or from the bundled definition file (pulls the same base)
-singularity build liulab-runtime.sif liulab-runtime.def
-
-# ...or straight from a local Docker image, no registry needed
-singularity build liulab-runtime.sif docker-daemon://liulab-runtime:latest
+# `pull` converts the image into a single .sif file. Name it with the
+# version (or a short hash) so the filename records what it holds.
+singularity pull liulab-runtime_2026.6.26.sif \
+  docker://ghcr.io/liuhlab/liulab-runtime:latest
 ```
+
+(Or build from the bundled definition file instead:
+`singularity build liulab-runtime_2026.6.26.sif liulab-runtime.def`.)
 
 ### Use
 
 ```bash
 # Run a command in an environment (set LIULAB_ENV to choose; default: default)
-LIULAB_ENV=align-dna singularity run liulab-runtime.sif chromap --version
+LIULAB_ENV=align-dna singularity run liulab-runtime_2026.6.26.sif chromap --version
 
 # Or call pixi directly
-singularity exec liulab-runtime.sif pixi run -e single-cell python -c "import scanpy"
+singularity exec liulab-runtime_2026.6.26.sif pixi run -e single-cell python -c "import scanpy"
 
 # Interactive shell, then activate an environment
-singularity shell liulab-runtime.sif
+singularity shell liulab-runtime_2026.6.26.sif
 #   inside:  pixi shell -e align-rna
 
 # Jupyter Lab on a compute node
-singularity exec liulab-runtime.sif pixi run lab --ip=0.0.0.0 --no-browser
+singularity exec liulab-runtime_2026.6.26.sif pixi run lab --ip=0.0.0.0 --no-browser
 ```
 
 !!! tip "Read-only image"
