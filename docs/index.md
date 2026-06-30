@@ -23,6 +23,11 @@ hood*, see [Background](background.md).
     supported** — install [WSL2](https://learn.microsoft.com/windows/wsl/install)
     and follow the Linux instructions inside it.
 
+    Direct `pixi install` needs a reasonably modern OS. On **older Linux**
+    (e.g. CentOS 7), don't install directly — use the
+    [container](containers.md) instead; it carries its own modern
+    userspace and only needs a compatible kernel.
+
 ---
 
 ## Setup from scratch

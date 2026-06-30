@@ -26,12 +26,11 @@ Changelog = "https://github.com/liuhlab/liulab-runtime/blob/main/CHANGELOG.md"
 
 [tool.pixi.workspace]
 channels = ["conda-forge", "bioconda"]
-# Solve against the OLDEST glibc we need to support (CentOS/RHEL 7 = glibc 2.17)
-# so the same lock file runs on both old and new Linux servers. Without this,
-# the solver may pick packages requiring glibc >=2.28, which fail on old hosts.
-# (glibc is declared inline on the platform; the old [system-requirements]
-# table is deprecated.)
-platforms = ["osx-arm64", "osx-64", { name = "linux-64-glibc217", platform = "linux-64", glibc = "2.17" }]
+# Direct `pixi install` targets modern OSes only. Old Linux (e.g. CentOS 7,
+# glibc 2.17) is intentionally NOT supported on bare metal — run the
+# container there instead, which carries its own modern glibc and only
+# needs a compatible kernel. See docs/containers.md.
+platforms = ["osx-arm64", "osx-64", "linux-64"]
 
 # ---- Base layer: present in every environment ------------------------
 # python + ipykernel mean ANY environment here can back a Jupyter kernel.
@@ -80,7 +79,7 @@ repaq = "*"     # fast FASTQ compression
 # the platforms that do. (Apple Silicon users: run it under linux-64 in
 # a container / on a cluster.)
 [tool.pixi.feature.align-rna]
-platforms = ["osx-64", "linux-64-glibc217"]
+platforms = ["osx-64", "linux-64"]
 
 [tool.pixi.feature.align-rna.dependencies]
 star = "*"
