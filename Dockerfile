@@ -11,8 +11,13 @@
 #  and run it with `--platform=linux/amd64` (emulated).
 # ======================================================================
 
+# amd64-only (no linux-aarch64 platform). Declared as an ARG so it isn't
+# a hardcoded FROM --platform constant (which BuildKit flags as a lint
+# warning); override at build time only if you know what you're doing.
+ARG BUILD_PLATFORM=linux/amd64
+
 # ---- Stage 1: build every environment from the lock file -------------
-FROM --platform=linux/amd64 ghcr.io/prefix-dev/pixi:latest AS build
+FROM --platform=${BUILD_PLATFORM} ghcr.io/prefix-dev/pixi:latest AS build
 
 # git is needed to resolve the lab's GitHub-hosted pypi dependencies
 # (liulab-data, liulab-genome) during `pixi install`.
@@ -55,15 +60,17 @@ RUN set -eux; \
 # download caches (not needed once envs are built). Done LAST so nothing
 # downstream re-creates the deleted files.
 RUN set -eux; \
+    echo "envs size BEFORE strip:"; du -sh /app/.pixi/envs; \
     find /app/.pixi/envs -depth -type d -name '__pycache__' -exec rm -rf {} + ; \
     find /app/.pixi/envs -type f \( -name '*.pyc' -o -name '*.a' -o -name '*.js.map' \) -delete ; \
     find /app/.pixi/envs -depth -type d \( -name man -o -name doc -o -name info \) \
         -path '*/share/*' -exec rm -rf {} + ; \
     for env in /app/.pixi/envs/*/; do rm -rf "${env}include"; done ; \
-    rm -rf /root/.cache/* /app/.pixi/.cache 2>/dev/null || true
+    rm -rf /root/.cache/* /app/.pixi/.cache 2>/dev/null || true; \
+    echo "envs size AFTER strip:"; du -sh /app/.pixi/envs
 
 # ---- Stage 2: lean runtime image -------------------------------------
-FROM --platform=linux/amd64 ghcr.io/prefix-dev/pixi:latest AS runtime
+FROM --platform=${BUILD_PLATFORM} ghcr.io/prefix-dev/pixi:latest AS runtime
 
 # git kept at runtime too in case users `pixi update`/`pixi add` live.
 RUN apt-get update && apt-get install -y --no-install-recommends git \
