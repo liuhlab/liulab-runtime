@@ -2,6 +2,14 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.6.30
+
+- The lab packages (`liulab-data`, `liulab-genome`) and their supporting
+  stack (pandas, numpy, gffutils, `faToTwoBit`/`twoBitInfo`) now live in a
+  shared `lab` feature included in every environment except `docs`. They
+  were previously in `analysis` (only `default` and `single-cell`), so the
+  alignment environments now carry them too.
+
 ## 2026.6.26
 
 - Added `htslib` and `pigz` to the base layer (every environment).

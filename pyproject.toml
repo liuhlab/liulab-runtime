@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.6.26"
+version = "2026.6.30"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -50,17 +50,23 @@ ipywidgets = "*"
 # ---- Default environment: everyday data analysis ---------------------
 [tool.pixi.feature.analysis.dependencies]
 seaborn = "*"
+
+# ---- lab: the Liu Lab's own packages + the Python stack they need -----
+# Added to every environment EXCEPT `docs` (which only builds the site and
+# never imports them). Their supporting libs stay conda-managed/pinned so
+# every env resolves the same builds.
+[tool.pixi.feature.lab.dependencies]
 pandas = ">=2.1,<3"   # liulab-genome requires pandas <3
 # Cap below 2.4: numpy >=2.4 builds with an x86-64-v2 baseline that won't
 # import on older CPUs / emulated VMs (e.g. the QEMU i440FX analysis box).
 numpy = ">=2.1,<2.4"
 gffutils = "*"          # python dep of liulab-genome (genome.io.gtf)
-# Other CLI tools
+# CLI tools liulab-genome shells out to.
 ucsc-fatotwobit = "*"   # faToTwoBit
 ucsc-twobitinfo = "*"   # twoBitInfo
 
-# Liu Lab packages, installed straight from GitHub.
-[tool.pixi.feature.analysis.pypi-dependencies]
+# Installed straight from GitHub.
+[tool.pixi.feature.lab.pypi-dependencies]
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
 liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
 
@@ -108,12 +114,14 @@ pre-commit = "*"
 mkdocs-material = "*"
 
 # ---- Environments ----------------------------------------------------
+# The `lab` feature (liulab-data/genome + their Python stack) is in every
+# env except `docs`, which only builds the site.
 [tool.pixi.environments]
-default    = { features = ["analysis", "dev", "docs"], solve-group = "default" }
+default    = { features = ["analysis", "lab", "dev", "docs"], solve-group = "default" }
 docs       = { features = ["docs"], solve-group = "default" }
-align-rna  = { features = ["align-base", "align-rna"] }
-align-dna  = { features = ["align-base", "align-dna"] }
-single-cell = { features = ["analysis", "single-cell"] }
+align-rna  = { features = ["align-base", "align-rna", "lab"] }
+align-dna  = { features = ["align-base", "align-dna", "lab"] }
+single-cell = { features = ["analysis", "single-cell", "lab"] }
 
 # ---- Tasks -----------------------------------------------------------
 [tool.pixi.tasks]
