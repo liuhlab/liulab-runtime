@@ -726,13 +726,11 @@ focused.</p>
 <p>Some lab packages are still in development and aren't published on conda
 or PyPI yet — they exist only as a GitHub repository. pixi can install
 these directly from GitHub as a <strong>PyPI (git) dependency</strong>.</p>
-<p>That's exactly how <code>liulab-data</code> and <code>liulab-genome</code> are wired in. Because
-they're used nearly everywhere, they live in a shared <code>lab</code> feature that
-every environment except <code>docs</code> includes:</p>
+<p>That's exactly how <code>liulab-data</code> and <code>liulab-genome</code> are wired in:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[tool.pixi.feature.lab.pypi-dependencies]</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">liulab-data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/liuhlab/liulab-data.git&quot;</span><span class="w"> </span><span class="p">}</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">liulab-genome</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/liuhlab/liulab-genome.git&quot;</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
+</code></pre></div></p>
 <p>To add another, drop a line in the relevant feature's
 <code>pypi-dependencies</code> table. You can pin to a specific branch, tag, or
 commit so everyone gets the same code:</p>
