@@ -748,6 +748,9 @@ again to pick it up.</p>
 </tr>
 </tbody>
 </table>
+<p>The lab packages <code>liulab-data</code> and <code>liulab-genome</code> (plus their core Python
+stack: pandas, numpy) live in a shared <code>lab</code> feature, so <strong>every</strong>
+environment includes them except <code>docs</code> — not just <code>default</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Apple Silicon &amp; <code>align-rna</code></p>
 <p>STAR has no Apple Silicon (<code>osx-arm64</code>) build, so <code>align-rna</code> is
