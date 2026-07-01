@@ -90,10 +90,7 @@ Some lab packages are still in development and aren't published on conda
 or PyPI yet — they exist only as a GitHub repository. pixi can install
 these directly from GitHub as a **PyPI (git) dependency**.
 
-That's exactly how `liulab-data` and `liulab-genome` are wired in. Because
-they're used nearly everywhere, they live in a shared `lab` feature that
-every environment except `docs` includes:
-
+That's exactly how `liulab-data` and `liulab-genome` are wired in:
 ```toml
 [tool.pixi.feature.lab.pypi-dependencies]
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }

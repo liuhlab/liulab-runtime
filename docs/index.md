@@ -140,10 +140,6 @@ again to pick it up.
 | `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastqc, multiqc, repaq | Linux, macOS |
 | `single-cell` | Single-cell RNA-seq analysis: scanpy | Linux, macOS |
 
-The lab packages `liulab-data` and `liulab-genome` (plus their core Python
-stack: pandas, numpy) live in a shared `lab` feature, so **every**
-environment includes them except `docs` — not just `default`.
-
 !!! warning "Apple Silicon & `align-rna`"
     STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` is
     available only on Linux and Intel macOS. On an M-series Mac, run it
