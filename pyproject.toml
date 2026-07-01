@@ -89,9 +89,6 @@ platforms = ["osx-64", "linux-64"]
 
 [tool.pixi.feature.align-rna.dependencies]
 star = "*"
-hisat2 = "*"
-salmon = "*"
-alevin-fry = "*"
 
 # ---- align-dna: DNA-seq alignment (builds on align-base) -------------
 # chromap is the main aligner (fast for ATAC/Hi-C/ChIP-seq reads).
