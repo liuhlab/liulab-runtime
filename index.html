@@ -733,18 +733,23 @@ again to pick it up.</p>
 </tr>
 <tr>
 <td><code>align-rna</code></td>
-<td>RNA-seq aligners + shared read processing &amp; QC: STAR, HISAT2, salmon, alevin-fry, samtools, sambamba, fastqc, multiqc, repaq</td>
+<td>RNA-seq aligner + shared read processing &amp; QC: STAR, samtools, sambamba, fastp, fastqc, multiqc, repaq</td>
 <td>Linux, Intel macOS</td>
 </tr>
 <tr>
 <td><code>align-dna</code></td>
-<td>DNA-seq aligner + shared read processing &amp; QC: chromap, samtools, sambamba, fastqc, multiqc, repaq</td>
+<td>DNA-seq aligner + shared read processing &amp; QC: chromap, samtools, sambamba, fastp, fastqc, multiqc, repaq</td>
 <td>Linux, macOS</td>
 </tr>
 <tr>
-<td><code>single-cell</code></td>
-<td>Single-cell RNA-seq analysis: scanpy</td>
+<td><code>ml</code></td>
+<td>PyTorch, scvi-tools, scanpy for single-cell / deep-learning analysis; CPU everywhere, plus the Apple GPU (MPS) on Apple Silicon</td>
 <td>Linux, macOS</td>
+</tr>
+<tr>
+<td><code>ml-gpu</code></td>
+<td>The same stack built against an NVIDIA CUDA GPU</td>
+<td>Linux + NVIDIA GPU</td>
 </tr>
 </tbody>
 </table>
@@ -754,6 +759,20 @@ again to pick it up.</p>
 available only on Linux and Intel macOS. On an M-series Mac, run it
 via a Linux container or on a cluster. <code>align-dna</code> (with the same
 shared read-processing &amp; QC tools) works everywhere.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Which ML environment to use — <code>ml</code> vs <code>ml-gpu</code></p>
+<p>Both bundle the same tools (PyTorch, scvi-tools, scanpy); they differ
+only in the PyTorch build, so pick one per machine:</p>
+<ul>
+<li><strong><code>ml</code></strong> — use on anything <em>without</em> an NVIDIA GPU. It runs on the CPU,
+  and on <strong>Apple Silicon it automatically uses the Mac's GPU</strong> through
+  PyTorch's built-in Metal (MPS) backend — no extra setup.</li>
+<li><strong><code>ml-gpu</code></strong> — use on a <strong>Linux machine with an NVIDIA GPU</strong>; it pulls
+  the CUDA build of PyTorch.</li>
+</ul>
+<p>scvi-tools and PyTorch pick the accelerator (MPS or CUDA) at runtime, so
+the same analysis code works in either environment.</p>
 </div>
 <p>Need a new environment for a specific task? See
 <a href="background/#adding-your-own-environment">Background → Adding your own environment</a>.</p>

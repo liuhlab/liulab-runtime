@@ -734,7 +734,7 @@ these directly from GitHub as a <strong>PyPI (git) dependency</strong>.</p>
 <p>To add another, drop a line in the relevant feature's
 <code>pypi-dependencies</code> table. You can pin to a specific branch, tag, or
 commit so everyone gets the same code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[tool.pixi.feature.analysis.pypi-dependencies]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[tool.pixi.feature.ml.pypi-dependencies]</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># latest on the default branch</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">my-pkg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/liuhlab/my-pkg.git&quot;</span><span class="w"> </span><span class="p">}</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># pin to a branch / tag / commit</span>
