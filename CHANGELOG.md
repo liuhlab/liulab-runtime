@@ -8,10 +8,12 @@ This project uses date-based (CalVer) versioning: `YYYY.M.D`.
   `scanpy`, and `scikit-learn` layered on the lab & analysis stack.
   - `ml` installs the CPU build of PyTorch and runs everywhere; on Apple
     Silicon it uses the Mac GPU through PyTorch's Metal (MPS) backend.
-  - `ml-gpu` installs the CUDA build (Linux + NVIDIA GPU only), selected via
-    a `linux-64-cuda` platform target and `pytorch-gpu` + `cuda-version =
-    "12.*"`. Targets CUDA 12 broadly; CUDA 12 minor-version compatibility
-    lets the build run on any 12.x driver (e.g. 12.6 nodes).
+  - `ml-gpu` installs the CUDA build (Linux + NVIDIA GPU only), selected by
+    a `__cuda >= 12` requirement scoped to the `torch-gpu` feature plus
+    `pytorch-gpu` + `cuda-version = "12.*"`. Only `ml-gpu` requires CUDA; the
+    alignment and CPU envs stay GPU-free. Targets CUDA 12 broadly; CUDA 12
+    minor-version compatibility lets the build run on any 12.x driver (e.g.
+    12.6 nodes).
 - Folded the single-cell toolkit (`scanpy`, `python-igraph`, `leidenalg`)
   into both `ml` and `ml-gpu`, and removed the standalone `single-cell`
   environment.

@@ -31,15 +31,17 @@ channels = ["conda-forge", "bioconda"]
 # container there instead, which carries its own modern glibc and only
 # needs a compatible kernel. See docs/containers.md.
 #
-# `linux-64-cuda` is a named variant of `linux-64` that advertises an NVIDIA
-# GPU (the `__cuda` virtual package) to the solver. ONLY the `torch-gpu`
-# feature targets it, so it exists purely to let the `ml-gpu` env resolve
-# CUDA-enabled builds; every other env keeps using the plain platforms.
+# No CUDA platform variant here on purpose. A workspace-level
+# `{ platform = "linux-64", cuda = "12" }` variant would ride along with plain
+# `linux-64` into EVERY env (pixi 0.72 keeps the cuda variant wherever its base
+# `linux-64` resolves — narrowing a feature to `["linux-64"]` does not drop it),
+# so the alignment / `ml` / docs envs would all gain a stray cuda solve. Instead
+# CUDA is scoped to the `torch-gpu` feature alone via its `system-requirements`
+# (see below), so ONLY `ml-gpu` advertises `__cuda`; everything else is CPU.
 platforms = [
     "osx-arm64",
     "osx-64",
     "linux-64",
-    { name = "linux-64-cuda", platform = "linux-64", cuda = "12" },
 ]
 
 # ---- Base layer: present in every environment ------------------------
@@ -139,9 +141,17 @@ scvi-tools = "*"
 [tool.pixi.feature.torch-cpu.dependencies]
 pytorch-cpu = "*"
 
-# CUDA PyTorch — Linux + NVIDIA only. Restricted to the `linux-64-cuda`
-# platform so it only resolves where `__cuda` is advertised; `pytorch-gpu`
-# forces the cuda build.
+# CUDA PyTorch — Linux + NVIDIA only. Restricted to `linux-64`, and its own
+# `system-requirements` advertise `__cuda >= 12` so the solver picks CUDA
+# builds — but ONLY for envs that include this feature, i.e. only `ml-gpu`.
+# `pytorch-gpu` forces the cuda build.
+#
+# Why per-feature `system-requirements` (which pixi warns is "deprecated" in
+# favor of virtual packages on `platforms`): the platforms route only works at
+# the WORKSPACE level, where the cuda variant leaks into every `linux-64` env
+# (see the platforms note above). Per-feature system-requirements is the only
+# way to keep `__cuda` contained to this single feature, so we accept the
+# deprecation warning until pixi offers per-feature platform variants.
 #
 # `cuda-version = "12.*"` targets CUDA 12 broadly rather than one minor. It
 # resolves to conda-forge's newest CUDA 12 build (currently 12.9 + the latest
@@ -151,7 +161,10 @@ pytorch-cpu = "*"
 # against 12.9, so `12.6.*` would silently drag PyTorch back several releases
 # for no compatibility gain.)
 [tool.pixi.feature.torch-gpu]
-platforms = ["linux-64-cuda"]
+platforms = ["linux-64"]
+
+[tool.pixi.feature.torch-gpu.system-requirements]
+cuda = "12"
 
 [tool.pixi.feature.torch-gpu.dependencies]
 pytorch-gpu = "*"
