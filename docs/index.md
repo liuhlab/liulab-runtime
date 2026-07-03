@@ -136,8 +136,8 @@ again to pick it up.
 | Environment  | Contents                                                            | Platforms |
 | ------------ | ------------------------------------------------------------------- | --------- |
 | `default`    | `liulab-data`, `liulab-genome`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
-| `align-rna`  | RNA-seq aligners + shared read processing & QC: STAR, HISAT2, salmon, alevin-fry, samtools, sambamba, fastqc, multiqc, repaq | Linux, Intel macOS |
-| `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastqc, multiqc, repaq | Linux, macOS |
+| `align-rna`  | RNA-seq aligner + shared read processing & QC: STAR, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, Intel macOS |
+| `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, macOS |
 | `ml`         | PyTorch, scvi-tools, scanpy for single-cell / deep-learning analysis; CPU everywhere, plus the Apple GPU (MPS) on Apple Silicon | Linux, macOS |
 | `ml-gpu`     | The same stack built against an NVIDIA CUDA GPU | Linux + NVIDIA GPU |
 
