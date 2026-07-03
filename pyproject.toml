@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.6.30"
+version = "2026.7.3"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -30,7 +30,17 @@ channels = ["conda-forge", "bioconda"]
 # glibc 2.17) is intentionally NOT supported on bare metal — run the
 # container there instead, which carries its own modern glibc and only
 # needs a compatible kernel. See docs/containers.md.
-platforms = ["osx-arm64", "osx-64", "linux-64"]
+#
+# `linux-64-cuda` is a named variant of `linux-64` that advertises an NVIDIA
+# GPU (the `__cuda` virtual package) to the solver. ONLY the `torch-gpu`
+# feature targets it, so it exists purely to let the `ml-gpu` env resolve
+# CUDA-enabled builds; every other env keeps using the plain platforms.
+platforms = [
+    "osx-arm64",
+    "osx-64",
+    "linux-64",
+    { name = "linux-64-cuda", platform = "linux-64", cuda = "12" },
+]
 
 # ---- Base layer: present in every environment ------------------------
 # python + ipykernel mean ANY environment here can back a Jupyter kernel.
@@ -102,6 +112,51 @@ scanpy = "*"
 python-igraph = "*"
 leidenalg = "*"
 
+# ---- ml / torch-cpu / torch-gpu: PyTorch-based ML, CPU/MPS and CUDA --
+# PyTorch comes from conda-forge (not the download.pytorch.org wheels) so it
+# resolves against the same conda numpy/pandas the rest of the workspace pins.
+# The build variant is the ONLY difference between accelerators, so it lives
+# in two thin features — `torch-cpu` / `torch-gpu` — layered on a shared `ml`
+# feature. Two environments combine them:
+#   * `ml`      — CPU everywhere, plus Apple-GPU (MPS) on Apple Silicon
+#   * `ml-gpu`  — NVIDIA CUDA on linux-64
+# Keep them in SEPARATE solve groups (the default): the cpu vs cuda pytorch
+# builds cannot co-resolve.
+#
+# `ml` holds the accelerator-agnostic ML stack shared by both envs. scvi-tools
+# (single-cell deep learning) sits here: it's PyTorch-based and picks its
+# accelerator at RUNTIME from whatever torch is installed — MPS in `ml`, CUDA
+# in `ml-gpu` — so no per-env pip `[metal]`/`[cuda]` extras are needed; the
+# conda torch build (below) already selects the backend. Add other downstream
+# packages here too (e.g. lightning, transformers).
+[tool.pixi.feature.ml.dependencies]
+scikit-learn = "*"
+scvi-tools = "*"
+
+# CPU / Apple-GPU PyTorch. `pytorch-cpu` forces the non-CUDA build of `pytorch`.
+# Resolves on every platform; on Apple Silicon that build ships the MPS GPU
+# backend (`torch.backends.mps`), so the Mac GPU works with no extra package.
+[tool.pixi.feature.torch-cpu.dependencies]
+pytorch-cpu = "*"
+
+# CUDA PyTorch — Linux + NVIDIA only. Restricted to the `linux-64-cuda`
+# platform so it only resolves where `__cuda` is advertised; `pytorch-gpu`
+# forces the cuda build.
+#
+# `cuda-version = "12.*"` targets CUDA 12 broadly rather than one minor. It
+# resolves to conda-forge's newest CUDA 12 build (currently 12.9 + the latest
+# PyTorch), and CUDA 12 *minor-version compatibility* means that runtime runs
+# on any driver that supports CUDA >= 12.0 — including 12.6 HPC nodes. (Do NOT
+# pin a lower minor like 12.6: conda-forge only builds the newest PyTorch
+# against 12.9, so `12.6.*` would silently drag PyTorch back several releases
+# for no compatibility gain.)
+[tool.pixi.feature.torch-gpu]
+platforms = ["linux-64-cuda"]
+
+[tool.pixi.feature.torch-gpu.dependencies]
+pytorch-gpu = "*"
+cuda-version = "12.*"
+
 # ---- Tooling features ------------------------------------------------
 [tool.pixi.feature.dev.dependencies]
 ruff = "*"
@@ -118,7 +173,12 @@ default    = { features = ["analysis", "lab", "dev", "docs"], solve-group = "def
 docs       = { features = ["docs"], solve-group = "default" }
 align-rna  = { features = ["align-base", "align-rna", "lab"] }
 align-dna  = { features = ["align-base", "align-dna", "lab"] }
-single-cell = { features = ["analysis", "single-cell", "lab"] }
+# PyTorch envs, single-cell + scvi-tools included in both:
+#   * `ml`     — CPU everywhere, plus Apple-GPU (MPS) on Apple Silicon
+#   * `ml-gpu` — NVIDIA CUDA on linux-64
+# No solve-group: the cpu/cuda pytorch builds must resolve independently.
+ml         = { features = ["ml", "torch-cpu", "single-cell", "analysis", "lab"] }
+ml-gpu     = { features = ["ml", "torch-gpu", "single-cell", "analysis", "lab"] }
 
 # ---- Tasks -----------------------------------------------------------
 [tool.pixi.tasks]

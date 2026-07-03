@@ -138,13 +138,27 @@ again to pick it up.
 | `default`    | `liulab-data`, `liulab-genome`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
 | `align-rna`  | RNA-seq aligners + shared read processing & QC: STAR, HISAT2, salmon, alevin-fry, samtools, sambamba, fastqc, multiqc, repaq | Linux, Intel macOS |
 | `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastqc, multiqc, repaq | Linux, macOS |
-| `single-cell` | Single-cell RNA-seq analysis: scanpy | Linux, macOS |
+| `ml`         | PyTorch, scvi-tools, scanpy for single-cell / deep-learning analysis; CPU everywhere, plus the Apple GPU (MPS) on Apple Silicon | Linux, macOS |
+| `ml-gpu`     | The same stack built against an NVIDIA CUDA GPU | Linux + NVIDIA GPU |
 
 !!! warning "Apple Silicon & `align-rna`"
     STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` is
     available only on Linux and Intel macOS. On an M-series Mac, run it
     via a Linux container or on a cluster. `align-dna` (with the same
     shared read-processing & QC tools) works everywhere.
+
+!!! tip "Which ML environment to use — `ml` vs `ml-gpu`"
+    Both bundle the same tools (PyTorch, scvi-tools, scanpy); they differ
+    only in the PyTorch build, so pick one per machine:
+
+    * **`ml`** — use on anything *without* an NVIDIA GPU. It runs on the CPU,
+      and on **Apple Silicon it automatically uses the Mac's GPU** through
+      PyTorch's built-in Metal (MPS) backend — no extra setup.
+    * **`ml-gpu`** — use on a **Linux machine with an NVIDIA GPU**; it pulls
+      the CUDA build of PyTorch.
+
+    scvi-tools and PyTorch pick the accelerator (MPS or CUDA) at runtime, so
+    the same analysis code works in either environment.
 
 Need a new environment for a specific task? See
 [Background → Adding your own environment](background.md#adding-your-own-environment).

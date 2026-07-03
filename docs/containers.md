@@ -52,7 +52,7 @@ docker run --rm -it -p 8888:8888 -v "$PWD:/data" liulab-runtime \
 ```
 
 Inside the container, switch environments the usual way:
-`pixi shell -e single-cell` or `pixi run -e align-dna <command>`.
+`pixi shell -e ml` or `pixi run -e align-dna <command>`.
 
 ---
 
@@ -79,7 +79,7 @@ singularity pull docker://ghcr.io/liuhlab/liulab-runtime:latest
 LIULAB_ENV=align-dna singularity run liulab-runtime_latest.sif chromap --version
 
 # Or call pixi directly
-singularity exec liulab-runtime_latest.sif pixi run -e single-cell python -c "import scanpy"
+singularity exec liulab-runtime_latest.sif pixi run -e ml python -c "import scanpy"
 
 # Interactive shell, then activate an environment
 singularity shell liulab-runtime_latest.sif

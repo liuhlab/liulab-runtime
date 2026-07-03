@@ -18,7 +18,12 @@ fi
 
 for env in $envs; do
     echo "Registering kernel for: $env"
-    pixi run -e "$env" register-kernel
+    # Some envs don't exist on every platform (e.g. the CUDA `ml-gpu` env is
+    # linux-64 only, so it can't be solved on macOS). Skip an env that isn't
+    # available here instead of aborting the whole run.
+    if ! pixi run -e "$env" register-kernel; then
+        echo "  skipped: '$env' is not available on this platform"
+    fi
 done
 
 echo "Done. Open Jupyter Lab and pick a 'Python (liulab ...)' kernel."

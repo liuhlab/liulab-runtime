@@ -42,7 +42,8 @@ pixi run lab
 | `default`    | Everyday analysis: lab packages, Jupyter, plotting, samtools, bedtools |
 | `align-rna`  | RNA-seq alignment: STAR, HISAT2, salmon, alevin-fry (Linux & Intel macOS) |
 | `align-dna`  | DNA-seq alignment: chromap |
-| `single-cell` | Single-cell RNA-seq analysis: scanpy |
+| `ml`         | PyTorch + scvi-tools + scanpy for single-cell / ML; runs on CPU, and on the Apple GPU (MPS) on Apple Silicon |
+| `ml-gpu`     | Same stack on an NVIDIA CUDA GPU (Linux only) |
 
 Enter a specific one with `pixi shell -e align-rna`.
 
