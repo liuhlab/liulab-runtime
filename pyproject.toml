@@ -16,150 +16,109 @@ Issues = "https://github.com/liuhlab/liulab-runtime/issues"
 Changelog = "https://github.com/liuhlab/liulab-runtime/blob/main/CHANGELOG.md"
 
 # ======================================================================
-#  pixi — environment & package management
+#  pixi — environments & packages
 #
-#  Concepts (see docs/background.md for the friendly version):
-#    * dependencies      -> the "default feature", included in EVERY env
-#    * feature.<name>    -> a named bundle of extra packages
-#    * environments      -> a recipe combining one or more features
+#  Layering (see docs/background.md):
+#    dependencies    -> base layer, included in EVERY environment
+#    feature.<name>  -> a named bundle of extra packages
+#    environments    -> a combination of features
 # ======================================================================
 
 [tool.pixi.workspace]
 channels = ["conda-forge", "bioconda"]
-# Direct `pixi install` targets modern OSes only. Old Linux (e.g. CentOS 7,
-# glibc 2.17) is intentionally NOT supported on bare metal — run the
-# container there instead, which carries its own modern glibc and only
-# needs a compatible kernel. See docs/containers.md.
+# Modern OSes only. Old Linux (e.g. CentOS 7 / glibc 2.17) is not supported on
+# bare metal — run the container there instead. See docs/containers.md.
 #
-# No CUDA platform variant here on purpose. A workspace-level
-# `{ platform = "linux-64", cuda = "12" }` variant would ride along with plain
-# `linux-64` into EVERY env (pixi 0.72 keeps the cuda variant wherever its base
-# `linux-64` resolves — narrowing a feature to `["linux-64"]` does not drop it),
-# so the alignment / `ml` / docs envs would all gain a stray cuda solve. Instead
-# CUDA is scoped to the `torch-gpu` feature alone via its `system-requirements`
-# (see below), so ONLY `ml-gpu` advertises `__cuda`; everything else is CPU.
-platforms = [
-    "osx-arm64",
-    "osx-64",
-    "linux-64",
-]
+# CUDA is deliberately NOT a platform: it's scoped to the `torch-gpu` feature
+# (see below) so only `ml-gpu` is GPU-enabled. A workspace-level cuda platform
+# would leak into every linux-64 environment.
+platforms = ["osx-arm64", "osx-64", "linux-64"]
 
-# ---- Base layer: present in every environment ------------------------
-# python + ipykernel mean ANY environment here can back a Jupyter kernel.
-# htslib + pigz are near-universal in our pipelines, so they live here too.
+# ======================================================================
+#  Base layer — every environment
+# ======================================================================
+# ipykernel + jupyterlab let any environment back a Jupyter kernel; htslib +
+# pigz are near-universal in our pipelines.
 [tool.pixi.dependencies]
 python = "3.13.*"
 ipykernel = "*"
+jupyterlab = "*"
+ipywidgets = "*"
+socksio = "*"           # SOCKS-proxy support for jupyterlab's httpx
 htslib = "*"
 pigz = "*"
 bedtools = "*"
 samtools = "*"
 sra-tools = "*"
-jupyterlab = "*"
-socksio = "*"           # lets jupyterlab's httpx talk to a SOCKS proxy
-ipywidgets = "*"
 
-# ---- Default environment: everyday data analysis ---------------------
-[tool.pixi.feature.analysis.dependencies]
-seaborn = "*"
-
-# ---- lab: the Liu Lab's own packages + the Python stack they need -----
-# Added to every environment EXCEPT `docs` (which only builds the site and
-# never imports them). Their supporting libs stay conda-managed/pinned so
-# every env resolves the same builds.
+# ======================================================================
+#  Shared feature — the Liu Lab packages
+# ======================================================================
+# In every environment except `docs`. Supporting libs are conda-pinned so
+# every environment resolves the same builds.
 [tool.pixi.feature.lab.dependencies]
-pandas = ">=2.1,<3"   # liulab-genome requires pandas <3
-# Cap below 2.4: numpy >=2.4 builds with an x86-64-v2 baseline that won't
-# import on older CPUs / emulated VMs (e.g. the QEMU i440FX analysis box).
-numpy = ">=2.1,<2.4"
-gffutils = "*"          # python dep of liulab-genome (genome.io.gtf)
-# CLI tools liulab-genome shells out to.
-ucsc-fatotwobit = "*"   # faToTwoBit
-ucsc-twobitinfo = "*"   # twoBitInfo
+pandas = ">=2.1,<3"     # liulab-genome needs pandas <3
+numpy = ">=2.1,<2.4"    # numpy >=2.4 uses an x86-64-v2 baseline; breaks on old/emulated CPUs
+seaborn = "*"
+gffutils = "*"          # liulab-genome (genome.io.gtf)
+ucsc-fatotwobit = "*"   # faToTwoBit, shelled out to by liulab-genome
+ucsc-twobitinfo = "*"   # twoBitInfo, shelled out to by liulab-genome
 
-# Installed straight from GitHub.
 [tool.pixi.feature.lab.pypi-dependencies]
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
 liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
 
-# ---- align-base: shared, aligner-agnostic read-processing toolkit ----
-# Everything an alignment workflow needs regardless of which aligner you
-# use: BAM handling, FASTQ (de)compression, and QC.
+# ======================================================================
+#  Alignment features — genomic read alignment (CPU only)
+# ======================================================================
+# align-base: aligner-agnostic read processing — BAM handling, FASTQ
+# (de)compression, QC. The aligner features layer on top of it.
 [tool.pixi.feature.align-base.dependencies]
 sambamba = "*"
-fastp = "*"     # fast all-in-one FASTQ preprocessing
+fastp = "*"
 fastqc = "*"
 multiqc = "*"
-repaq = "*"     # fast FASTQ compression
+repaq = "*"             # fast FASTQ compression
 
-# ---- align-rna: RNA-seq aligners (builds on align-base) --------------
-# STAR has no osx-arm64 build on bioconda, so this feature is limited to
-# the platforms that do. (Apple Silicon users: run it under linux-64 in
-# a container / on a cluster.)
+# RNA-seq. STAR has no osx-arm64 build on bioconda (run under linux-64 there).
 [tool.pixi.feature.align-rna]
 platforms = ["osx-64", "linux-64"]
 
 [tool.pixi.feature.align-rna.dependencies]
 star = "*"
 
-# ---- align-dna: DNA-seq alignment (builds on align-base) -------------
-# chromap is the main aligner (fast for ATAC/Hi-C/ChIP-seq reads).
+# DNA-seq. chromap is fast for ATAC / Hi-C / ChIP-seq reads.
 [tool.pixi.feature.align-dna.dependencies]
 chromap = "*"
 
-# ---- single-cell: single-cell RNA-seq analysis ----------------------
-# scanpy is the standard single-cell analysis toolkit (built on anndata).
+# ======================================================================
+#  Analysis features — the `ml` / `ml-gpu` environments
+# ======================================================================
+# The ML / analysis stack. scvi-tools picks its accelerator (CPU / Apple MPS /
+# CUDA) at runtime from whichever PyTorch build the environment installs.
+[tool.pixi.feature.ml.dependencies]
+scikit-learn = "*"
+scvi-tools = "*"
+
+# Single-cell RNA-seq toolkit (scanpy on anndata).
 [tool.pixi.feature.single-cell.dependencies]
 scanpy = "*"
 python-igraph = "*"
 leidenalg = "*"
 
-# ---- ml / torch-cpu / torch-gpu: PyTorch-based ML, CPU/MPS and CUDA --
-# PyTorch comes from conda-forge (not the download.pytorch.org wheels) so it
-# resolves against the same conda numpy/pandas the rest of the workspace pins.
-# The build variant is the ONLY difference between accelerators, so it lives
-# in two thin features — `torch-cpu` / `torch-gpu` — layered on a shared `ml`
-# feature. Two environments combine them:
-#   * `ml`      — CPU everywhere, plus Apple-GPU (MPS) on Apple Silicon
-#   * `ml-gpu`  — NVIDIA CUDA on linux-64
-# Keep them in SEPARATE solve groups (the default): the cpu vs cuda pytorch
-# builds cannot co-resolve.
-#
-# `ml` holds the accelerator-agnostic ML stack shared by both envs. scvi-tools
-# (single-cell deep learning) sits here: it's PyTorch-based and picks its
-# accelerator at RUNTIME from whatever torch is installed — MPS in `ml`, CUDA
-# in `ml-gpu` — so no per-env pip `[metal]`/`[cuda]` extras are needed; the
-# conda torch build (below) already selects the backend. Add other downstream
-# packages here too (e.g. lightning, transformers).
-[tool.pixi.feature.ml.dependencies]
-scikit-learn = "*"
-scvi-tools = "*"
-
-# CPU / Apple-GPU PyTorch. `pytorch-cpu` forces the non-CUDA build of `pytorch`.
-# Resolves on every platform; on Apple Silicon that build ships the MPS GPU
-# backend (`torch.backends.mps`), so the Mac GPU works with no extra package.
+# PyTorch build variant — the ONLY difference between `ml` and `ml-gpu`.
+# CPU build; on Apple Silicon it ships the Metal (MPS) GPU backend.
 [tool.pixi.feature.torch-cpu.dependencies]
 pytorch-cpu = "*"
 
-# CUDA PyTorch — Linux + NVIDIA only. Restricted to `linux-64`, and its own
-# `system-requirements` advertise `__cuda >= 12` so the solver picks CUDA
-# builds — but ONLY for envs that include this feature, i.e. only `ml-gpu`.
-# `pytorch-gpu` forces the cuda build.
+# CUDA build (Linux + NVIDIA only). `system-requirements` advertises `__cuda`
+# so the solver picks GPU builds, scoped to this feature so only `ml-gpu` gets
+# them. (pixi calls the table "deprecated" in favor of a cuda platform, but
+# that only exists workspace-wide and would leak CUDA into every environment.)
 #
-# Why per-feature `system-requirements` (which pixi warns is "deprecated" in
-# favor of virtual packages on `platforms`): the platforms route only works at
-# the WORKSPACE level, where the cuda variant leaks into every `linux-64` env
-# (see the platforms note above). Per-feature system-requirements is the only
-# way to keep `__cuda` contained to this single feature, so we accept the
-# deprecation warning until pixi offers per-feature platform variants.
-#
-# `cuda-version = "12.*"` targets CUDA 12 broadly rather than one minor. It
-# resolves to conda-forge's newest CUDA 12 build (currently 12.9 + the latest
-# PyTorch), and CUDA 12 *minor-version compatibility* means that runtime runs
-# on any driver that supports CUDA >= 12.0 — including 12.6 HPC nodes. (Do NOT
-# pin a lower minor like 12.6: conda-forge only builds the newest PyTorch
-# against 12.9, so `12.6.*` would silently drag PyTorch back several releases
-# for no compatibility gain.)
+# `cuda-version = "12.*"` tracks conda-forge's newest CUDA 12 build (12.9 +
+# latest PyTorch). CUDA 12 minor-version compatibility runs it on any >=12.0
+# driver, e.g. 12.6 nodes. Do NOT pin 12.6.* — it drags PyTorch back releases.
 [tool.pixi.feature.torch-gpu]
 platforms = ["linux-64"]
 
@@ -170,7 +129,9 @@ cuda = "12"
 pytorch-gpu = "*"
 cuda-version = "12.*"
 
-# ---- Tooling features ------------------------------------------------
+# ======================================================================
+#  Tooling features
+# ======================================================================
 [tool.pixi.feature.dev.dependencies]
 ruff = "*"
 pre-commit = "*"
@@ -178,38 +139,35 @@ pre-commit = "*"
 [tool.pixi.feature.docs.dependencies]
 mkdocs-material = "*"
 
-# ---- Environments ----------------------------------------------------
-# The `lab` feature (liulab-data/genome + their Python stack) is in every
-# env except `docs`, which only builds the site.
+# ======================================================================
+#  Environments
+# ======================================================================
+#   default / docs   maintenance (repo upkeep, docs site)
+#   align-rna/-dna   genomic alignment, CPU only
+#   ml / ml-gpu      analysis; ml-gpu adds NVIDIA CUDA
+# `ml` / `ml-gpu` stay out of a solve group so their CPU vs CUDA PyTorch builds
+# resolve independently.
 [tool.pixi.environments]
-default    = { features = ["analysis", "lab", "dev", "docs"], solve-group = "default" }
-docs       = { features = ["docs"], solve-group = "default" }
-align-rna  = { features = ["align-base", "align-rna", "lab"] }
-align-dna  = { features = ["align-base", "align-dna", "lab"] }
-# PyTorch envs, single-cell + scvi-tools included in both:
-#   * `ml`     — CPU everywhere, plus Apple-GPU (MPS) on Apple Silicon
-#   * `ml-gpu` — NVIDIA CUDA on linux-64
-# No solve-group: the cpu/cuda pytorch builds must resolve independently.
-ml         = { features = ["ml", "torch-cpu", "single-cell", "analysis", "lab"] }
-ml-gpu     = { features = ["ml", "torch-gpu", "single-cell", "analysis", "lab"] }
+default   = { features = ["lab", "dev", "docs"], solve-group = "default" }
+docs      = { features = ["docs"], solve-group = "default" }
+align-rna = { features = ["align-base", "align-rna", "lab"] }
+align-dna = { features = ["align-base", "align-dna", "lab"] }
+ml        = { features = ["ml", "single-cell", "torch-cpu", "lab"] }
+ml-gpu    = { features = ["ml", "single-cell", "torch-gpu", "lab"] }
 
-# ---- Tasks -----------------------------------------------------------
+# ======================================================================
+#  Tasks
+# ======================================================================
 [tool.pixi.tasks]
-# Register the CURRENT environment as a Jupyter kernel (idempotent).
+# Register the current / every environment as a Jupyter kernel (idempotent).
 register-kernel = "python -m ipykernel install --user --name liulab-$PIXI_ENVIRONMENT_NAME --display-name \"Python (liulab $PIXI_ENVIRONMENT_NAME)\""
-# Register every environment up front, without entering each one.
 register-kernels = "bash scripts/register_all_kernels.sh"
-# Show all environments and what's in them.
-envs = "pixi workspace environment list"
+envs = "pixi workspace environment list"   # list environments and their contents
+lab = "jupyter lab"
 
 [tool.pixi.feature.docs.tasks]
 docs = "mkdocs serve"
 docs-build = "mkdocs build --strict"
-
-[tool.pixi.feature.analysis.tasks]
-# Launch Jupyter Lab. Lives in the analysis feature (the default env) since
-# that's the only env with jupyterlab; other envs are used as kernels.
-lab = "jupyter lab"
 
 [tool.pixi.feature.dev.tasks]
 lint = "ruff check ."
