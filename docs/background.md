@@ -102,7 +102,7 @@ To add another, drop a line in the relevant feature's
 commit so everyone gets the same code:
 
 ```toml
-[tool.pixi.feature.analysis.pypi-dependencies]
+[tool.pixi.feature.ml.pypi-dependencies]
 # latest on the default branch
 my-pkg = { git = "https://github.com/liuhlab/my-pkg.git" }
 # pin to a branch / tag / commit
