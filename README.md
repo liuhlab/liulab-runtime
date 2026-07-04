@@ -49,20 +49,28 @@ Enter a specific one with `pixi shell -e align-rna`.
 
 ## Containers
 
-Every environment is also available as a single container image — handy
-on shared servers and HPC clusters.
+Each environment ships as its **own** container image — pull only the one
+you need. Images are published per env as `ghcr.io/liuhlab/liulab-runtime:<env>`
+(e.g. `:align-rna`, `:align-dna`, `:ml`, `:ml-gpu`).
 
 ```bash
-# Docker
-docker build -t liulab-runtime:latest .
-docker run --rm -it liulab-runtime                       # default env shell
-docker run --rm liulab-runtime pixi run -e align-rna STAR --version
+# Docker — pull and run a single-env image (env is baked in)
+docker pull ghcr.io/liuhlab/liulab-runtime:align-rna
+docker run --rm ghcr.io/liuhlab/liulab-runtime:align-rna STAR --version
+
+# GPU image needs the host driver: add --gpus all (Docker) / --nv (Singularity)
+docker run --rm --gpus all ghcr.io/liuhlab/liulab-runtime:ml-gpu \
+  python -c "import torch; print(torch.cuda.is_available())"
 
 # Singularity / Apptainer
-singularity build liulab-runtime.sif liulab-runtime.def
-singularity run liulab-runtime.sif pixi run envs
+singularity pull docker://ghcr.io/liuhlab/liulab-runtime:align-rna
+singularity run liulab-runtime_align-rna.sif STAR --version
+
+# Build one locally instead of pulling
+docker build --build-arg PIXI_ENV=align-rna -t liulab-runtime:align-rna .
 ```
 
-The image is **amd64-only** (no `linux-aarch64` platform); on Apple
-Silicon, build/run with `--platform=linux/amd64`. Full instructions:
+Which envs are published is the `docker-environments` list in
+`pyproject.toml`. Images are **amd64-only** (no `linux-aarch64` platform); on
+Apple Silicon, build/run with `--platform=linux/amd64`. Full instructions:
 **[Containers guide](https://liuhlab.github.io/liulab-runtime/containers/)**.

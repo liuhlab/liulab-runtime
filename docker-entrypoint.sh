@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Entrypoint for the liulab-runtime container.
 #
-# Behaviour:
-#   * No args              -> interactive shell in the `default` env.
-#   * `pixi ...`           -> run pixi verbatim (e.g. `pixi run -e align-rna STAR`).
-#   * `bash` / `sh`        -> a plain shell (no env activated).
-#   * anything else        -> run it inside the `default` env via `pixi run`.
+# Each image bakes in its environment via LIULAB_ENV (set in the Dockerfile);
+# these images ship a single env, so LIULAB_ENV is that env.
 #
-# Pick the active environment for the no-arg case with: -e LIULAB_ENV=<env>
+# Behaviour:
+#   * No args              -> interactive shell in $LIULAB_ENV.
+#   * `pixi ...`           -> run pixi verbatim (e.g. `pixi run STAR --version`).
+#   * `bash` / `sh`        -> a plain shell (no env activated).
+#   * anything else        -> run it inside $LIULAB_ENV via `pixi run`.
+#
+# Override the env at runtime (rarely needed) with: -e LIULAB_ENV=<env>
 set -euo pipefail
 
 ENV_NAME="${LIULAB_ENV:-default}"
