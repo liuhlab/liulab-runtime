@@ -359,10 +359,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build" class="md-nav__link">
+  <a href="#pull-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build
+        Pull &amp; run
       
     </span>
   </a>
@@ -370,10 +370,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#use" class="md-nav__link">
+  <a href="#gpu-ml-gpu" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use
+        GPU (ml-gpu)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build locally
       
     </span>
   </a>
@@ -398,10 +409,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build_1" class="md-nav__link">
+  <a href="#pull" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build
+        Pull
       
     </span>
   </a>
@@ -409,7 +420,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#use_1" class="md-nav__link">
+  <a href="#use" class="md-nav__link">
     <span class="md-ellipsis">
       
         Use
@@ -498,10 +509,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build" class="md-nav__link">
+  <a href="#pull-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build
+        Pull &amp; run
       
     </span>
   </a>
@@ -509,10 +520,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#use" class="md-nav__link">
+  <a href="#gpu-ml-gpu" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use
+        GPU (ml-gpu)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build locally
       
     </span>
   </a>
@@ -537,10 +559,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build_1" class="md-nav__link">
+  <a href="#pull" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build
+        Pull
       
     </span>
   </a>
@@ -548,7 +570,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#use_1" class="md-nav__link">
+  <a href="#use" class="md-nav__link">
     <span class="md-ellipsis">
       
         Use
@@ -589,80 +611,128 @@
 
 
 <h1 id="containers-docker-singularity">Containers (Docker &amp; Singularity)<a class="headerlink" href="#containers-docker-singularity" title="Permanent link">&para;</a></h1>
-<p>Prefer not to install pixi at all? The whole runtime — <strong>every</strong>
-environment — ships as a single container image. This is handy on shared
-servers and HPC clusters, or anywhere you want a guaranteed-identical
-setup. It's especially useful on <strong>older Linux systems</strong> (e.g. CentOS 7),
-where a direct <code>pixi install</code> can be hard or impossible because the host
-is too old: the container carries its own modern userspace, so it only
-needs a compatible kernel — not an up-to-date OS.</p>
+<p>Prefer not to install pixi at all? Each environment ships as its <strong>own</strong>
+container image, so you pull only the one you need. This is handy on shared
+servers and HPC clusters, or anywhere you want a guaranteed-identical setup.
+It's especially useful on <strong>older Linux systems</strong> (e.g. CentOS 7), where a
+direct <code>pixi install</code> can be hard or impossible because the host is too old:
+the container carries its own modern userspace, so it only needs a compatible
+kernel — not an up-to-date OS.</p>
+<p>Images are published to GHCR, one tag per environment:</p>
+<table>
+<thead>
+<tr>
+<th>Image</th>
+<th>Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ghcr.io/liuhlab/liulab-runtime:align-rna</code></td>
+<td>RNA-seq alignment (STAR + QC)</td>
+</tr>
+<tr>
+<td><code>ghcr.io/liuhlab/liulab-runtime:align-dna</code></td>
+<td>DNA-seq alignment (chromap + QC)</td>
+</tr>
+<tr>
+<td><code>ghcr.io/liuhlab/liulab-runtime:ml</code></td>
+<td>PyTorch (CPU/MPS) + scvi-tools + scanpy</td>
+</tr>
+<tr>
+<td><code>ghcr.io/liuhlab/liulab-runtime:ml-gpu</code></td>
+<td>The ML stack built against an NVIDIA CUDA GPU</td>
+</tr>
+</tbody>
+</table>
+<p>Each image holds a <strong>single</strong> environment (baked in — no need to pick one at
+runtime). A moving <code>:&lt;env&gt;</code> tag tracks the latest build; released versions are
+also pinned as <code>:&lt;env&gt;-&lt;version&gt;</code> (e.g. <code>:align-rna-2026.7.3</code>). Which envs are
+published is the <code>docker-environments</code> list in <code>pyproject.toml</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">amd64 only</p>
-<p>The runtime defines a <code>linux-64</code> platform but no <code>linux-aarch64</code>
-one, so the image is <strong>amd64-only</strong>. On an Apple Silicon Mac it runs
-emulated — add <code>--platform=linux/amd64</code> to your <code>docker</code> commands.</p>
+<p>The runtime defines a <code>linux-64</code> platform but no <code>linux-aarch64</code> one, so
+the images are <strong>amd64-only</strong>. On an Apple Silicon Mac they run emulated —
+add <code>--platform=linux/amd64</code> to your <code>docker</code> commands.</p>
 </div>
 <hr />
 <h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
-<h3 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/liuhlab/liulab-runtime.git
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>liulab-runtime
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>liulab-runtime:latest<span class="w"> </span>.
+<h3 id="pull-run">Pull &amp; run<a class="headerlink" href="#pull-run" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Pull the env you need</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/liuhlab/liulab-runtime:align-rna
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Run a command in it (the env is baked in — no -e needed)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>ghcr.io/liuhlab/liulab-runtime:align-rna<span class="w"> </span>STAR<span class="w"> </span>--version
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Interactive shell</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>ghcr.io/liuhlab/liulab-runtime:ml
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Work on your own data (mount a host folder)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/data:/data&quot;</span><span class="w"> </span>ghcr.io/liuhlab/liulab-runtime:align-dna
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># Jupyter Lab — then open http://localhost:8888</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">:/data&quot;</span><span class="w"> </span>ghcr.io/liuhlab/liulab-runtime:ml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser<span class="w"> </span>--allow-root
 </code></pre></div>
-<p>The first build solves and downloads every environment, so it takes a
-while; later builds reuse the cache.</p>
-<h3 id="use">Use<a class="headerlink" href="#use" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Interactive shell in the default analysis environment</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>liulab-runtime
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Pick a different environment for the shell</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-e<span class="w"> </span><span class="nv">LIULAB_ENV</span><span class="o">=</span>align-rna<span class="w"> </span>liulab-runtime
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Run a single command in a specific environment</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>liulab-runtime<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>align-rna<span class="w"> </span>STAR<span class="w"> </span>--version
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># List all environments</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>liulab-runtime<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>envs
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Work on your own data (mount a host folder)</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/data:/data&quot;</span><span class="w"> </span>liulab-runtime
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Jupyter Lab — then open http://localhost:8888</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">:/data&quot;</span><span class="w"> </span>liulab-runtime<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser<span class="w"> </span>--allow-root
+<h3 id="gpu-ml-gpu">GPU (<code>ml-gpu</code>)<a class="headerlink" href="#gpu-ml-gpu" title="Permanent link">&para;</a></h3>
+<p>The <code>ml-gpu</code> image needs the <strong>host NVIDIA driver</strong> injected at runtime — the
+conda <code>pytorch-gpu</code> build bundles the CUDA runtime libraries itself, so no CUDA
+base image is required, only a compatible driver (CUDA ≥ 12.0; the build runs
+on 12.6 nodes thanks to CUDA 12 minor-version compatibility).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>ghcr.io/liuhlab/liulab-runtime:ml-gpu<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span>
 </code></pre></div>
-<p>Inside the container, switch environments the usual way:
-<code>pixi shell -e ml</code> or <code>pixi run -e align-dna &lt;command&gt;</code>.</p>
+<h3 id="build-locally">Build locally<a class="headerlink" href="#build-locally" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/liuhlab/liulab-runtime.git
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>liulab-runtime
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Pick the env with --build-arg PIXI_ENV</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>docker<span class="w"> </span>build<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">PIXI_ENV</span><span class="o">=</span>align-rna<span class="w"> </span>-t<span class="w"> </span>liulab-runtime:align-rna<span class="w"> </span>.
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># The ml-gpu image builds on any amd64 machine — no GPU needed at build time</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>docker<span class="w"> </span>build<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">PIXI_ENV</span><span class="o">=</span>ml-gpu<span class="w"> </span>-t<span class="w"> </span>liulab-runtime:ml-gpu<span class="w"> </span>.
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Building <code>ml-gpu</code> without a GPU</p>
+<p>A GPU is only needed to <em>run</em> <code>ml-gpu</code>, not to build it — the build just
+downloads the CUDA packages. The Dockerfile sets <code>CONDA_OVERRIDE_CUDA</code> at
+build time so the CUDA env resolves on a GPU-less builder (CI, a laptop). On
+an <strong>Intel</strong> Mac this builds at native speed (it's already <code>linux/amd64</code>); on
+Apple Silicon it works but is emulated and slow. You can't test the GPU on a
+Mac — validate that on an NVIDIA node with <code>--nv</code> / <code>--gpus all</code>.</p>
+</div>
 <hr />
 <h2 id="singularity-apptainer">Singularity / Apptainer<a class="headerlink" href="#singularity-apptainer" title="Permanent link">&para;</a></h2>
-<p>Most clusters use Singularity (Apptainer) instead of Docker. Pull the
-same public image straight from GHCR — no Docker, no root needed.</p>
-<h3 id="build_1">Build<a class="headerlink" href="#build_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># `pull` converts the image into a single .sif file, named after the tag.</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>singularity<span class="w"> </span>pull<span class="w"> </span>docker://ghcr.io/liuhlab/liulab-runtime:latest
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">#  -&gt; liulab-runtime_latest.sif</span>
+<p>Most clusters use Singularity (Apptainer) instead of Docker. Pull the same
+public per-env image straight from GHCR — no Docker, no root needed.</p>
+<h3 id="pull">Pull<a class="headerlink" href="#pull" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># `pull` converts the image into a single .sif, named after the tag.</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>singularity<span class="w"> </span>pull<span class="w"> </span>docker://ghcr.io/liuhlab/liulab-runtime:align-rna
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">#  -&gt; liulab-runtime_align-rna.sif</span>
 </code></pre></div>
-<p>(Or build from the bundled definition file instead:
-<code>singularity build liulab-runtime_latest.sif liulab-runtime.def</code>.)</p>
-<h3 id="use_1">Use<a class="headerlink" href="#use_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Run a command in an environment (set LIULAB_ENV to choose; default: default)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">LIULAB_ENV</span><span class="o">=</span>align-dna<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_latest.sif<span class="w"> </span>chromap<span class="w"> </span>--version
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Or call pixi directly</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime_latest.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>ml<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import scanpy&quot;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Interactive shell, then activate an environment</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>singularity<span class="w"> </span>shell<span class="w"> </span>liulab-runtime_latest.sif
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">#   inside:  pixi shell -e align-rna</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># Jupyter Lab on a compute node</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime_latest.sif<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
+<p>(Or build from the bundled definition file, choosing the env with a build arg:
+<code>singularity build --build-arg ENV=align-rna liulab-runtime_align-rna.sif liulab-runtime.def</code>.)</p>
+<h3 id="use">Use<a class="headerlink" href="#use" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Run a command in the image&#39;s environment (via `singularity run`, which</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># activates the baked env — don&#39;t prefix with `pixi run`)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_align-dna.sif<span class="w"> </span>chromap<span class="w"> </span>--version
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_ml.sif<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import scanpy&quot;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Interactive shell</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>singularity<span class="w"> </span>shell<span class="w"> </span>liulab-runtime_align-rna.sif
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">#   inside:  pixi shell -e &quot;$LIULAB_ENV&quot;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># GPU image — add --nv so the host driver is visible</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>singularity<span class="w"> </span>run<span class="w"> </span>--nv<span class="w"> </span>liulab-runtime_ml-gpu.sif<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># Jupyter Lab on a compute node</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_ml.sif<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Read-only image</p>
-<p>A <code>.sif</code> is read-only. Run analyses against the environments baked
-into the image and keep your <em>data</em> on bind mounts — don't try to
-<code>pixi install</code>/<code>pixi update</code> inside a running container.</p>
+<p>A <code>.sif</code> is read-only, and each image carries just one environment. Run
+analyses against the baked-in env and keep your <em>data</em> on bind mounts —
+don't try to <code>pixi install</code>/<code>pixi update</code> inside a running container. Need a
+different environment? Pull its image tag.</p>
 </div>
 
 
