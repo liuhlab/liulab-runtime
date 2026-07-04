@@ -1,33 +1,34 @@
 # Singularity / Apptainer definition for liulab-runtime.
 #
-# Bootstraps from the Docker image (built by the repo's Dockerfile), so the
-# Dockerfile stays the single source of truth for what's in the container.
+# Each image holds ONE environment. Bootstraps from that env's Docker image
+# (built by the repo's Dockerfile), so the Dockerfile stays the single source
+# of truth for what's in the container. Pick the env with `--build-arg ENV=...`.
 #
 # Build:
-#   # from a registry
-#   singularity build liulab-runtime.sif docker://ghcr.io/liuhlab/liulab-runtime:latest
-#   # or from this def file (pulls the same base)
-#   singularity build liulab-runtime.sif liulab-runtime.def
+#   # pick the environment (align-rna, align-dna, ml, ml-gpu, ...)
+#   singularity build --build-arg ENV=align-rna liulab-runtime_align-rna.sif liulab-runtime.def
+#   # or pull the published image directly, no def file needed:
+#   singularity pull docker://ghcr.io/liuhlab/liulab-runtime:align-rna
 #
 # Note: the workspace has no linux-aarch64 platform, so the underlying image
-# is amd64-only.
+# is amd64-only. The `ml-gpu` image needs a GPU host — run it with `--nv`.
 Bootstrap: docker
-From: ghcr.io/liuhlab/liulab-runtime:latest
+From: ghcr.io/liuhlab/liulab-runtime:{{ ENV }}
 
 %labels
     Maintainer Liu Lab
-    Description Centralized pixi environments for Liu Lab data analysis.
+    Description Liu Lab pixi environment (one env per image).
 
 %help
-    Every liulab-runtime environment (default, align-rna, align-dna,
-    single-cell) is available inside this container via pixi.
+    This image contains a single liulab-runtime environment (baked in as
+    LIULAB_ENV). Run commands in it via pixi:
 
-      singularity run  liulab-runtime.sif <cmd>          # run <cmd> in $LIULAB_ENV (default: default)
-      singularity exec liulab-runtime.sif pixi run -e align-rna STAR --version
-      singularity shell liulab-runtime.sif               # then: pixi shell -e single-cell
+      singularity run  liulab-runtime_<env>.sif <cmd>       # run <cmd> in this image's env
+      singularity run  liulab-runtime_align-rna.sif STAR --version
+      singularity shell liulab-runtime_ml.sif               # then: pixi shell -e "$LIULAB_ENV"
 
-    Set the environment used by `run` with the LIULAB_ENV variable:
-      LIULAB_ENV=align-dna singularity run liulab-runtime.sif chromap --version
+    GPU images (ml-gpu) require the host driver — add --nv:
+      singularity run --nv liulab-runtime_ml-gpu.sif python -c "import torch; print(torch.cuda.is_available())"
 
 %environment
     export LIULAB_ENV="${LIULAB_ENV:-default}"
