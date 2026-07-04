@@ -58,7 +58,14 @@ COPY pyproject.toml pixi.lock ./
 #      maps, man/doc/info pages, prefix C headers);
 #   5. delete pixi's package cache + apt/pip leftovers.
 # Steps 4-5 only reclaim space because they happen in THIS layer.
+# CONDA_OVERRIDE_CUDA lets a GPU-less builder (CI runner, a laptop) resolve and
+# install the CUDA `ml-gpu` env: with no NVIDIA driver present the `__cuda`
+# virtual package is absent, so pixi would consider `ml-gpu` unavailable and
+# refuse it. This is build-time only (never an `ENV`), so at runtime the
+# container still detects the real host driver via `--gpus`/`--nv`. Harmless for
+# CPU envs — nothing there requests `__cuda`.
 RUN set -eux; \
+    export CONDA_OVERRIDE_CUDA=12; \
     pixi install --locked -e "$PIXI_ENV"; \
     pixi shell-hook -e "$PIXI_ENV" -s bash > "/app/.pixi/activate-$PIXI_ENV.sh" || true; \
     echo "== env size after install:"; du -sh "/app/.pixi/envs/$PIXI_ENV"; \

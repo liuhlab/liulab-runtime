@@ -70,7 +70,17 @@ git clone https://github.com/liuhlab/liulab-runtime.git
 cd liulab-runtime
 # Pick the env with --build-arg PIXI_ENV
 docker build --build-arg PIXI_ENV=align-rna -t liulab-runtime:align-rna .
+# The ml-gpu image builds on any amd64 machine — no GPU needed at build time
+docker build --build-arg PIXI_ENV=ml-gpu -t liulab-runtime:ml-gpu .
 ```
+
+!!! note "Building `ml-gpu` without a GPU"
+    A GPU is only needed to *run* `ml-gpu`, not to build it — the build just
+    downloads the CUDA packages. The Dockerfile sets `CONDA_OVERRIDE_CUDA` at
+    build time so the CUDA env resolves on a GPU-less builder (CI, a laptop). On
+    an **Intel** Mac this builds at native speed (it's already `linux/amd64`); on
+    Apple Silicon it works but is emulated and slow. You can't test the GPU on a
+    Mac — validate that on an NVIDIA node with `--nv` / `--gpus all`.
 
 ---
 
