@@ -18,6 +18,13 @@ This project uses date-based (CalVer) versioning: `YYYY.M.D`.
   environment.
 - `register-kernels` now skips environments that can't be installed on the
   current platform (e.g. `ml-gpu` on macOS) instead of aborting the run.
+- Containers are now published **one image per environment**
+  (`ghcr.io/liuhlab/liulab-runtime:<env>`, e.g. `:align-rna`, `:ml-gpu`)
+  instead of a single all-envs image, so each host pulls only what it needs —
+  CPU nodes skip `ml-gpu`'s ~12 GB CUDA stack. The published set is the
+  `docker-environments` list in `pyproject.toml`; the `Dockerfile` builds one
+  env via `--build-arg PIXI_ENV=<env>`. Run the GPU image with
+  `--gpus all` (Docker) / `--nv` (Singularity).
 
 ## 2026.6.30
 
