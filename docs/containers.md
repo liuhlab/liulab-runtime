@@ -103,20 +103,21 @@ singularity pull docker://ghcr.io/liuhlab/liulab-runtime:align-rna
 ### Use
 
 ```bash
-# Run a command in the image's environment
-singularity run  liulab-runtime_align-dna.sif chromap --version
-singularity exec liulab-runtime_ml.sif pixi run python -c "import scanpy"
+# Run a command in the image's environment (via `singularity run`, which
+# activates the baked env — don't prefix with `pixi run`)
+singularity run liulab-runtime_align-dna.sif chromap --version
+singularity run liulab-runtime_ml.sif python -c "import scanpy"
 
 # Interactive shell
 singularity shell liulab-runtime_align-rna.sif
-#   inside:  pixi shell
+#   inside:  pixi shell -e "$LIULAB_ENV"
 
 # GPU image — add --nv so the host driver is visible
 singularity run --nv liulab-runtime_ml-gpu.sif \
   python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
 
 # Jupyter Lab on a compute node
-singularity exec liulab-runtime_ml.sif pixi run lab --ip=0.0.0.0 --no-browser
+singularity run liulab-runtime_ml.sif lab --ip=0.0.0.0 --no-browser
 ```
 
 !!! tip "Read-only image"

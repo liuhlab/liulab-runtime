@@ -24,8 +24,8 @@ From: ghcr.io/liuhlab/liulab-runtime:{{ ENV }}
     LIULAB_ENV). Run commands in it via pixi:
 
       singularity run  liulab-runtime_<env>.sif <cmd>       # run <cmd> in this image's env
-      singularity exec liulab-runtime_align-rna.sif pixi run STAR --version
-      singularity shell liulab-runtime_ml.sif               # then: pixi shell
+      singularity run  liulab-runtime_align-rna.sif STAR --version
+      singularity shell liulab-runtime_ml.sif               # then: pixi shell -e "$LIULAB_ENV"
 
     GPU images (ml-gpu) require the host driver — add --nv:
       singularity run --nv liulab-runtime_ml-gpu.sif python -c "import torch; print(torch.cuda.is_available())"

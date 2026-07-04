@@ -60,12 +60,16 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # The ml-gpu image is ~12 GB; reclaim runner disk before building.
+      # The ml-gpu image is ~12 GB; reclaim runner disk before building. Done
+      # inline (no third-party action) to avoid a supply-chain/repro risk from
+      # a moving action ref. Removes ~25 GB of preinstalled toolchains the
+      # build doesn't need.
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          large-packages: false      # keep it quick; the big win is tool-cache/docker
+        run: |
+          sudo rm -rf /usr/local/lib/android /opt/hostedtoolcache/CodeQL \
+                      /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo docker image prune --all --force || true
+          df -h /
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
