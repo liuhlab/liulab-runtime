@@ -29,10 +29,14 @@ channels = ["conda-forge", "bioconda"]
 # Modern OSes only. Old Linux (e.g. CentOS 7 / glibc 2.17) is not supported on
 # bare metal — run the container there instead. See docs/containers.md.
 #
-# CUDA is deliberately NOT a platform: it's scoped to the `torch-gpu` feature
-# (see below) so only `ml-gpu` is GPU-enabled. A workspace-level cuda platform
-# would leak into every linux-64 environment.
-platforms = ["osx-arm64", "osx-64", "linux-64"]
+# `linux-64-cuda` is a rich variant of `linux-64` that advertises `__cuda >= 12`.
+# Only the `torch-gpu` feature targets it (so only `ml-gpu` resolves CUDA builds).
+platforms = [
+    "osx-arm64",
+    "osx-64",
+    "linux-64",
+    { name = "linux-64-cuda", platform = "linux-64", cuda = "12" },
+]
 
 # ======================================================================
 #  Base layer — every environment
@@ -111,19 +115,15 @@ leidenalg = "*"
 [tool.pixi.feature.torch-cpu.dependencies]
 pytorch-cpu = "*"
 
-# CUDA build (Linux + NVIDIA only). `system-requirements` advertises `__cuda`
-# so the solver picks GPU builds, scoped to this feature so only `ml-gpu` gets
-# them. (pixi calls the table "deprecated" in favor of a cuda platform, but
-# that only exists workspace-wide and would leak CUDA into every environment.)
+# CUDA build (Linux + NVIDIA only). Targets the `linux-64-cuda` rich platform
+# (declared in workspace.platforms) so `__cuda >= 12` is advertised only to the
+# `ml-gpu` env; `pytorch-gpu` forces the cuda build.
 #
 # `cuda-version = "12.*"` tracks conda-forge's newest CUDA 12 build (12.9 +
 # latest PyTorch). CUDA 12 minor-version compatibility runs it on any >=12.0
 # driver, e.g. 12.6 nodes. Do NOT pin 12.6.* — it drags PyTorch back releases.
 [tool.pixi.feature.torch-gpu]
-platforms = ["linux-64"]
-
-[tool.pixi.feature.torch-gpu.system-requirements]
-cuda = "12"
+platforms = ["linux-64-cuda"]
 
 [tool.pixi.feature.torch-gpu.dependencies]
 pytorch-gpu = "*"
