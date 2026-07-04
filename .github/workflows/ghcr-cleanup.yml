@@ -1,0 +1,61 @@
+name: GHCR cleanup
+
+# Prune stale UNTAGGED versions of the per-env container package, while keeping
+# every tagged image (`:<env>` moving tags and `:<env>-<version>` release tags)
+# AND the untagged manifests those tags reference — multi-arch children and
+# buildx attestation / cosign (Sigstore) referrers.
+#
+# Those referents are exactly what a naive "delete every untagged version" would
+# wrongly remove, breaking a tagged image or stripping its provenance. The
+# dataaxiom action is manifest-aware and excludes them automatically, so
+# `delete-untagged: true` here means "delete only the orphaned untagged digests
+# left behind when a moving `:<env>` tag advanced to a newer build".
+#
+# Triggers:
+#   * weekly schedule    -> real cleanup (runs from the default branch).
+#   * workflow_dispatch  -> defaults to a DRY RUN that only lists what it would
+#                           delete; untick `dry_run` to actually delete.
+#
+# Permissions: uses the built-in GITHUB_TOKEN. The package was pushed by this
+# repo's docker.yml, so it's linked here and `packages: write` grants delete
+# rights. If a run 403s on delete, grant this repo Admin on the package
+# (Org -> Packages -> liulab-runtime -> Package settings -> Manage Actions
+# access), or pass a classic PAT with `write:packages` + `delete:packages` via
+# `with: token: ${{ secrets.<PAT> }}`.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'          # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Preview deletions without removing anything'
+        type: boolean
+        default: true
+
+concurrency:
+  group: ghcr-cleanup
+  cancel-in-progress: false
+
+permissions:
+  packages: write                # delete package versions via GITHUB_TOKEN
+
+jobs:
+  cleanup:
+    name: Prune untagged GHCR versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged versions (keep tagged + their referents)
+        # Pinned to v1.2.2 by commit SHA (no moving ref).
+        uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f
+        with:
+          packages: liulab-runtime
+          owner: ${{ github.repository_owner }}
+          delete-untagged: true
+          # Grace window: never prune untagged digests younger than a day, so an
+          # in-flight publish's freshly pushed blobs aren't removed before their
+          # parent index/attestation links them.
+          older-than: 1 day
+          # After deleting, verify every remaining tagged image still resolves.
+          validate: true
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
