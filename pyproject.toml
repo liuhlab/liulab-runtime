@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.3"
+version = "2026.7.9"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -104,11 +104,33 @@ chromap = "*"
 scikit-learn = "*"
 scvi-tools = "*"
 
-# Single-cell RNA-seq toolkit (scanpy on anndata).
+# Single-cell RNA-seq toolkit: a Python stack (scanpy on anndata) plus an R
+# stack (Seurat & friends) reached from Python through rpy2. Channels are
+# pinned per package.
 [tool.pixi.feature.single-cell.dependencies]
-scanpy = "*"
-python-igraph = "*"
-leidenalg = "*"
+# Python
+scanpy = { version = "==1.12.2", channel = "conda-forge" }  # single-cell analysis in Python
+anndata = { version = "<=0.12.10", channel = "conda-forge" }  # cap: lamindb needs anndata <=0.12.10
+python-igraph = { version = "*", channel = "conda-forge" }
+leidenalg = { version = "*", channel = "conda-forge" }
+pertpy = { version = "==1.1.1", channel = "conda-forge" }  # perturbation analysis
+decoupler-py = { version = "==2.1.6", channel = "conda-forge" }  # pathway / TF activity inference
+pydeseq2 = { version = "==0.5.4", channel = "bioconda" }  # differential expression (DESeq2 in Python)
+celltypist = { version = "==1.7.0", channel = "bioconda" }  # automated cell-type annotation. cap: 1.7.1 needs anndata >0.12.10 (conflicts with lamindb's <=0.12.10)
+scipy = { version = "<1.17", channel = "conda-forge" }  # cap: lamindb requires scipy <1.17
+fsspec = { version = "<=2026.1.0", channel = "conda-forge" }  # cap: lamindb (s3fs) needs fsspec <=2026.1.0
+# R (called from Python via rpy2)
+r-base = { version = "4.5.*", channel = "conda-forge" }  # R 4.5 / Bioconductor 3.22 stack
+rpy2 = { version = "==3.6.7", channel = "conda-forge" }  # Python <-> R bridge
+r-seurat = { version = "==5.5.1", channel = "conda-forge" }  # single-cell analysis in R
+r-soupx = { version = "==1.6.2", channel = "conda-forge" }  # ambient-RNA ("soup") removal
+bioconductor-scdblfinder = { version = "==1.24.0", channel = "bioconda" }  # doublet detection
+bioconductor-scran = { version = "==1.38.0", channel = "bioconda" }  # normalization & variance modeling
+bioconductor-scry = { version = "==1.22.0", channel = "bioconda" }  # feature selection (deviance / GLM-PCA)
+
+# Not on conda at this version — pull from PyPI.
+[tool.pixi.feature.single-cell.pypi-dependencies]
+lamindb = "==2.5.1"  # data lineage / provenance for the analysis
 
 # PyTorch build variant — the ONLY difference between `ml` and `ml-gpu`.
 # CPU build; on Apple Silicon it ships the Metal (MPS) GPU backend.

@@ -2,6 +2,19 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.7.9
+
+- Added `celltypist` (automated cell-type annotation) to the `single-cell`
+  feature, so it's available in `ml` and `ml-gpu`. Pinned to `1.7.0`: the
+  newer `1.7.1` requires `anndata >0.12.10`, which conflicts with lamindb's
+  `anndata <=0.12.10` cap.
+- `scarches` was **not** added: its only release (`0.6.1`) depends on
+  `scHPL`, which hard-pins `pandas <2` — irreconcilable with the pandas 2.x
+  stack (`scanpy`, `lamindb`, `liulab-genome`) that `ml`/`ml-gpu` require.
+- `register-kernels` now skips the `docs` environment (it only builds the
+  docs site, never backs a kernel) and discovers environments straight from
+  pixi with no hard-coded fallback list to drift out of sync.
+
 ## 2026.7.3
 
 - New `ml` and `ml-gpu` environments for PyTorch-based work: `scvi-tools`,
