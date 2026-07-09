@@ -185,7 +185,7 @@ ml-gpu    = { features = ["ml", "single-cell", "torch-gpu", "lab"] }
 register-kernel = "python -m ipykernel install --user --name liulab-$PIXI_ENVIRONMENT_NAME --display-name \"Python (liulab $PIXI_ENVIRONMENT_NAME)\""
 register-kernels = "bash scripts/register_all_kernels.sh"
 envs = "pixi workspace environment list"   # list environments and their contents
-lab = "jupyter lab"
+lab = "jupyter lab --notebook-dir=$HOME"   # start in the user's home, not the runtime repo
 
 [tool.pixi.feature.docs.tasks]
 docs = "mkdocs serve"
