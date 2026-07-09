@@ -52,9 +52,9 @@ Before you start, request these from whoever manages the cluster:
 
 | You need | Used below as |
 | --- | --- |
-| IRCBC login address + your **login** account and key | `<LOGIN_IP>`, `<LOGIN_USER>`, `<LOGIN_KEY>` |
-| **ircbc-transfer** account (a *separate, shared* lab account) + its key | `<TRANSFER_IP>`, `<TRANSFER_USER>`, `<TRANSFER_KEY>` |
-| VPN (atrust) account — only for **off-site** access | `<VPN>` |
+| IRCBC login address + your **login** account and key | `<LOGIN_IP>`, `<LOGIN_USER>`, `<LOGIN_PASSWORD>` |
+| **ircbc-transfer** account (a *separate, shared* lab account) + its key | `<TRANSFER_IP>`, `<TRANSFER_USER>`, `<TRANSFER_PASSWORD>` |
+| VPN account — only for **off-site** access | `<VPN>` |
 
 ---
 
