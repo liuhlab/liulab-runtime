@@ -35,6 +35,9 @@ theme:
 plugins:
   - search
 
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Getting started: index.md
   - Containers: containers.md
