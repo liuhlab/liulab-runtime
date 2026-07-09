@@ -89,6 +89,12 @@ docker build --build-arg PIXI_ENV=ml-gpu -t liulab-runtime:ml-gpu .
 Most clusters use Singularity (Apptainer) instead of Docker. Pull the same
 public per-env image straight from GHCR — no Docker, no root needed.
 
+!!! tip "On the lab's IRCBC cluster?"
+    This page stays general (any machine or cluster). Lab members working on
+    IRCBC should follow the [IRCBC HPC](inhouse/ircbc.md) in-house tutorial
+    instead — it covers the exact cluster workflow end to end: SSH setup, the
+    shared image, and JupyterLab over a tunnel.
+
 ### Pull
 
 ```bash

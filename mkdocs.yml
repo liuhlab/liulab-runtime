@@ -39,6 +39,8 @@ nav:
   - Getting started: index.md
   - Containers: containers.md
   - Background: background.md
+  - Inhouse tutorials:
+      - IRCBC HPC: inhouse/ircbc.md
 
 markdown_extensions:
   - admonition
