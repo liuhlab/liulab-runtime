@@ -52,38 +52,65 @@ Before you start, request these from whoever manages the cluster:
 
 | You need | Used below as |
 | --- | --- |
-| IRCBC login address + your **login** account and key | `<LOGIN_IP>`, `<LOGIN_USER>`, `<LOGIN_PASSWORD>` |
-| **ircbc-transfer** account (a *separate, shared* lab account) + its key | `<TRANSFER_IP>`, `<TRANSFER_USER>`, `<TRANSFER_PASSWORD>` |
+| IRCBC login address + your login **username and password** | `<LOGIN_IP>`, `<LOGIN_USER>`, `<LOGIN_PASSWORD>` |
+| **ircbc-transfer** — a *separate, shared* lab account (**username and password**) | `<TRANSFER_IP>`, `<TRANSFER_USER>`, `<TRANSFER_PASSWORD>` |
 | VPN account — only for **off-site** access | `<VPN>` |
+
+!!! note "You make your own SSH key"
+    The admin gives you **usernames and passwords, not SSH keys**. You log in
+    with the password once, then create your own key for passwordless login —
+    that's the next section.
 
 ---
 
 ## 2. Set up SSH on your laptop
 
-Everything in this section happens **on your laptop**.
+Everything in this section happens **on your laptop**. The goal: log in once
+with your password, then switch to a passwordless SSH **key**.
 
-### 1. Make an SSH key
+### 1. Log in the first time (with your password)
 
-On your laptop, create a key pair:
+Connect using the username and password the admin gave you (connect the VPN
+first if you're off-site):
+
+```bash
+ssh <LOGIN_USER>@<LOGIN_IP>
+```
+
+Enter `<LOGIN_PASSWORD>` when prompted. You're now **on IRCBC** — type `exit`
+to return to your laptop. This is the only time you'll need the password.
+
+### 2. Create your SSH key
+
+The admin gave you a password, not a key — you make your own. On your laptop:
 
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/<LOGIN_KEY>
 ```
 
-Send the **public** half (the `.pub` file) to the admin so they can add it to
-your account:
+Press Enter through the prompts (an empty passphrase is fine to start).
+
+### 3. Install your key on IRCBC
+
+Copy the key's **public** half to your account so you can log in without a
+password. This uses `<LOGIN_PASSWORD>` one last time:
 
 ```bash
-cat ~/.ssh/<LOGIN_KEY>.pub
+ssh-copy-id -i ~/.ssh/<LOGIN_KEY>.pub <LOGIN_USER>@<LOGIN_IP>
 ```
 
-The transfer host uses its **own** account and key — repeat this for
-`<TRANSFER_KEY>` if the admin gives you a separate one.
+!!! note "No `ssh-copy-id` command?"
+    Install the key by hand instead:
 
-### 2. Add the hosts to `~/.ssh/config`
+    ```bash
+    cat ~/.ssh/<LOGIN_KEY>.pub | ssh <LOGIN_USER>@<LOGIN_IP> \
+      'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
+    ```
 
-On your laptop, open the file `~/.ssh/config` (create it if it doesn't exist)
-and paste these three blocks, filling in your placeholders:
+### 4. Add the hosts to `~/.ssh/config`
+
+On your laptop, open `~/.ssh/config` (create it if it doesn't exist) and paste
+these three blocks, filling in your placeholders:
 
 ```
 # 1. Login node — light work only (editing, git, submitting jobs)
@@ -92,11 +119,11 @@ Host ircbc
     User <LOGIN_USER>
     IdentityFile ~/.ssh/<LOGIN_KEY>
 
-# 2. Transfer node — moving files in and out (separate shared account + key)
+# 2. Transfer node — moving files in and out (separate shared account)
 Host ircbc-transfer
     HostName <TRANSFER_IP>
     User <TRANSFER_USER>
-    IdentityFile ~/.ssh/<TRANSFER_KEY>
+    IdentityFile ~/.ssh/<LOGIN_KEY>
 
 # 3. Compute nodes — reached *through* the login node (the "jump")
 Host cpu01 cpu02 cpu03 cpu04 cpu05 cpu06 cpu07 cpu08
@@ -108,22 +135,27 @@ Host cpu01 cpu02 cpu03 cpu04 cpu05 cpu06 cpu07 cpu08
     TCPKeepAlive yes
 ```
 
-That third block is the **jump**: `ProxyJump ircbc` lets your laptop reach a
+The third block is the **jump**: `ProxyJump ircbc` lets your laptop reach a
 compute node (`cpu01`…`cpu08`) by hopping through the login node
 automatically. It only works while you have a job running on that node
-(more on that in step 5).
+(step 5).
 
-### 3. Test it
+!!! tip "Using the transfer node too"
+    To move files directly to/from the shared transfer account, install your
+    key there the same way, using `<TRANSFER_PASSWORD>`:
+    `ssh-copy-id -i ~/.ssh/<LOGIN_KEY>.pub <TRANSFER_USER>@<TRANSFER_IP>`.
 
-On your laptop, connect to the login node:
+### 5. Test it
+
+On your laptop:
 
 ```bash
 ssh ircbc hostname
 ```
 
-You should see the login node's name printed back. (Run `ssh ircbc` with no
-command to get an interactive shell **on IRCBC**; type `exit` to return to your
-laptop.)
+It should print the login node's name **without asking for a password** — that
+means your key works. (Run `ssh ircbc` with no command for an interactive shell
+on IRCBC; `exit` returns you to your laptop.)
 
 !!! tip "Command hangs?"
     From off-site, that's almost always the VPN — reconnect `<VPN>` and try
@@ -141,9 +173,18 @@ understand it.
 
 ### a. Let the login node reach the transfer node
 
-You added `ircbc-transfer` to your *laptop's* config in step 2 (for file
-transfer). The **login node needs its own copy** so it can open the proxy. On
-IRCBC, edit `~/.ssh/config` and add:
+The proxy connects automatically, so the login node needs **passwordless**
+(key-based) access to the transfer node. This is separate from your laptop's
+`ircbc-transfer` entry in step 2 — the login node needs its own key. While
+logged in on IRCBC, make a key there and install it on the transfer account
+(this uses `<TRANSFER_PASSWORD>` once):
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/<TRANSFER_KEY>
+ssh-copy-id -i ~/.ssh/<TRANSFER_KEY>.pub <TRANSFER_USER>@<TRANSFER_IP>
+```
+
+Then add the transfer host to `~/.ssh/config` **on IRCBC**:
 
 ```
 Host ircbc-transfer
@@ -160,9 +201,7 @@ Host ircbc-transfer
     StrictHostKeyChecking no
 ```
 
-The shared transfer key must also live on the login node at
-`~/.ssh/<TRANSFER_KEY>` (the admin gives you this). Test it while logged in on
-IRCBC:
+Check it works (it should not ask for a password):
 
 ```bash
 ssh ircbc-transfer hostname
