@@ -470,6 +470,93 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inhouse tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inhouse tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inhouse/ircbc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IRCBC HPC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -703,6 +790,13 @@ Mac — validate that on an NVIDIA node with <code>--nv</code> / <code>--gpus al
 <h2 id="singularity-apptainer">Singularity / Apptainer<a class="headerlink" href="#singularity-apptainer" title="Permanent link">&para;</a></h2>
 <p>Most clusters use Singularity (Apptainer) instead of Docker. Pull the same
 public per-env image straight from GHCR — no Docker, no root needed.</p>
+<div class="admonition tip">
+<p class="admonition-title">On the lab's IRCBC cluster?</p>
+<p>This page stays general (any machine or cluster). Lab members working on
+IRCBC should follow the <a href="../inhouse/ircbc/">IRCBC HPC</a> in-house tutorial
+instead — it covers the exact cluster workflow end to end: SSH setup, the
+shared image, and JupyterLab over a tunnel.</p>
+</div>
 <h3 id="pull">Pull<a class="headerlink" href="#pull" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># `pull` converts the image into a single .sif, named after the tag.</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>singularity<span class="w"> </span>pull<span class="w"> </span>docker://ghcr.io/liuhlab/liulab-runtime:align-rna
