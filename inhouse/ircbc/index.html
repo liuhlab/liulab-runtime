@@ -478,10 +478,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-make-an-ssh-key" class="md-nav__link">
+  <a href="#1-log-in-the-first-time-with-your-password" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Make an SSH key
+        1. Log in the first time (with your password)
       
     </span>
   </a>
@@ -489,10 +489,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-add-the-hosts-to-sshconfig" class="md-nav__link">
+  <a href="#2-create-your-ssh-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Add the hosts to ~/.ssh/config
+        2. Create your SSH key
       
     </span>
   </a>
@@ -500,10 +500,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-test-it" class="md-nav__link">
+  <a href="#3-install-your-key-on-ircbc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Test it
+        3. Install your key on IRCBC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-add-the-hosts-to-sshconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Add the hosts to ~/.ssh/config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-test-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Test it
       
     </span>
   </a>
@@ -725,10 +747,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-make-an-ssh-key" class="md-nav__link">
+  <a href="#1-log-in-the-first-time-with-your-password" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Make an SSH key
+        1. Log in the first time (with your password)
       
     </span>
   </a>
@@ -736,10 +758,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-add-the-hosts-to-sshconfig" class="md-nav__link">
+  <a href="#2-create-your-ssh-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Add the hosts to ~/.ssh/config
+        2. Create your SSH key
       
     </span>
   </a>
@@ -747,10 +769,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-test-it" class="md-nav__link">
+  <a href="#3-install-your-key-on-ircbc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Test it
+        3. Install your key on IRCBC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-add-the-hosts-to-sshconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Add the hosts to ~/.ssh/config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-test-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Test it
       
     </span>
   </a>
@@ -989,11 +1033,11 @@ your <code>~/.ssh/config</code> — never in a shared document.</strong></p>
 </thead>
 <tbody>
 <tr>
-<td>IRCBC login address + your <strong>login</strong> account and key</td>
+<td>IRCBC login address + your login <strong>username and password</strong></td>
 <td><code>&lt;LOGIN_IP&gt;</code>, <code>&lt;LOGIN_USER&gt;</code>, <code>&lt;LOGIN_PASSWORD&gt;</code></td>
 </tr>
 <tr>
-<td><strong>ircbc-transfer</strong> account (a <em>separate, shared</em> lab account) + its key</td>
+<td><strong>ircbc-transfer</strong> — a <em>separate, shared</em> lab account (<strong>username and password</strong>)</td>
 <td><code>&lt;TRANSFER_IP&gt;</code>, <code>&lt;TRANSFER_USER&gt;</code>, <code>&lt;TRANSFER_PASSWORD&gt;</code></td>
 </tr>
 <tr>
@@ -1002,54 +1046,81 @@ your <code>~/.ssh/config</code> — never in a shared document.</strong></p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">You make your own SSH key</p>
+<p>The admin gives you <strong>usernames and passwords, not SSH keys</strong>. You log in
+with the password once, then create your own key for passwordless login —
+that's the next section.</p>
+</div>
 <hr />
 <h2 id="2-set-up-ssh-on-your-laptop">2. Set up SSH on your laptop<a class="headerlink" href="#2-set-up-ssh-on-your-laptop" title="Permanent link">&para;</a></h2>
-<p>Everything in this section happens <strong>on your laptop</strong>.</p>
-<h3 id="1-make-an-ssh-key">1. Make an SSH key<a class="headerlink" href="#1-make-an-ssh-key" title="Permanent link">&para;</a></h3>
-<p>On your laptop, create a key pair:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-f<span class="w"> </span>~/.ssh/&lt;LOGIN_KEY&gt;
+<p>Everything in this section happens <strong>on your laptop</strong>. The goal: log in once
+with your password, then switch to a passwordless SSH <strong>key</strong>.</p>
+<h3 id="1-log-in-the-first-time-with-your-password">1. Log in the first time (with your password)<a class="headerlink" href="#1-log-in-the-first-time-with-your-password" title="Permanent link">&para;</a></h3>
+<p>Connect using the username and password the admin gave you (connect the VPN
+first if you're off-site):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>&lt;LOGIN_USER&gt;@&lt;LOGIN_IP&gt;
 </code></pre></div>
-<p>Send the <strong>public</strong> half (the <code>.pub</code> file) to the admin so they can add it to
-your account:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cat<span class="w"> </span>~/.ssh/&lt;LOGIN_KEY&gt;.pub
+<p>Enter <code>&lt;LOGIN_PASSWORD&gt;</code> when prompted. You're now <strong>on IRCBC</strong> — type <code>exit</code>
+to return to your laptop. This is the only time you'll need the password.</p>
+<h3 id="2-create-your-ssh-key">2. Create your SSH key<a class="headerlink" href="#2-create-your-ssh-key" title="Permanent link">&para;</a></h3>
+<p>The admin gave you a password, not a key — you make your own. On your laptop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-f<span class="w"> </span>~/.ssh/&lt;LOGIN_KEY&gt;
 </code></pre></div>
-<p>The transfer host uses its <strong>own</strong> account and key — repeat this for
-<code>&lt;TRANSFER_KEY&gt;</code> if the admin gives you a separate one.</p>
-<h3 id="2-add-the-hosts-to-sshconfig">2. Add the hosts to <code>~/.ssh/config</code><a class="headerlink" href="#2-add-the-hosts-to-sshconfig" title="Permanent link">&para;</a></h3>
-<p>On your laptop, open the file <code>~/.ssh/config</code> (create it if it doesn't exist)
-and paste these three blocks, filling in your placeholders:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># 1. Login node — light work only (editing, git, submitting jobs)
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Host ircbc
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    HostName &lt;LOGIN_IP&gt;
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    User &lt;LOGIN_USER&gt;
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    IdentityFile ~/.ssh/&lt;LOGIN_KEY&gt;
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a># 2. Transfer node — moving files in and out (separate shared account + key)
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Host ircbc-transfer
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    HostName &lt;TRANSFER_IP&gt;
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    User &lt;TRANSFER_USER&gt;
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    IdentityFile ~/.ssh/&lt;TRANSFER_KEY&gt;
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a># 3. Compute nodes — reached *through* the login node (the &quot;jump&quot;)
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>Host cpu01 cpu02 cpu03 cpu04 cpu05 cpu06 cpu07 cpu08
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    HostName %h
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    User &lt;LOGIN_USER&gt;
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    ProxyJump ircbc
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    IdentityFile ~/.ssh/&lt;LOGIN_KEY&gt;
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    ServerAliveInterval 15
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    TCPKeepAlive yes
+<p>Press Enter through the prompts (an empty passphrase is fine to start).</p>
+<h3 id="3-install-your-key-on-ircbc">3. Install your key on IRCBC<a class="headerlink" href="#3-install-your-key-on-ircbc" title="Permanent link">&para;</a></h3>
+<p>Copy the key's <strong>public</strong> half to your account so you can log in without a
+password. This uses <code>&lt;LOGIN_PASSWORD&gt;</code> one last time:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>~/.ssh/&lt;LOGIN_KEY&gt;.pub<span class="w"> </span>&lt;LOGIN_USER&gt;@&lt;LOGIN_IP&gt;
 </code></pre></div>
-<p>That third block is the <strong>jump</strong>: <code>ProxyJump ircbc</code> lets your laptop reach a
+<div class="admonition note">
+<p class="admonition-title">No <code>ssh-copy-id</code> command?</p>
+<p>Install the key by hand instead:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>cat<span class="w"> </span>~/.ssh/&lt;LOGIN_KEY&gt;.pub<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>&lt;LOGIN_USER&gt;@&lt;LOGIN_IP&gt;<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="s1">&#39;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys&#39;</span>
+</code></pre></div>
+</div>
+<h3 id="4-add-the-hosts-to-sshconfig">4. Add the hosts to <code>~/.ssh/config</code><a class="headerlink" href="#4-add-the-hosts-to-sshconfig" title="Permanent link">&para;</a></h3>
+<p>On your laptop, open <code>~/.ssh/config</code> (create it if it doesn't exist) and paste
+these three blocks, filling in your placeholders:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># 1. Login node — light work only (editing, git, submitting jobs)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Host ircbc
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    HostName &lt;LOGIN_IP&gt;
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    User &lt;LOGIN_USER&gt;
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    IdentityFile ~/.ssh/&lt;LOGIN_KEY&gt;
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a># 2. Transfer node — moving files in and out (separate shared account)
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Host ircbc-transfer
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    HostName &lt;TRANSFER_IP&gt;
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    User &lt;TRANSFER_USER&gt;
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    IdentityFile ~/.ssh/&lt;LOGIN_KEY&gt;
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a># 3. Compute nodes — reached *through* the login node (the &quot;jump&quot;)
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>Host cpu01 cpu02 cpu03 cpu04 cpu05 cpu06 cpu07 cpu08
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    HostName %h
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    User &lt;LOGIN_USER&gt;
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    ProxyJump ircbc
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    IdentityFile ~/.ssh/&lt;LOGIN_KEY&gt;
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    ServerAliveInterval 15
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    TCPKeepAlive yes
+</code></pre></div>
+<p>The third block is the <strong>jump</strong>: <code>ProxyJump ircbc</code> lets your laptop reach a
 compute node (<code>cpu01</code>…<code>cpu08</code>) by hopping through the login node
 automatically. It only works while you have a job running on that node
-(more on that in step 5).</p>
-<h3 id="3-test-it">3. Test it<a class="headerlink" href="#3-test-it" title="Permanent link">&para;</a></h3>
-<p>On your laptop, connect to the login node:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span>hostname
+(step 5).</p>
+<div class="admonition tip">
+<p class="admonition-title">Using the transfer node too</p>
+<p>To move files directly to/from the shared transfer account, install your
+key there the same way, using <code>&lt;TRANSFER_PASSWORD&gt;</code>:
+<code>ssh-copy-id -i ~/.ssh/&lt;LOGIN_KEY&gt;.pub &lt;TRANSFER_USER&gt;@&lt;TRANSFER_IP&gt;</code>.</p>
+</div>
+<h3 id="5-test-it">5. Test it<a class="headerlink" href="#5-test-it" title="Permanent link">&para;</a></h3>
+<p>On your laptop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span>hostname
 </code></pre></div>
-<p>You should see the login node's name printed back. (Run <code>ssh ircbc</code> with no
-command to get an interactive shell <strong>on IRCBC</strong>; type <code>exit</code> to return to your
-laptop.)</p>
+<p>It should print the login node's name <strong>without asking for a password</strong> — that
+means your key works. (Run <code>ssh ircbc</code> with no command for an interactive shell
+on IRCBC; <code>exit</code> returns you to your laptop.)</p>
 <div class="admonition tip">
 <p class="admonition-title">Command hangs?</p>
 <p>From off-site, that's almost always the VPN — reconnect <code>&lt;VPN&gt;</code> and try
@@ -1063,41 +1134,45 @@ files <strong>on IRCBC</strong> (log in with <code>ssh ircbc</code> first). It m
 configured for you — check with the admin — but here's the full setup so you
 understand it.</p>
 <h3 id="a-let-the-login-node-reach-the-transfer-node">a. Let the login node reach the transfer node<a class="headerlink" href="#a-let-the-login-node-reach-the-transfer-node" title="Permanent link">&para;</a></h3>
-<p>You added <code>ircbc-transfer</code> to your <em>laptop's</em> config in step 2 (for file
-transfer). The <strong>login node needs its own copy</strong> so it can open the proxy. On
-IRCBC, edit <code>~/.ssh/config</code> and add:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Host ircbc-transfer
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    HostName &lt;TRANSFER_IP&gt;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    User &lt;TRANSFER_USER&gt;
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    IdentityFile ~/.ssh/&lt;TRANSFER_KEY&gt;
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    # reuse one shared connection so the proxy stays efficient
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    ControlMaster auto
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    ControlPath ~/.ssh/cm-%r@%h:%p
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    ControlPersist 8h
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    # skip the first-time host-key prompt so the automatic tunnel can&#39;t stall
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    StrictHostKeyChecking no
+<p>The proxy connects automatically, so the login node needs <strong>passwordless</strong>
+(key-based) access to the transfer node. This is separate from your laptop's
+<code>ircbc-transfer</code> entry in step 2 — the login node needs its own key. While
+logged in on IRCBC, make a key there and install it on the transfer account
+(this uses <code>&lt;TRANSFER_PASSWORD&gt;</code> once):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-f<span class="w"> </span>~/.ssh/&lt;TRANSFER_KEY&gt;
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>~/.ssh/&lt;TRANSFER_KEY&gt;.pub<span class="w"> </span>&lt;TRANSFER_USER&gt;@&lt;TRANSFER_IP&gt;
 </code></pre></div>
-<p>The shared transfer key must also live on the login node at
-<code>~/.ssh/&lt;TRANSFER_KEY&gt;</code> (the admin gives you this). Test it while logged in on
-IRCBC:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ssh<span class="w"> </span>ircbc-transfer<span class="w"> </span>hostname
+<p>Then add the transfer host to <code>~/.ssh/config</code> <strong>on IRCBC</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Host ircbc-transfer
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    HostName &lt;TRANSFER_IP&gt;
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    User &lt;TRANSFER_USER&gt;
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    IdentityFile ~/.ssh/&lt;TRANSFER_KEY&gt;
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    # reuse one shared connection so the proxy stays efficient
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    ControlMaster auto
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    ControlPath ~/.ssh/cm-%r@%h:%p
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    ControlPersist 8h
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    # skip the first-time host-key prompt so the automatic tunnel can&#39;t stall
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    StrictHostKeyChecking no
+</code></pre></div>
+<p>Check it works (it should not ask for a password):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ssh<span class="w"> </span>ircbc-transfer<span class="w"> </span>hostname
 </code></pre></div>
 <h3 id="b-open-the-proxy-and-export-the-settings">b. Open the proxy and export the settings<a class="headerlink" href="#b-open-the-proxy-and-export-the-settings" title="Permanent link">&para;</a></h3>
 <p>Still on IRCBC, add this to <code>~/.bashrc</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Start SOCKS proxy through transfer node</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>nc<span class="w"> </span>-z<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="m">1080</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span>ssh<span class="w"> </span>-f<span class="w"> </span>-N<span class="w"> </span>-D<span class="w"> </span><span class="m">127</span>.0.0.1:1080<span class="w"> </span>ircbc-transfer
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">fi</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ALL_PROXY</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">all_proxy</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">http_proxy</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIU_LAB_PACKAGES</span><span class="o">=</span>/share/lhqlab/liulab_data/packages<span class="w">   </span><span class="c1"># shared image store</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Start SOCKS proxy through transfer node</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>nc<span class="w"> </span>-z<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="m">1080</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span>ssh<span class="w"> </span>-f<span class="w"> </span>-N<span class="w"> </span>-D<span class="w"> </span><span class="m">127</span>.0.0.1:1080<span class="w"> </span>ircbc-transfer
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">fi</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ALL_PROXY</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">all_proxy</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">http_proxy</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span><span class="s2">&quot;socks5h://127.0.0.1:1080&quot;</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIU_LAB_PACKAGES</span><span class="o">=</span>/share/lhqlab/liulab_data/packages<span class="w">   </span><span class="c1"># shared image store</span>
 </code></pre></div>
 <p>Log out and back in (or run <code>source ~/.bashrc</code>) to apply. The <code>nc</code> check opens
 the tunnel only if it isn't already running, so it's safe on every login: it
@@ -1118,7 +1193,7 @@ on IRCBC as a single file:</p>
 <li>On IRCBC: <code>$LIU_LAB_PACKAGES/liulab-runtime_ml.sif</code></li>
 </ul>
 <p>From your laptop, check it's there:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;ls -lh $LIU_LAB_PACKAGES/liulab-runtime_ml.sif&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;ls -lh $LIU_LAB_PACKAGES/liulab-runtime_ml.sif&#39;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Missing or out of date?</p>
@@ -1128,10 +1203,10 @@ here; see the <a href="../../containers/">Containers guide</a>.</p>
 </div>
 <p>Now run a quick command inside the image. Always do this on a <strong>compute node</strong>
 (via <code>srun</code>), never on the login node. From your laptop:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;srun -p compute_cpu -c 2 -t 10 bash -c &quot;\</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="s1">  module load singularity &amp;&amp; \</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="s1">  singularity exec $LIU_LAB_PACKAGES/liulab-runtime_ml.sif \</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="s1">    bash -c \&quot;source /app/.pixi/activate-ml.sh &amp;&amp; python -c \\\&quot;import scanpy; print(scanpy.__version__)\\\&quot;\&quot;&quot;&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;srun -p compute_cpu -c 2 -t 10 bash -c &quot;\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="s1">  module load singularity &amp;&amp; \</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="s1">  singularity exec $LIU_LAB_PACKAGES/liulab-runtime_ml.sif \</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="s1">    bash -c \&quot;source /app/.pixi/activate-ml.sh &amp;&amp; python -c \\\&quot;import scanpy; print(scanpy.__version__)\\\&quot;\&quot;&quot;&#39;</span>
 </code></pre></div>
 <p>If it prints a version number, the environment works.</p>
 <p>That command looks dense, but it's just a stack of small steps:</p>
@@ -1186,52 +1261,52 @@ on, just repeat the steps below whenever you want to work.</p>
 <p><strong>On IRCBC</strong> (log in with <code>ssh ircbc</code> first), create a file named
 <code>jupyter-ml.sbatch</code> with a text editor (e.g. <code>nano jupyter-ml.sbatch</code>) and
 paste:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="ch">#!/bin/bash</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1">#SBATCH -p compute_cpu       # IRCBC CPU partition</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">#SBATCH -c 8                 # CPUs  — ask for what you need</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1">#SBATCH --mem=32G            # memory</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1">#SBATCH -t 08:00:00          # time  — always set one</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1">#SBATCH -J jupyter-ml</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1">#SBATCH -o %x.%j.log         # this log holds your JupyterLab link</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># Compute nodes have no internet, so drop the login node&#39;s proxy settings</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nb">unset</span><span class="w"> </span>http_proxy<span class="w"> </span>https_proxy<span class="w"> </span>HTTP_PROXY<span class="w"> </span>HTTPS_PROXY<span class="w"> </span>ALL_PROXY<span class="w"> </span>all_proxy
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>module<span class="w"> </span>load<span class="w"> </span>singularity
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/share/lhqlab<span class="w"> </span><span class="nv">$LIU_LAB_PACKAGES</span>/liulab-runtime_ml.sif<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;source /app/.pixi/activate-ml.sh &amp;&amp; jupyter lab --no-browser --ip=127.0.0.1 --port=&lt;PORT&gt;&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">#SBATCH -p compute_cpu       # IRCBC CPU partition</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">#SBATCH -c 8                 # CPUs  — ask for what you need</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">#SBATCH --mem=32G            # memory</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1">#SBATCH -t 08:00:00          # time  — always set one</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1">#SBATCH -J jupyter-ml</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1">#SBATCH -o %x.%j.log         # this log holds your JupyterLab link</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Compute nodes have no internet, so drop the login node&#39;s proxy settings</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="nb">unset</span><span class="w"> </span>http_proxy<span class="w"> </span>https_proxy<span class="w"> </span>HTTP_PROXY<span class="w"> </span>HTTPS_PROXY<span class="w"> </span>ALL_PROXY<span class="w"> </span>all_proxy
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>module<span class="w"> </span>load<span class="w"> </span>singularity
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/share/lhqlab<span class="w"> </span><span class="nv">$LIU_LAB_PACKAGES</span>/liulab-runtime_ml.sif<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;source /app/.pixi/activate-ml.sh &amp;&amp; jupyter lab --no-browser --ip=127.0.0.1 --port=&lt;PORT&gt;&quot;</span>
 </code></pre></div>
 <p>Pick any <code>&lt;PORT&gt;</code> between 8000 and 9999 (e.g. <code>9990</code>) and use the same number
 everywhere below. Then submit it — from your laptop:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;sbatch jupyter-ml.sbatch&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;sbatch jupyter-ml.sbatch&#39;</span>
 </code></pre></div>
 <h3 id="2-find-your-node-and-link">2. Find your node and link<a class="headerlink" href="#2-find-your-node-and-link" title="Permanent link">&para;</a></h3>
 <p>From your laptop, check the job and note the node name under <code>NODELIST</code> —
 that's your <code>&lt;NODE&gt;</code> (one of <code>cpu01</code>…<code>cpu08</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;squeue -u $USER&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;squeue -u $USER&#39;</span>
 </code></pre></div>
 <p>Once it shows <code>R</code> (running), grab the JupyterLab URL from the log:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;grep token= jupyter-ml.&lt;JOBID&gt;.log&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;grep token= jupyter-ml.&lt;JOBID&gt;.log&#39;</span>
 </code></pre></div>
 <h3 id="3-open-the-tunnel">3. Open the tunnel<a class="headerlink" href="#3-open-the-tunnel" title="Permanent link">&para;</a></h3>
 <p>On your laptop, open a tunnel to the job's node (the jump through the login
 node is automatic):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ssh<span class="w"> </span>-f<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span>&lt;PORT&gt;:localhost:&lt;PORT&gt;<span class="w"> </span>&lt;NODE&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ssh<span class="w"> </span>-f<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span>&lt;PORT&gt;:localhost:&lt;PORT&gt;<span class="w"> </span>&lt;NODE&gt;
 </code></pre></div>
 <p>Then open this in your <strong>laptop's browser</strong> (use the token from the log):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>http://localhost:&lt;PORT&gt;/lab?token=&lt;token&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>http://localhost:&lt;PORT&gt;/lab?token=&lt;token&gt;
 </code></pre></div>
 <h3 id="4-confirm-it-works">4. Confirm it works<a class="headerlink" href="#4-confirm-it-works" title="Permanent link">&para;</a></h3>
 <p>In a new notebook cell (in the browser):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="o">,</span><span class="w"> </span><span class="nn">anndata</span><span class="o">,</span><span class="w"> </span><span class="nn">scvi</span><span class="o">,</span><span class="w"> </span><span class="nn">torch</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">scanpy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="o">,</span><span class="w"> </span><span class="nn">anndata</span><span class="o">,</span><span class="w"> </span><span class="nn">scvi</span><span class="o">,</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">scanpy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </code></pre></div>
 <p>The <code>ml</code> environment also includes scvi-tools, celltypist, and more — see the
 <a href="../../#available-environments">full list</a>.</p>
 <h3 id="5-when-youre-done">5. When you're done<a class="headerlink" href="#5-when-youre-done" title="Permanent link">&para;</a></h3>
 <p>On your laptop:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>pkill<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;ssh -f -N -L &lt;PORT&gt;&quot;</span><span class="w">      </span><span class="c1"># close the tunnel on your laptop</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;scancel &lt;JOBID&gt;&#39;</span><span class="w">         </span><span class="c1"># free the compute node</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>pkill<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;ssh -f -N -L &lt;PORT&gt;&quot;</span><span class="w">      </span><span class="c1"># close the tunnel on your laptop</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>ssh<span class="w"> </span>ircbc<span class="w"> </span><span class="s1">&#39;scancel &lt;JOBID&gt;&#39;</span><span class="w">         </span><span class="c1"># free the compute node</span>
 </code></pre></div>
 <hr />
 <h2 id="6-be-a-good-hpc-citizen">6. Be a good HPC citizen<a class="headerlink" href="#6-be-a-good-hpc-citizen" title="Permanent link">&para;</a></h2>
