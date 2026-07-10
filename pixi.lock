@@ -171,6 +171,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/regex-2026.6.28-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scipy-1.18.0-py313h4b8bb8b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/simplejson-4.1.1-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sqlite-3.53.3-hbc0de68_0.conda
@@ -261,6 +262,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -458,6 +461,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -663,6 +668,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/readline-8.3-h68b038d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/regex-2026.6.28-py313hf59fe81_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rpds-py-2026.6.3-py313he4ad68c_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/ruff-0.15.21-h1ddadc8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/scipy-1.18.0-py313h9cbb6b6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/simplejson-4.1.1-py313hf59fe81_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/statsmodels-0.14.6-py313h0f4b8c3_0.conda
@@ -773,6 +779,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -977,6 +985,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/readline-8.3-h46df422_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/regex-2026.6.28-py313h0997733_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rpds-py-2026.6.3-py313hb9d2816_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ruff-0.15.21-h80928e0_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/scipy-1.18.0-py313h52f5312_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/simplejson-4.1.1-py313h0997733_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/statsmodels-0.14.6-py313hc577518_0.conda
@@ -1136,6 +1145,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/regex-2026.6.28-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scipy-1.18.0-py313h4b8bb8b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/simplejson-4.1.1-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sqlite-3.53.3-hbc0de68_0.conda
@@ -1226,6 +1236,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -1479,6 +1491,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/regex-2026.6.28-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scipy-1.18.0-py313h4b8bb8b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/simplejson-4.1.1-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sqlite-3.53.3-hbc0de68_0.conda
@@ -1568,6 +1581,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -1765,6 +1780,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -1970,6 +1987,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/readline-8.3-h68b038d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/regex-2026.6.28-py313hf59fe81_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rpds-py-2026.6.3-py313he4ad68c_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/ruff-0.15.21-h1ddadc8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/scipy-1.18.0-py313h9cbb6b6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/simplejson-4.1.1-py313hf59fe81_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/statsmodels-0.14.6-py313h0f4b8c3_0.conda
@@ -2198,6 +2216,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -2391,6 +2411,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -2693,6 +2715,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -3110,6 +3134,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -3288,6 +3314,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyzmq-27.1.0-py312hda471dd_3.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.20-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_h366c992_103.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/tornado-6.5.7-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/watchdog-6.0.0-py313hd5f5364_3.conda
@@ -3349,6 +3376,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -3502,6 +3531,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -3635,6 +3666,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/pyzmq-27.1.0-py312h2ac7433_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/readline-8.3-h68b038d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rpds-py-2026.6.3-py313he4ad68c_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/ruff-0.15.20-h1ddadc8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/tk-8.6.13-h7142dee_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/tornado-6.5.7-py313hf59fe81_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/watchdog-6.0.0-py313h22ab4a2_3.conda
@@ -3709,6 +3741,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -3842,6 +3876,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pyzmq-27.1.0-py312h022ad19_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/readline-8.3-h46df422_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rpds-py-2026.6.3-py313hb9d2816_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ruff-0.15.20-h80928e0_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/tk-8.6.13-h010d191_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/tornado-6.5.7-py313h0997733_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/watchdog-6.0.0-py313h6688731_3.conda
@@ -3914,6 +3949,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyzmq-27.1.0-py312hda471dd_3.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.20-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_h366c992_103.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/tornado-6.5.7-py313h07c4f96_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/watchdog-6.0.0-py313hd5f5364_3.conda
@@ -3975,6 +4011,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -4431,6 +4469,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpy2-3.6.7-py313r45h269ec90_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/s2n-1.7.4-h92489ea_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scikit-learn-1.9.0-np2py313h16d504d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scikit-misc-0.5.2-py313h9cc49e9_0.conda
@@ -4560,6 +4599,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -4998,6 +5039,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -5533,6 +5576,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/readline-8.3-h68b038d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rpds-py-2026.6.3-py313he4ad68c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/rpy2-3.6.7-py313r45h6bc3bb2_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/ruff-0.15.21-h1ddadc8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/scikit-learn-1.9.0-np2py313h4d167ef_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/scikit-misc-0.5.2-py313hfaf055f_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/scipy-1.16.3-py313hefbb9bc_2.conda
@@ -5780,6 +5824,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -6315,6 +6361,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/readline-8.3-h46df422_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rpds-py-2026.6.3-py313hb9d2816_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/rpy2-3.6.7-py313r45he5fa5e1_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ruff-0.15.21-h80928e0_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/scikit-learn-1.9.0-np2py313h3b23316_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/scikit-misc-0.5.2-py313h1b5c6b9_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/scipy-1.16.3-py313h29d7d31_2.conda
@@ -6791,6 +6838,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpy2-3.6.7-py313r45h269ec90_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/s2n-1.7.4-h92489ea_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scikit-learn-1.9.0-np2py313h16d504d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scikit-misc-0.5.2-py313h9cc49e9_0.conda
@@ -6926,6 +6974,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -7611,6 +7661,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.3-h853b02a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpds-py-2026.6.3-py313hafbe609_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rpy2-3.6.7-py313r45h269ec90_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/s2n-1.7.4-h92489ea_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scikit-learn-1.9.0-np2py313h16d504d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scikit-misc-0.5.2-py313h9cc49e9_0.conda
@@ -7747,6 +7798,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.20.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.16-pyhcf101f3_1.conda
@@ -17465,6 +17518,23 @@ packages:
   run_exports: {}
   size: 9342178
   timestamp: 1782428525856
+- conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.15.21-h6a952e8_0.conda
+  noarch: python
+  sha256: 2926c4f0adb88058e3d797c39cccc965bb4f1e0a3f582403b57fa83ea2f7e4af
+  md5: 469696f9c70885af30a0af1ce2e8c3a6
+  depends:
+  - python
+  - libgcc >=14
+  - __glibc >=2.17,<3.0.a0
+  constrains:
+  - __glibc >=2.17
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/ruff?source=compressed-mapping
+  run_exports: {}
+  size: 9356259
+  timestamp: 1783653725254
 - conda: https://conda.anaconda.org/conda-forge/linux-64/s2n-1.7.4-h92489ea_1.conda
   sha256: de0bb8c7526684c9927cc687d4d07abe09d023a3ec950cfcd61089b495e2e616
   md5: a20feedf58ce5441b115cebf284a9a75
@@ -17803,7 +17873,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=hash-mapping
+  - pkg:pypi/tornado?source=compressed-mapping
   run_exports: {}
   size: 885824
   timestamp: 1781006802459
@@ -17910,7 +17980,7 @@ packages:
   license: BSD-2-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/wrapt?source=compressed-mapping
+  - pkg:pypi/wrapt?source=hash-mapping
   run_exports: {}
   size: 117401
   timestamp: 1782133645625
@@ -18313,7 +18383,7 @@ packages:
   license: Apache-2.0
   license_family: APACHE
   purls:
-  - pkg:pypi/argcomplete?source=compressed-mapping
+  - pkg:pypi/argcomplete?source=hash-mapping
   run_exports: {}
   size: 46445
   timestamp: 1782888485558
@@ -18531,7 +18601,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/beautifulsoup4?source=compressed-mapping
+  - pkg:pypi/beautifulsoup4?source=hash-mapping
   run_exports: {}
   size: 92704
   timestamp: 1780853175566
@@ -18912,7 +18982,7 @@ packages:
   license: BSD-2-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/decorator?source=compressed-mapping
+  - pkg:pypi/decorator?source=hash-mapping
   run_exports: {}
   size: 16102
   timestamp: 1779115228886
@@ -19350,7 +19420,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/humanize?source=compressed-mapping
+  - pkg:pypi/humanize?source=hash-mapping
   run_exports: {}
   size: 72882
   timestamp: 1782906300604
@@ -19925,6 +19995,32 @@ packages:
   run_exports: {}
   size: 13793940
   timestamp: 1782739437310
+- conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_code_formatter-3.0.3-pyhd8ed1ab_0.conda
+  sha256: f1e79b2d35fea6c768c9d2d1a6bb9388307145a8bd82b1507b2aaf544f0a1601
+  md5: 6c4f1092d88ddef44e97d12450a04c28
+  depends:
+  - jupyter_server >=1.21,<3
+  - python >=3.10
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/jupyterlab-code-formatter?source=hash-mapping
+  run_exports: {}
+  size: 31925
+  timestamp: 1770842452443
+- conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_execute_time-3.2.0-pyhd8ed1ab_1.conda
+  sha256: fb0c99c33992846a4430a0b4f49dc04ddd2630388bd54bac5d904eb35339924b
+  md5: 85e0126781ff401c52aacda9c84c29c8
+  depends:
+  - jupyterlab >=4,<5
+  - python >=3.9
+  license: BSD-3-Clause
+  license_family: BSD
+  purls:
+  - pkg:pypi/jupyterlab-execute-time?source=hash-mapping
+  run_exports: {}
+  size: 164034
+  timestamp: 1734799138304
 - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
   sha256: dc24b900742fdaf1e077d9a3458fd865711de80bca95fe3c6d46610c532c6ef0
   md5: fd312693df06da3578383232528c468d
@@ -20485,7 +20581,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/nbclient?source=compressed-mapping
+  - pkg:pypi/nbclient?source=hash-mapping
   run_exports: {}
   size: 29138
   timestamp: 1780661039538
@@ -21157,7 +21253,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/polars?source=compressed-mapping
+  - pkg:pypi/polars?source=hash-mapping
   run_exports: {}
   size: 542486
   timestamp: 1782814229638
@@ -21280,7 +21376,7 @@ packages:
   license: Apache-2.0
   license_family: APACHE
   purls:
-  - pkg:pypi/xgboost?source=compressed-mapping
+  - pkg:pypi/xgboost?source=hash-mapping
   run_exports: {}
   size: 174786
   timestamp: 1782463242337
@@ -21512,7 +21608,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/python-discovery?source=compressed-mapping
+  - pkg:pypi/python-discovery?source=hash-mapping
   run_exports: {}
   size: 35514
   timestamp: 1781257630962
@@ -22991,7 +23087,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/sparse?source=compressed-mapping
+  - pkg:pypi/sparse?source=hash-mapping
   run_exports: {}
   size: 127433
   timestamp: 1782985176301
@@ -23529,8 +23625,7 @@ packages:
   - python >=3.12
   license: Apache-2.0
   license_family: APACHE
-  purls:
-  - pkg:pypi/xgboost?source=compressed-mapping
+  purls: []
   run_exports: {}
   size: 15698
   timestamp: 1782464343154
@@ -26463,7 +26558,7 @@ packages:
   license: PSF-2.0
   license_family: PSF
   purls:
-  - pkg:pypi/matplotlib?source=compressed-mapping
+  - pkg:pypi/matplotlib?source=hash-mapping
   run_exports: {}
   size: 8702375
   timestamp: 1782829893189
@@ -29169,6 +29264,22 @@ packages:
   run_exports: {}
   size: 9318935
   timestamp: 1782428757092
+- conda: https://conda.anaconda.org/conda-forge/osx-64/ruff-0.15.21-h1ddadc8_0.conda
+  noarch: python
+  sha256: d4b11da12053af472ed32eafc744b4eaa490ff8e4394b806b3f45778ca0c918e
+  md5: 3542ffffbe904a0a33eed5d345e314c1
+  depends:
+  - python
+  - __osx >=11.0
+  constrains:
+  - __osx >=10.13
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/ruff?source=hash-mapping
+  run_exports: {}
+  size: 9348629
+  timestamp: 1783653896015
 - conda: https://conda.anaconda.org/conda-forge/osx-64/scikit-learn-1.9.0-np2py313h4d167ef_0.conda
   sha256: 2e9551099fbb615be4dc9f1fb0af3f2980362773e4362b19b5c97a5f4fa099fb
   md5: a4c59ec92d804e21e3457ebae040f286
@@ -30445,7 +30556,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/debugpy?source=hash-mapping
+  - pkg:pypi/debugpy?source=compressed-mapping
   run_exports: {}
   size: 2754468
   timestamp: 1780390249891
@@ -33298,7 +33409,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pyzmq?source=compressed-mapping
+  - pkg:pypi/pyzmq?source=hash-mapping
   run_exports: {}
   size: 191432
   timestamp: 1779484184540
@@ -35148,6 +35259,22 @@ packages:
   run_exports: {}
   size: 8539333
   timestamp: 1782428897543
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/ruff-0.15.21-h80928e0_0.conda
+  noarch: python
+  sha256: 030f59aa0d9f4b0b1cc0583fb18a260a70d4f3c2b548e8378b109f2c750fad4b
+  md5: 802c895a8f535ce9342dc0c968a05ded
+  depends:
+  - python
+  - __osx >=11.0
+  constrains:
+  - __osx >=11.0
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/ruff?source=hash-mapping
+  run_exports: {}
+  size: 8557660
+  timestamp: 1783653958411
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/scikit-learn-1.9.0-np2py313h3b23316_0.conda
   sha256: 9a4952f444b1cc4e293fdfc727bfb5169cb2c11e4e42b61fee276d4febb995a4
   md5: 5e343b51e6728cb88da5e2e1bba24cf7
@@ -35454,7 +35581,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=compressed-mapping
+  - pkg:pypi/tornado?source=hash-mapping
   run_exports: {}
   size: 889689
   timestamp: 1781007967544
