@@ -57,5 +57,54 @@ jobs:
           # parent index/attestation links them.
           older-than: 1 day
           # After deleting, verify every remaining tagged image still resolves.
+          # NB: this only *warns* on a dangling tag -- it does not fail the run.
+          # The next step is what turns that into a failure.
           validate: true
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+
+      # The action's `validate` logs `##[warning]digest <sha> not found on image
+      # <tag>` and exits 0, so a broken tag shows up as a green run -- that is
+      # how `:latest` sat dangling and unnoticed from 2026-06-30 to 2026-07-15.
+      # A tagged index whose children are gone is unpullable AND is excluded
+      # from pruning (it's tagged), so it never self-heals: it has to fail loudly.
+      #
+      # This re-derives the check from the registry rather than grepping the
+      # action's log, so it can't silently stop working if that wording changes.
+      - name: Fail if any tag is left dangling
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY_OWNER,,}/liulab-runtime"   # ghcr wants lowercase
+          accept=(
+            -H "Accept: application/vnd.oci.image.index.v1+json"
+            -H "Accept: application/vnd.docker.distribution.manifest.list.v2+json"
+            -H "Accept: application/vnd.oci.image.manifest.v1+json"
+            -H "Accept: application/vnd.docker.distribution.manifest.v2+json"
+          )
+          token=$(curl -fsS -u "x:${GH_TOKEN}" \
+            "https://ghcr.io/token?scope=repository:${repo}:pull&service=ghcr.io" | jq -r .token)
+          auth=(-H "Authorization: Bearer ${token}")
+
+          fail=0
+          for tag in $(curl -fsS "${auth[@]}" "https://ghcr.io/v2/${repo}/tags/list" | jq -r '.tags[]'); do
+            index=$(curl -fsS "${auth[@]}" "${accept[@]}" \
+              "https://ghcr.io/v2/${repo}/manifests/${tag}") || {
+                echo "::error::tag ${tag} does not resolve at all"; fail=1; continue; }
+            # Single-manifest tags have no .manifests[]; nothing further to check.
+            for child in $(jq -r '.manifests[]?.digest // empty' <<<"$index"); do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "${auth[@]}" "${accept[@]}" \
+                "https://ghcr.io/v2/${repo}/manifests/${child}")
+              if [ "$code" = "200" ]; then
+                echo "ok       ${tag} -> ${child}"
+              else
+                echo "::error::dangling tag ${tag}: child ${child} returns ${code} — image is unpullable"
+                fail=1
+              fi
+            done
+          done
+          # Not `[ $fail -eq 0 ] && echo ...`: under `set -e` a false test as the
+          # last statement would exit before `exit $fail` ever runs.
+          if [ $fail -eq 0 ]; then echo "all tags resolve"; fi
+          exit $fail
