@@ -2,6 +2,13 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.7.16
+
+- Added `seqforge` (lab repo, GitHub-hosted) to the shared `lab` feature, so
+  it's available in every environment except `docs` (`default`, `align-rna`,
+  `align-dna`, `ml`, `ml-gpu`). Its dependencies resolve against the existing
+  pins — `numpy` (lab's `>=2.1,<2.4` satisfies its `>=2`) and `anndata`.
+
 ## 2026.7.9
 
 - Added `celltypist` (automated cell-type annotation) to the `single-cell`

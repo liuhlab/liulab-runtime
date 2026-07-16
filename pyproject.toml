@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.9"
+version = "2026.7.16"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -74,6 +74,7 @@ ucsc-twobitinfo = "*"   # twoBitInfo, shelled out to by liulab-genome
 [tool.pixi.feature.lab.pypi-dependencies]
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
 liulab-genome = { git = "https://github.com/liuhlab/liulab-genome.git" }
+seqforge = { git = "https://github.com/liuhlab/seqforge.git" }
 
 # ======================================================================
 #  Alignment features — genomic read alignment (CPU only)
