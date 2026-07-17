@@ -28,7 +28,7 @@ pixi run <task>           # run a defined task
 
 ```
 pyproject.toml            # the source of truth: channels, deps, features, envs, tasks
-scripts/                  # register_all_kernels.sh (kernel registration helper)
+scripts/                  # register_all_kernels.sh (kernels); stack (cross-repo git helper)
 docs/                     # MkDocs site (index.md = getting started, background.md)
 mkdocs.yml
 .github/workflows/        # CI (docs build) + docs deploy
@@ -62,6 +62,25 @@ once after `pixi install` (documented in `docs/index.md`); pixi has no
 install-time hook. The task loops over every environment running the
 per-env `register-kernel` task. Keep `scripts/register_all_kernels.sh`
 quiet and dependency-light (POSIX-ish bash).
+
+## Developing across the lab stack
+
+This repo pins the lab's own packages (`seqforge`, `liulab-data`,
+`liulab-genome`) by git URL, so it's also the place to coordinate their
+checkouts during development. `scripts/stack` — exposed as `pixi run stack`
+— fans one git command across the four sibling checkouts (`liulab-runtime`,
+`seqforge`, `liulab-data`, `liulab-genome`) that live side by side under a
+common parent `src/` dir. Commands: `status`, `sync`, `pull`, `push`,
+`branch <name>`, `switch <name>`, `run <cmd...>`. A sibling that isn't
+checked out is skipped, not an error.
+
+It's a **batch helper, not a superproject**: the four repos stay
+independent (own remotes, branches, CI) and no submodule pointers are
+tracked — never nest them as submodules. A pinned dependency change reaches
+this env only after it lands on that package's `main`: commit + push it in
+its own repo (`stack push` helps), then `pixi update <package>` here. For
+cross-repo editing, open the editor at the parent `src/` dir so all four
+repos are under one working root.
 
 ## Conventions
 

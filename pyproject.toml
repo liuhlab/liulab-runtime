@@ -190,6 +190,9 @@ register-kernel = "python -m ipykernel install --user --name liulab-$PIXI_ENVIRO
 register-kernels = "bash scripts/register_all_kernels.sh"
 envs = "pixi workspace environment list"   # list environments and their contents
 lab = "jupyter lab --notebook-dir=$HOME"   # start in the user's home, not the runtime repo
+# Batch git across the lab stack (this repo + seqforge/liulab-data/liulab-genome as sibling
+# checkouts). `pixi run stack status`, `pixi run stack sync`, etc. See scripts/stack --help.
+stack = "bash scripts/stack"
 
 [tool.pixi.feature.docs.tasks]
 docs = "mkdocs serve"
