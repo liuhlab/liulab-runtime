@@ -50,6 +50,10 @@ EOF
 }
 
 # Run a command in every repo; collect failures, never abort early.
+# bold/dim are defined above, but shellcheck's SC2218 misfires inside a
+# function that dispatches arbitrary commands via "$@" (it mis-orders the
+# sibling helper definitions) -- silence that false positive here.
+# shellcheck disable=SC2218
 each() {
   local failures=()
   for repo in "${REPOS[@]}"; do
