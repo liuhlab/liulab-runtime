@@ -88,11 +88,16 @@ docker run --rm --gpus all ghcr.io/liuhlab/liulab-runtime:ml-gpu \
 
 # Singularity / Apptainer
 singularity pull docker://ghcr.io/liuhlab/liulab-runtime:align-rna
-singularity run liulab-runtime_align-rna.sif STAR --version
+singularity exec liulab-runtime_align-rna.sif STAR --version   # env is active under exec too
 
 # Build one locally instead of pulling
 docker build --build-arg PIXI_ENV=align-rna -t liulab-runtime:align-rna .
 ```
+
+The baked env is active on **every** entry — `docker run`, `docker exec`,
+`singularity run`/`exec`, and non-interactive `bash -c` — so the images are
+drop-in tool containers: a Snakemake/Nextflow rule with
+`container: "…:align-rna"` finds `STAR` with no `PATH` setup.
 
 Which envs are published is the `docker-environments` list in
 `pyproject.toml`. Images are **amd64-only** (no `linux-aarch64` platform); on
