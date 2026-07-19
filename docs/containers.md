@@ -118,6 +118,10 @@ singularity run liulab-runtime_ml.sif python -c "import scanpy"
 singularity shell liulab-runtime_align-rna.sif
 #   inside:  pixi shell -e "$LIULAB_ENV"
 
+# The env is also active under `exec` (which bypasses the runscript), so the
+# tools are on PATH directly — no `pixi run` prefix, no PATH setup:
+singularity exec liulab-runtime_align-rna.sif STAR --version
+
 # GPU image — add --nv so the host driver is visible
 singularity run --nv liulab-runtime_ml-gpu.sif \
   python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
@@ -125,6 +129,13 @@ singularity run --nv liulab-runtime_ml-gpu.sif \
 # Jupyter Lab on a compute node
 singularity run liulab-runtime_ml.sif lab --ip=0.0.0.0 --no-browser
 ```
+
+!!! tip "Workflow engines (Snakemake, Nextflow)"
+    Because the env is active under `exec`, these images work as drop-in tool
+    containers. A Snakemake rule with `container:
+    "docker://ghcr.io/liuhlab/liulab-runtime:align-rna"` run with
+    `--software-deployment-method apptainer` finds `STAR` out of the box — no
+    `APPTAINERENV_PREPEND_PATH` or hand-added `.pixi/envs/*/bin`.
 
 !!! tip "Read-only image"
     A `.sif` is read-only, and each image carries just one environment. Run

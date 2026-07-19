@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.16"
+version = "2026.7.19"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -87,7 +87,7 @@ fastp = "*"
 fastqc = "*"
 multiqc = "*"
 repaq = "*"             # fast FASTQ compression
-
+snakemake = "*"         # workflow management
 # RNA-seq. STAR has no osx-arm64 build on bioconda (run under linux-64 there).
 [tool.pixi.feature.align-rna]
 platforms = ["osx-64", "linux-64"]
