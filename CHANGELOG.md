@@ -2,6 +2,25 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.7.19
+
+- Per-env images now activate their baked env on **every** entry, not just
+  through the entrypoint/runscript, so they work as drop-in tool containers
+  for workflow engines (issue #5). Previously `apptainer exec <sif> STAR` (and
+  the `apptainer exec … bash -c "…"` that Snakemake's `container:` runs) landed
+  in a shell where the env's `bin/` was not on `PATH`, so `STAR: command not
+  found` even though STAR was in the image.
+  - `liulab-runtime.def`: `%environment` now sources the env's generated
+    activation script (apptainer sources it on both `run` and `exec`).
+  - `Dockerfile`: sets `BASH_ENV` to that script (sourced by non-interactive
+    `bash -c`, i.e. `docker exec … bash -c`) and prepends the env `bin/` to
+    `PATH` as a baseline for shell-less `docker run <image> <cmd>`.
+  - Sourcing the generated script (vs. a bare `PATH` prepend) also runs the
+    conda `activate.d` hooks (glib/proj/GDAL/…), so activation stays faithful.
+  - A Snakemake rule with `container: <align-rna sif>` now runs STARsolo with
+    just `--software-deployment-method apptainer` — no `APPTAINERENV_PREPEND_PATH`
+    or hand-poked `.pixi/envs/*/bin` on the caller's `PATH`.
+
 ## 2026.7.16
 
 - Added `seqforge` (lab repo, GitHub-hosted) to the shared `lab` feature, so
