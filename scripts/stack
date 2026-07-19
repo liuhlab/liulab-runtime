@@ -49,11 +49,10 @@ attempted and the failures are summarized at the end.
 EOF
 }
 
+# Run a command inside one repo dir, in its own subshell so the cd never leaks.
+run_in() { (cd "$1" && shift && "$@"); }
+
 # Run a command in every repo; collect failures, never abort early.
-# bold/dim are defined above, but shellcheck's SC2218 misfires inside a
-# function that dispatches arbitrary commands via "$@" (it mis-orders the
-# sibling helper definitions) -- silence that false positive here.
-# shellcheck disable=SC2218
 each() {
   local failures=()
   for repo in "${REPOS[@]}"; do
@@ -63,7 +62,7 @@ each() {
       continue
     fi
     bold "== $repo"
-    if ! (cd "$dir" && "$@"); then
+    if ! run_in "$dir" "$@"; then
       failures+=("$repo")
     fi
     echo
