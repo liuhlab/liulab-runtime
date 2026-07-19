@@ -15,12 +15,25 @@ repos:
       - id: check-added-large-files
         args: [--maxkb=500]
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.16
+  # Use the ruff that pixi already installs (same binary as `pixi run lint`
+  # / `fmt`) instead of letting pre-commit pip-install its own pinned copy —
+  # that isolated install is fragile and keeps the version in one place
+  # (pyproject's `ruff`). Requires `pixi install` first (dev setup already
+  # does). `--force-exclude` makes ruff honour excludes on the passed files.
+  - repo: local
     hooks:
       - id: ruff-check
-        args: [--fix]
+        name: ruff check
+        entry: pixi run -e default ruff check --fix --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
       - id: ruff-format
+        name: ruff format
+        entry: pixi run -e default ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
