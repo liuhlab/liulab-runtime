@@ -816,13 +816,25 @@ shared image, and JupyterLab over a tunnel.</p>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>singularity<span class="w"> </span>shell<span class="w"> </span>liulab-runtime_align-rna.sif
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">#   inside:  pixi shell -e &quot;$LIULAB_ENV&quot;</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># GPU image — add --nv so the host driver is visible</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>singularity<span class="w"> </span>run<span class="w"> </span>--nv<span class="w"> </span>liulab-runtime_ml-gpu.sif<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># The env is also active under `exec` (which bypasses the runscript), so the</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># tools are on PATH directly — no `pixi run` prefix, no PATH setup:</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>liulab-runtime_align-rna.sif<span class="w"> </span>STAR<span class="w"> </span>--version
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># Jupyter Lab on a compute node</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_ml.sif<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># GPU image — add --nv so the host driver is visible</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>singularity<span class="w"> </span>run<span class="w"> </span>--nv<span class="w"> </span>liulab-runtime_ml-gpu.sif<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="c1"># Jupyter Lab on a compute node</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>singularity<span class="w"> </span>run<span class="w"> </span>liulab-runtime_ml.sif<span class="w"> </span>lab<span class="w"> </span>--ip<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span>--no-browser
 </code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Workflow engines (Snakemake, Nextflow)</p>
+<p>Because the env is active under <code>exec</code>, these images work as drop-in tool
+containers. A Snakemake rule with <code>container:
+"docker://ghcr.io/liuhlab/liulab-runtime:align-rna"</code> run with
+<code>--software-deployment-method apptainer</code> finds <code>STAR</code> out of the box — no
+<code>APPTAINERENV_PREPEND_PATH</code> or hand-added <code>.pixi/envs/*/bin</code>.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Read-only image</p>
 <p>A <code>.sif</code> is read-only, and each image carries just one environment. Run
