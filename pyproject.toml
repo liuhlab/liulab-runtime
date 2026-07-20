@@ -70,6 +70,7 @@ seaborn = "*"
 gffutils = "*"          # liulab-genome (genome.io.gtf)
 ucsc-fatotwobit = "*"   # faToTwoBit, shelled out to by liulab-genome
 ucsc-twobitinfo = "*"   # twoBitInfo, shelled out to by liulab-genome
+snakemake-minimal = ">=8"
 
 [tool.pixi.feature.lab.pypi-dependencies]
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
