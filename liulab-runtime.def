@@ -31,7 +31,17 @@ From: ghcr.io/liuhlab/liulab-runtime:{{ ENV }}
       singularity run --nv liulab-runtime_ml-gpu.sif python -c "import torch; print(torch.cuda.is_available())"
 
 %environment
-    export LIULAB_ENV="${LIULAB_ENV:-default}"
+    # Sourced by apptainer on BOTH `run` and `exec` (becomes
+    # /.singularity.d/env/90-environment.sh), so the baked env is active for
+    # every entry — not just the %runscript. Workflow engines (Snakemake,
+    # Nextflow) and `apptainer exec … bash -c "…"` bypass the runscript, so
+    # without this the env's tools (e.g. STAR) are not on PATH. The generated
+    # activation script also runs the conda activate.d hooks (glib/proj/…), so
+    # it's faithful in a way a bare PATH prepend is not.
+    export LIULAB_ENV="${LIULAB_ENV:-{{ ENV }}}"
+    if [ -f "/app/.pixi/activate-${LIULAB_ENV}.sh" ]; then
+        . "/app/.pixi/activate-${LIULAB_ENV}.sh"
+    fi
 
 %runscript
     cd /app

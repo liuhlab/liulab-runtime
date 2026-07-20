@@ -2,27 +2,58 @@
 #
 # Install once per clone:  pixi run -- pre-commit install
 # Run on all files:        pixi run -- pre-commit run --all-files
-
+#
+# Every hook runs a tool from the pixi `dev` env (via `pixi run -e default`,
+# language: system) — pre-commit never creates its own pip/virtualenv. So all
+# hook versions are pinned in pixi.lock with the rest of the stack (bump them
+# with `pixi update`, not `pre-commit autoupdate`), and there is no isolated-pip
+# install to fail. Requires `pixi install` first (the dev setup already does).
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+  - repo: local
     hooks:
       - id: trailing-whitespace
+        name: trim trailing whitespace
+        entry: pixi run -e default -- trailing-whitespace-fixer
+        language: system
+        types: [text]
       - id: end-of-file-fixer
+        name: fix end of files
+        entry: pixi run -e default -- end-of-file-fixer
+        language: system
+        types: [text]
       - id: check-yaml
+        name: check yaml
+        entry: pixi run -e default -- check-yaml
+        language: system
+        types: [yaml]
       - id: check-toml
+        name: check toml
+        entry: pixi run -e default -- check-toml
+        language: system
+        types: [toml]
       - id: check-merge-conflict
+        name: check for merge conflicts
+        entry: pixi run -e default -- check-merge-conflict
+        language: system
+        types: [text]
       - id: check-added-large-files
-        args: [--maxkb=500]
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.16
-    hooks:
+        name: check for added large files
+        entry: pixi run -e default -- check-added-large-files --maxkb=500
+        language: system
       - id: ruff-check
-        args: [--fix]
+        name: ruff check
+        entry: pixi run -e default -- ruff check --fix --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
       - id: ruff-format
-
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
+        name: ruff format
+        entry: pixi run -e default -- ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
       - id: shellcheck
+        name: shellcheck
+        entry: pixi run -e default -- shellcheck
+        language: system
+        types: [shell]

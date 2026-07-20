@@ -47,6 +47,30 @@ pixi run lab
 
 Enter a specific one with `pixi shell -e align-rna`.
 
+## Developing the lab stack together
+
+This repo pins the lab's own packages — `seqforge`, `liulab-data`, `liulab-genome` — so it is also the
+place to coordinate them during development. Clone them as **siblings** of this repo and one command
+sweeps git across all four:
+
+```bash
+pixi run stack status     # short status + branch for every repo
+pixi run stack sync       # fetch --all --prune, then status (the safe "where's everything" sweep)
+pixi run stack pull       # git pull --ff-only in each (never a surprise merge)
+pixi run stack push       # git push whatever you touched
+pixi run stack branch feat/x   # git switch -c feat/x in all four (start a cross-repo feature)
+pixi run stack --help
+```
+
+The repos stay independent — their own remotes, branches, and CI; this is a batch helper, **not** a
+superproject, and it tracks no submodule pointers. A sibling that isn't checked out is skipped rather
+than erroring, so it works fine on a machine that only has some of the repos. Open your editor at the
+parent `src/` directory to read and edit all four in one place.
+
+Each package is pinned here by git URL (`[tool.pixi.pypi-dependencies]`), so a change reaches this
+environment once it lands on that package's `main`: commit + push it in its own repo (`stack push`
+helps), then `pixi update <package>` here.
+
 ## Containers
 
 Each environment ships as its **own** container image — pull only the one
@@ -64,11 +88,16 @@ docker run --rm --gpus all ghcr.io/liuhlab/liulab-runtime:ml-gpu \
 
 # Singularity / Apptainer
 singularity pull docker://ghcr.io/liuhlab/liulab-runtime:align-rna
-singularity run liulab-runtime_align-rna.sif STAR --version
+singularity exec liulab-runtime_align-rna.sif STAR --version   # env is active under exec too
 
 # Build one locally instead of pulling
 docker build --build-arg PIXI_ENV=align-rna -t liulab-runtime:align-rna .
 ```
+
+The baked env is active on **every** entry — `docker run`, `docker exec`,
+`singularity run`/`exec`, and non-interactive `bash -c` — so the images are
+drop-in tool containers: a Snakemake/Nextflow rule with
+`container: "…:align-rna"` finds `STAR` with no `PATH` setup.
 
 Which envs are published is the `docker-environments` list in
 `pyproject.toml`. Images are **amd64-only** (no `linux-aarch64` platform); on

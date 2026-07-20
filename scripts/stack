@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+# stack -- batch git across the liulab stack (this repo + the lab packages it bundles).
+#
+# liulab-runtime is the one-stop environment that pins seqforge, liulab-data, and liulab-genome
+# together, so it is also the natural place to coordinate their *checkouts* during development. This
+# script fans one git command out over all four repos when they are cloned as siblings, so "what is
+# the state of everything" and "pull/push all" are one command instead of four. It is NOT a
+# superproject and tracks no submodule pointers -- each repo keeps its own remote, branches, and CI.
+#
+# Run it via the pixi task (from the repo root):
+#   pixi run stack status
+#   pixi run stack sync
+# ...or directly: scripts/stack status
+#
+# Layout it assumes -- the repos cloned as siblings of this one:
+#   src/
+#     liulab-runtime/scripts/stack   <- this script
+#     seqforge/                      <- siblings; any not checked out are skipped, not an error
+#     liulab-data/
+#     liulab-genome/
+
+set -uo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # .../liulab-runtime/scripts
+ROOT="$(cd "$HERE/../.." && pwd)"                    # the parent dir where the repos are siblings
+REPOS=(seqforge liulab-data liulab-genome liulab-runtime)
+
+bold() { printf '\033[1m%s\033[0m\n' "$*"; }
+dim() { printf '\033[2m%s\033[0m\n' "$*"; }
+
+usage() {
+  cat <<'EOF'
+stack -- batch git across the liulab stack (seqforge, liulab-data, liulab-genome, liulab-runtime)
+
+usage: pixi run stack <command> [args]    (or: scripts/stack <command> [args])
+
+  status            git status (short + branch) in each repo
+  fetch             git fetch --all --prune in each
+  sync              fetch, then status -- the safe "where is everything" sweep
+  pull              git pull --ff-only in each (never a surprise merge)
+  push              git push in each
+  diff [args]       git diff --stat in each
+  branch <name>     git switch -c <name> in each (start a cross-repo feature)
+  switch <name>     git switch <name> in each
+  run <cmd...>      run an arbitrary command in each repo (escape hatch)
+
+A repo that is not checked out is skipped; one repo failing never aborts the sweep -- every repo is
+attempted and the failures are summarized at the end.
+EOF
+}
+
+# Run a command inside one repo dir, in its own subshell so the cd never leaks.
+run_in() { (cd "$1" && shift && "$@"); }
+
+# Run a command in every repo; collect failures, never abort early.
+each() {
+  local failures=()
+  for repo in "${REPOS[@]}"; do
+    local dir="$ROOT/$repo"
+    if [ ! -d "$dir/.git" ]; then
+      dim "-- $repo (no checkout at $dir, skipped)"
+      continue
+    fi
+    bold "== $repo"
+    if ! run_in "$dir" "$@"; then
+      failures+=("$repo")
+    fi
+    echo
+  done
+  if [ "${#failures[@]}" -gt 0 ]; then
+    printf '\033[31m%s\033[0m\n' "failed in: ${failures[*]}"
+    return 1
+  fi
+}
+
+cmd="${1:-status}"
+shift || true
+
+case "$cmd" in
+status) each git -c color.status=always status --short --branch ;;
+fetch) each git fetch --all --prune ;;
+pull) each git pull --ff-only ;;
+push) each git push ;;
+diff) each git --no-pager diff --stat "$@" ;;
+branch)
+  [ $# -ge 1 ] || {
+    echo "usage: stack branch <name>" >&2
+    exit 2
+  }
+  each git switch -c "$1"
+  ;;
+switch)
+  [ $# -ge 1 ] || {
+    echo "usage: stack switch <name>" >&2
+    exit 2
+  }
+  each git switch "$1"
+  ;;
+sync)
+  each git fetch --all --prune
+  each git -c color.status=always status --short --branch
+  ;;
+run)
+  [ $# -ge 1 ] || {
+    echo "usage: stack run <cmd...>" >&2
+    exit 2
+  }
+  each "$@"
+  ;;
+-h | --help | help) usage ;;
+*)
+  echo "unknown command: $cmd" >&2
+  usage >&2
+  exit 2
+  ;;
+esac

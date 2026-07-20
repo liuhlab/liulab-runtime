@@ -93,6 +93,18 @@ COPY . .
 # LIULAB_ENV at runtime). Persist it as a real ENV so `docker run` inherits it.
 ENV LIULAB_ENV=${PIXI_ENV}
 
+# Activate the baked env for EVERY entry, not just the entrypoint/runscript.
+# Workflow engines and `docker exec … bash -c "…"` (what Snakemake's
+# `container:` runs) invoke a non-interactive bash, which sources $BASH_ENV at
+# startup — point it at the env's generated activation script so the env's
+# tools (e.g. STAR) are on PATH with no per-caller setup. This also runs the
+# conda activate.d hooks, so it's faithful where a bare PATH is not.
+ENV BASH_ENV=/app/.pixi/activate-${PIXI_ENV}.sh
+# Baseline for a direct `docker run <image> <cmd>` that never goes through a
+# shell (so $BASH_ENV isn't consulted). Less complete than sourcing the script
+# above — it skips activate.d — but enough to find the env's binaries.
+ENV PATH="/app/.pixi/envs/${PIXI_ENV}/bin:${PATH}"
+
 # Jupyter Lab (available in every env) listens here when launched.
 EXPOSE 8888
 

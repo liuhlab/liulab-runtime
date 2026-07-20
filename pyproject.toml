@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.16"
+version = "2026.7.19"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -88,7 +88,7 @@ fastp = "*"
 fastqc = "*"
 multiqc = "*"
 repaq = "*"             # fast FASTQ compression
-
+snakemake = "*"         # workflow management
 # RNA-seq. STAR has no osx-arm64 build on bioconda (run under linux-64 there).
 [tool.pixi.feature.align-rna]
 platforms = ["osx-64", "linux-64"]
@@ -162,6 +162,8 @@ cuda-version = "12.*"
 [tool.pixi.feature.dev.dependencies]
 ruff = "*"
 pre-commit = "*"
+pre-commit-hooks = "*"   # backs the whitespace/EOF/yaml/toml checks (local hooks)
+shellcheck = "*"         # shell linter for the helper scripts (local hook)
 
 [tool.pixi.feature.docs.dependencies]
 mkdocs-material = "*"
@@ -191,6 +193,9 @@ register-kernel = "python -m ipykernel install --user --name liulab-$PIXI_ENVIRO
 register-kernels = "bash scripts/register_all_kernels.sh"
 envs = "pixi workspace environment list"   # list environments and their contents
 lab = "jupyter lab --notebook-dir=$HOME"   # start in the user's home, not the runtime repo
+# Batch git across the lab stack (this repo + seqforge/liulab-data/liulab-genome as sibling
+# checkouts). `pixi run stack status`, `pixi run stack sync`, etc. See scripts/stack --help.
+stack = "bash scripts/stack"
 
 [tool.pixi.feature.docs.tasks]
 docs = "mkdocs serve"
