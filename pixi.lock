@@ -413,7 +413,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/94/db768b6938e0df35c86beeba3dfbbb025c9ee5c19e1aa271f2396e50864d/jiter-0.16.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
@@ -793,7 +793,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/9e/6142ebfda0cb6e9349c091eae73c2e01a770b7659255248d637bec54a88b/h5py-3.16.0-cp313-cp313-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
@@ -1172,7 +1172,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/ba/75122318c4777678abc163d4db855176828003237267c4326947f8cfcb32/anndata-0.13.2-py3-none-any.whl
@@ -1573,7 +1573,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/94/db768b6938e0df35c86beeba3dfbbb025c9ee5c19e1aa271f2396e50864d/jiter-0.16.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
@@ -1980,7 +1980,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/94/db768b6938e0df35c86beeba3dfbbb025c9ee5c19e1aa271f2396e50864d/jiter-0.16.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
@@ -2359,7 +2359,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/9e/6142ebfda0cb6e9349c091eae73c2e01a770b7659255248d637bec54a88b/h5py-3.16.0-cp313-cp313-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
@@ -2692,7 +2692,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/07/f8/41db9de19d7987d6b04715a02b3b40aea467000275d9d758ffaa31af7d50/pydantic_core-2.46.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0b/d7/1959b9648791274998a9c3526f6d0ec8fd2233e4d4acce81bbae76b44b2a/python_dotenv-1.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
@@ -3025,7 +3025,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0b/d7/1959b9648791274998a9c3526f6d0ec8fd2233e4d4acce81bbae76b44b2a/python_dotenv-1.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/9e/6142ebfda0cb6e9349c091eae73c2e01a770b7659255248d637bec54a88b/h5py-3.16.0-cp313-cp313-macosx_10_13_x86_64.whl
@@ -3357,7 +3357,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/0b/d7/1959b9648791274998a9c3526f6d0ec8fd2233e4d4acce81bbae76b44b2a/python_dotenv-1.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
@@ -3696,7 +3696,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/07/f8/41db9de19d7987d6b04715a02b3b40aea467000275d9d758ffaa31af7d50/pydantic_core-2.46.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0b/d7/1959b9648791274998a9c3526f6d0ec8fd2233e4d4acce81bbae76b44b2a/python_dotenv-1.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
@@ -5307,7 +5307,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/07/f8/41db9de19d7987d6b04715a02b3b40aea467000275d9d758ffaa31af7d50/pydantic_core-2.46.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0a/bb/9b799f74327a10edf1f443a6a9519d7c3b26f109ba493f7231e5dbfc2545/nbproject-0.11.1-py2.py3-none-any.whl
@@ -6098,7 +6098,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0a/bb/9b799f74327a10edf1f443a6a9519d7c3b26f109ba493f7231e5dbfc2545/nbproject-0.11.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0a/d8/dd0d00f0171b7744b19e7eae5ebbbb73058f5953e74ae83444e009d24da5/lamin_utils-0.16.4-py2.py3-none-any.whl
@@ -6890,7 +6890,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0a/bb/9b799f74327a10edf1f443a6a9519d7c3b26f109ba493f7231e5dbfc2545/nbproject-0.11.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0a/d8/dd0d00f0171b7744b19e7eae5ebbbb73058f5953e74ae83444e009d24da5/lamin_utils-0.16.4-py2.py3-none-any.whl
@@ -7703,7 +7703,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/07/f8/41db9de19d7987d6b04715a02b3b40aea467000275d9d758ffaa31af7d50/pydantic_core-2.46.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0a/bb/9b799f74327a10edf1f443a6a9519d7c3b26f109ba493f7231e5dbfc2545/nbproject-0.11.1-py2.py3-none-any.whl
@@ -8534,7 +8534,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: git+https://github.com/liuhlab/liulab-data.git#641364a93ac9ec3c04e9461680ab64c53af8a43e
       - pypi: git+https://github.com/liuhlab/liulab-genome.git#8e9f0839b798f97ebd037667677395e27886439a
-      - pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+      - pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
       - pypi: https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/07/f8/41db9de19d7987d6b04715a02b3b40aea467000275d9d758ffaa31af7d50/pydantic_core-2.46.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0a/bb/9b799f74327a10edf1f443a6a9519d7c3b26f109ba493f7231e5dbfc2545/nbproject-0.11.1-py2.py3-none-any.whl
@@ -37598,7 +37598,7 @@ packages:
   - tqdm>=4
   - typer>=0.12
   requires_python: '>=3.12'
-- pypi: git+https://github.com/liuhlab/seqforge.git#6702d8f651897ad56a6a482ffb9683fe9275f212
+- pypi: git+https://github.com/liuhlab/seqforge.git#435abccf524aea71b3c9b9d55d7f73dfd5de5dce
   name: seqforge
   version: 2026.7.0
   requires_dist:
@@ -37612,6 +37612,7 @@ packages:
   - pypdf>=4
   - anndata>=0.10
   - liulab-genome @ git+https://github.com/liuhlab/liulab-genome.git
+  - liulab-data @ git+https://github.com/liuhlab/liulab-data.git
   - anthropic>=0.40
   - openai>=1.40
   requires_python: '>=3.12'

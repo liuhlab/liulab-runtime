@@ -4,6 +4,9 @@ This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
 ## 2026.7.19
 
+- Bumped the pinned `seqforge` commit to `435abcc` (`pixi update seqforge`),
+  picking up the latest changes on its `main`. Affects every env carrying the
+  `lab` feature (`default`, `align-rna`, `align-dna`, `ml`, `ml-gpu`).
 - Per-env images now activate their baked env on **every** entry, not just
   through the entrypoint/runscript, so they work as drop-in tool containers
   for workflow engines (issue #5). Previously `apptainer exec <sif> STAR` (and
