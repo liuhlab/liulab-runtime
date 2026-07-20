@@ -6,7 +6,15 @@ This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
 - Bumped the pinned `seqforge` commit to `435abcc` (`pixi update seqforge`),
   picking up the latest changes on its `main`. Affects every env carrying the
-  `lab` feature (`default`, `align-rna`, `align-dna`, `ml`, `ml-gpu`).
+  `lab` feature (`default`, `align-rna`, `align-dna`, `ml`, `ml-gpu`). This
+  ships seqforge's always-on finalize (coordinate-sorted CRAM + gzipped QC
+  bundle + `temp()` cleanup).
+- Added `snakemake-minimal >=8` to the `lab` feature. seqforge composes
+  Snakemake pipelines run via `snakemake`, but that was only seqforge's own
+  pixi dependency, not a package dependency — so a consumer env installing the
+  seqforge wheel did not get it. This closes that gap.
+- Bumped the pinned `liulab-data` commit to `57e9bb6` (`pixi update
+  liulab-data`), picking up `experiments_for`, needed by seqforge records.
 - Per-env images now activate their baked env on **every** entry, not just
   through the entrypoint/runscript, so they work as drop-in tool containers
   for workflow engines (issue #5). Previously `apptainer exec <sif> STAR` (and
