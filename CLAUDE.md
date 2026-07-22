@@ -99,9 +99,21 @@ It's a **batch helper, not a superproject**: the four repos stay
 independent (own remotes, branches, CI) and no submodule pointers are
 tracked — never nest them as submodules. A pinned dependency change reaches
 this env only after it lands on that package's `main`: commit + push it in
-its own repo (`stack push` helps), then `pixi update <package>` here. For
-cross-repo editing, open the editor at the parent `src/` dir so all four
-repos are under one working root.
+its own repo (`stack push` helps), then re-resolve the lock here.
+`pixi run update-env` (`scripts/update-env.sh`) automates that: it reports
+each lab package's locked-vs-latest `main`, `pixi update`s all three to their
+newest `main`, then `pixi update`s the rest of the stack. It only rewrites
+`pixi.lock` — apply with `pixi install`, then record the bump. To move a
+single package instead, run `pixi update <package>`. For cross-repo editing,
+open the editor at the parent `src/` dir so all four repos are under one
+working root.
+
+**Re-resolving the lock is a Linux job.** The lab packages are git *source*
+dependencies, so re-solving them for the `linux-64-cuda` platform (the
+`ml-gpu` env) needs to build a Linux sdist — which fails on osx-arm64 with
+"no compatible Python interpreter". Run `pixi run update-env` (or any
+`pixi update`) on a Linux box; a Mac can only `pixi install` from a lock
+authored elsewhere.
 
 ## Conventions
 

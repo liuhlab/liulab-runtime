@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.19"
+version = "2026.7.22"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -196,6 +196,9 @@ lab = "jupyter lab --notebook-dir=$HOME"   # start in the user's home, not the r
 # Batch git across the lab stack (this repo + seqforge/liulab-data/liulab-genome as sibling
 # checkouts). `pixi run stack status`, `pixi run stack sync`, etc. See scripts/stack --help.
 stack = "bash scripts/stack"
+# Pull the latest lab packages (seqforge/liulab-data/liulab-genome track their `main`), then refresh
+# every other pinned package -- rewrites pixi.lock. See scripts/update-env.sh for the follow-up steps.
+update-env = "bash scripts/update-env.sh"
 
 [tool.pixi.feature.docs.tasks]
 docs = "mkdocs serve"

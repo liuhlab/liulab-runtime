@@ -2,6 +2,28 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.7.22
+
+- Added a `update-env` pixi task (`pixi run update-env`, `scripts/update-env.sh`):
+  it reports each lab package's locked-vs-latest `main`, `pixi update`s
+  `seqforge`/`liulab-data`/`liulab-genome` to their newest `main`, then
+  `pixi update`s the rest of the stack — the one-command version of the
+  "pull the latest lab packages" sweep. It only rewrites `pixi.lock`; apply
+  with `pixi install`. Note: re-resolving must run on Linux — the lab packages
+  are git *source* deps and can't build a `linux-64-cuda` sdist on macOS.
+- Re-resolved the whole stack against the latest lab-package `main`s:
+  - `seqforge` `435abcc` → `cdd0c8e` — now published to PyPI via Trusted
+    Publishing (`2026.7.1`); F1 barcode seating/refusal fixes (#42); BD Rhapsody
+    Enhanced bead recognition; byte-reproducible dataset hash.
+  - `liulab-data` `57e9bb6` → `146fc3d` — new `labdata.tenx` cellranger BAM →
+    FASTQ pipeline (with an offline `--from-disk` mode), gzip-integrity
+    verification, flattened original-format downloads.
+  - `liulab-genome` `8e9f083` → `697e33d` — `get_index` / `get_star_index` to
+    retrieve built aligner indexes.
+- Refreshed conda/pypi packages across every env within the pinned constraints —
+  notably `scvi-tools` 1.4.3 → 1.5.0.post1, `samtools` 1.23.1 → 1.24, `xarray`
+  2026.4.0 → 2026.7.0.
+
 ## 2026.7.19
 
 - Bumped the pinned `seqforge` commit to `435abcc` (`pixi update seqforge`),

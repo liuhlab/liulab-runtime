@@ -69,7 +69,16 @@ parent `src/` directory to read and edit all four in one place.
 
 Each package is pinned here by git URL (`[tool.pixi.pypi-dependencies]`), so a change reaches this
 environment once it lands on that package's `main`: commit + push it in its own repo (`stack push`
-helps), then `pixi update <package>` here.
+helps), then re-resolve the lock here. One task does the whole sweep:
+
+```bash
+pixi run update-env       # report each lab package's locked vs. latest main, `pixi update` all
+                          # three to their newest main, then `pixi update` the rest of the stack
+```
+
+It only rewrites `pixi.lock`; follow up with `pixi install` to apply it, then record the bump
+(`CHANGELOG.md` + the `pyproject.toml` version). To move a single package instead, run
+`pixi update <package>`.
 
 ## Containers
 
