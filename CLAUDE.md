@@ -53,7 +53,10 @@ packages).
 
 Some bioinformatics tools lack an `osx-arm64` build (e.g. STAR). When
 that happens, narrow the feature with `platforms = [...]` (see
-`align-rna`).
+`align-rna`). Such a feature can still be installed and run on Apple
+Silicon under Rosetta via a second, x86_64 build of pixi (`pixi-x64`,
+which reports itself as `osx-64`); the native arm64 `pixi` correctly
+refuses it. Steps are in `docs/index.md` (align-rna on Apple Silicon).
 
 ## Jupyter kernels
 

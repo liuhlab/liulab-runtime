@@ -136,16 +136,58 @@ again to pick it up.
 | Environment  | Contents                                                            | Platforms |
 | ------------ | ------------------------------------------------------------------- | --------- |
 | `default`    | `liulab-data`, `liulab-genome`, `seqforge`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
-| `align-rna`  | RNA-seq aligner + shared read processing & QC: STAR, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, Intel macOS |
+| `align-rna`  | RNA-seq aligner + shared read processing & QC: STAR, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, Intel macOS (Apple Silicon via Rosetta) |
 | `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, macOS |
 | `ml`         | PyTorch, scvi-tools, scanpy for single-cell / deep-learning analysis; CPU everywhere, plus the Apple GPU (MPS) on Apple Silicon | Linux, macOS |
 | `ml-gpu`     | The same stack built against an NVIDIA CUDA GPU | Linux + NVIDIA GPU |
 
 !!! warning "Apple Silicon & `align-rna`"
-    STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` is
-    available only on Linux and Intel macOS. On an M-series Mac, run it
-    via a Linux container or on a cluster. `align-dna` (with the same
-    shared read-processing & QC tools) works everywhere.
+    STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` cannot
+    be installed *natively* on an M-series Mac. You have three options:
+    run it in a [Linux container](containers.md), run it on a cluster, or
+    — for lightweight local work — run the Intel (`osx-64`) build under
+    Rosetta (see [below](#align-rna-on-apple-silicon-rosetta)).
+    `align-dna` (with the same shared read-processing & QC tools) works
+    everywhere natively.
+
+### `align-rna` on Apple Silicon (Rosetta)
+
+You can run `align-rna` locally on an Apple Silicon Mac using the Intel
+(`osx-64`) build of the tools under **Rosetta**, Apple's built-in x86
+translation. This is meant for **lightweight development mapping** (small
+or subsampled references); heavy production mapping should run on Linux.
+Note STAR still needs plenty of RAM (~30 GB for a full mammalian genome
+index) regardless of platform, so keep local references small.
+
+**One-time setup.** The trick is a second, Intel build of pixi: your
+normal `pixi` is an Apple Silicon program and correctly refuses to install
+`align-rna`; an Intel `pixi` reports its platform as `osx-64`, so it
+installs the Intel environment that Rosetta then runs. Your normal `pixi`
+is left untouched and stays the default for every other environment.
+
+```bash
+# 1. Make sure Rosetta is installed (no-op if it already is)
+softwareupdate --install-rosetta --agree-to-license
+
+# 2. Install an Intel (x86_64) build of pixi as `pixi-x64`, next to your
+#    normal one. (Extract via a temp dir so the real `pixi` is never touched.)
+tmp=$(mktemp -d)
+curl -fsSL https://github.com/prefix-dev/pixi/releases/latest/download/pixi-x86_64-apple-darwin.tar.gz \
+  | tar -xz -C "$tmp" pixi
+install -m 0755 "$tmp/pixi" "$HOME/.pixi/bin/pixi-x64"
+rm -rf "$tmp"
+
+# 3. Install the align-rna environment with it (into .pixi/envs/align-rna)
+pixi-x64 install -e align-rna
+```
+
+**Using it** — use `pixi-x64` instead of `pixi` for this one environment;
+everything else stays on your normal `pixi`:
+
+```bash
+pixi-x64 shell -e align-rna                # shell with STAR, samtools, … on PATH
+pixi-x64 run -e align-rna STAR --version   # or run a single command
+```
 
 !!! tip "Which ML environment to use — `ml` vs `ml-gpu`"
     Both bundle the same tools (PyTorch, scvi-tools, scanpy); they differ
