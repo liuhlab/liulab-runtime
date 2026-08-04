@@ -2,27 +2,6 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
-## 2026.8.4
-
-- Added **umite 0.1.1** to `align-rna` — the SMART-seq3 UMI counter chosen in
-  liuhlab/seqforge#229. It is not an aligner: `umiextract` trims the TSO + 8 bp
-  UMI off R1 *before* STAR, and `umicount` counts name-sorted BAMs *after* it,
-  so it only works in an environment that already has STAR and samtools. That
-  is why it goes here rather than into an environment of its own, which would
-  have been `align-rna` plus four wheels — a near-duplicate solve and a second
-  published image.
-- **The version is pinned (`umite = "==0.1.1"`), deliberately.** umite is a
-  one-maintainer project with no git tags; `pixi update` must not move it. Bump
-  it by editing the pin.
-- Left on PyPI rather than conda-pinned: bioconda's `htseq` drags in
-  loompy → numba + llvmlite + hdf5 (~40 MB of packages umite never calls) and
-  flips a dozen of `align-rna`'s existing pypi packages onto conda builds. The
-  PyPI wheel needs only numpy + pysam, and the lock diff is then exactly four
-  new packages (`umite`, `htseq`, `pysam`, `rapidfuzz`; `regex` was already
-  present) in `align-rna` alone, with nothing removed or changed.
-- HTSeq ships no `osx-arm64` wheel, which lines up with `align-rna` already
-  being an `osx-64` / `linux-64` feature.
-
 ## 2026.7.22
 
 - Added a `update-env` pixi task (`pixi run update-env`, `scripts/update-env.sh`):
