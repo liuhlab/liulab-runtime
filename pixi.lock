@@ -2016,9 +2016,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/20/2c/0622f20ff02b2ef32558733443805dc82fd4c275be01b2d19d14676f3a1b/cryptography-49.0.0-cp311-abi3-manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/20/8b/28c4eaec9d6b036a52cb44720408f26b1a143ca9bce76cc19e8f5de00ab4/pdfminer_six-20260107-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/16/21420a6f2bc5f981299c336817dd5d72709dad5fda30ac38cbd5f0f7b372/pypdfium2-5.12.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/25/0e/87f0df958babfed8e6e446aec787bcc9c3a54a5bffcbe230247e1bd7e131/htseq-2.1.2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/2a/2d/d4bf65e47cea8ff2c794a600c4fd1273a7902f268757c531e0ee9f18aa58/pooch-1.9.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/31/96/b852ad0773add8a7531ab9d2e591234fc6862a0d785b101d8ab8a12b9e0a/umite-0.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/5b/058db09c45ba58a7321bdf2294cae651b37d6fec68117265af90cde043b0/legacy_api_wrap-1.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/69/26b032059273ad798d18fbcdbe369e871181841fd8bcb5caee32b7510039/openai-2.47.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/49/e6/136aa8993a2ae7214e0b0ef2edaa0d2e08d1d4e4982635b08a835ff31ec8/pypdf-6.14.2-py3-none-any.whl
@@ -2028,7 +2026,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/77/c1/6e422f34e569cf8e18df68d1939c81c099d2b61e4f7d9621c8a77560799c/pydantic_settings-2.14.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/86/16/1a8fd2b19544b84575cf84ef7aa3ad4c173b756d5f087c91f85d1b295777/array_api_compat-1.15.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/88/0a/469e2bd01be1490336e6c8707386845655d59261543315778a3ccc7e8019/zarr-3.2.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/90/79/2fc252a63bc91d3c3b234d0a3a6ad4ebc460037a23cdcdaf9285f986e6c9/rapidfuzz-3.14.5-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/91/9f/d46e77054d7efb61c85ef5e8c7e95927cc89988b6491b46d22af60d63bda/anthropic-0.118.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a2/9a/07d658e1e7fad860f1c541ab941348125dbdab773be3a0afaf32361866c7/pdfplumber-0.11.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a7/5f/ed01f9a3cdffbd5a008556fc7b2a08ddb1cc6ace7effa7340604b1d16699/docstring_parser-0.18.0-py3-none-any.whl
@@ -2037,7 +2034,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c4/e6/d359fdd37498e74d26a167f7a51e54542e642ea47181eb4e643a69a066c3/numcodecs-0.16.5-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/ea/066ce356c5df3c2d42b72801f768d41bf691f58f6d2a90f6334fbed39785/pysam-0.24.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/ce/42/b468aec74a0354b34c8cbf748db20d6e350a68a2b0912e128cabee49806c/google_crc32c-1.8.0-cp313-cp313-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl
       osx-64:
       - conda: https://conda.anaconda.org/bioconda/noarch/fastqc-0.12.1-hdfd78af_0.tar.bz2
@@ -2402,14 +2398,11 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/01/2c/d7a38fad74b6da0947cf8763aee0f8e6c9d3c12fc8e137aa615f7f8ae76c/pypdfium2-5.12.1-py3-none-macosx_13_0_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/9e/6142ebfda0cb6e9349c091eae73c2e01a770b7659255248d637bec54a88b/h5py-3.16.0-cp313-cp313-macosx_10_13_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/11/66/252803f2010ba699618cdc048b6e1f7cc1f433c08b4a9a17579b92ab0142/rapidfuzz-3.14.5-cp313-cp313-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/ba/75122318c4777678abc163d4db855176828003237267c4326947f8cfcb32/anndata-0.13.2-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/1d/43/42cf9d2f2748cea161277e95fc5cbd42c91151a226caf643651174292d86/htseq-2.1.2-cp313-cp313-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1f/99/d1c90d6041656cc6ee229dc99cd67fd0cd5aec3c5f7d72fffc27cc750054/cryptography-49.0.0.tar.gz
       - pypi: https://files.pythonhosted.org/packages/20/8b/28c4eaec9d6b036a52cb44720408f26b1a143ca9bce76cc19e8f5de00ab4/pdfminer_six-20260107-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2a/2d/d4bf65e47cea8ff2c794a600c4fd1273a7902f268757c531e0ee9f18aa58/pooch-1.9.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/31/96/b852ad0773add8a7531ab9d2e591234fc6862a0d785b101d8ab8a12b9e0a/umite-0.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/38/38/071ced5a5fd1c85ba0e14ba721b66b053823e5176298c2f707e50bed11d9/numcodecs-0.16.5-cp313-cp313-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/41/5b/058db09c45ba58a7321bdf2294cae651b37d6fec68117265af90cde043b0/legacy_api_wrap-1.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/69/26b032059273ad798d18fbcdbe369e871181841fd8bcb5caee32b7510039/openai-2.47.0-py3-none-any.whl
@@ -2418,7 +2411,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/5e/d7/6893c9c2a52e4bcbeca2a2bf2aee970a686cc7bf555f97db13b00f35250e/session_info2-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/77/c1/6e422f34e569cf8e18df68d1939c81c099d2b61e4f7d9621c8a77560799c/pydantic_settings-2.14.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/86/16/1a8fd2b19544b84575cf84ef7aa3ad4c173b756d5f087c91f85d1b295777/array_api_compat-1.15.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/86/79/2f5151ac001d8c74fb047036bfea9e4e897939e6587d3c4d512e46c450b1/pysam-0.24.0-cp313-cp313-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/88/0a/469e2bd01be1490336e6c8707386845655d59261543315778a3ccc7e8019/zarr-3.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/91/9f/d46e77054d7efb61c85ef5e8c7e95927cc89988b6491b46d22af60d63bda/anthropic-0.118.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/91/c0/555fc60473d30d66894ba825e63615e3be7524fac23858356afa7a38906c/jiter-0.16.0-cp313-cp313-macosx_10_12_x86_64.whl
@@ -38113,13 +38105,6 @@ packages:
   requires_dist:
   - typing-extensions>=4.0 ; python_full_version < '3.10'
   requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/11/66/252803f2010ba699618cdc048b6e1f7cc1f433c08b4a9a17579b92ab0142/rapidfuzz-3.14.5-cp313-cp313-macosx_10_13_x86_64.whl
-  name: rapidfuzz
-  version: 3.14.5
-  sha256: ebd8fd343bf8492a1e60bcb6dc99f90f74f65d98d8241a6b3e1fed225b76ecd6
-  requires_dist:
-  - numpy ; extra == 'all'
-  requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
   name: distro
   version: 1.9.0
@@ -38165,19 +38150,6 @@ packages:
   - requests ; extra == 'lazy'
   - xarray>=2025.6.1 ; extra == 'lazy'
   requires_python: '>=3.12'
-- pypi: https://files.pythonhosted.org/packages/1d/43/42cf9d2f2748cea161277e95fc5cbd42c91151a226caf643651174292d86/htseq-2.1.2-cp313-cp313-macosx_10_15_x86_64.whl
-  name: htseq
-  version: 2.1.2
-  sha256: d6a36c85160628bcfa03b60dad74646d96f3d776371d79a8b29bcb09d958ac69
-  requires_dist:
-  - numpy
-  - pysam
-  - matplotlib>=1.4 ; extra == 'htseq-qa'
-  - scipy>=1.5.0 ; extra == 'test'
-  - pytest>=6.2.5 ; extra == 'test'
-  - pandas>=1.1.0 ; extra == 'test'
-  - matplotlib>=1.4 ; extra == 'test'
-  requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/1e/d3/26bf1008eb3d2daa8ef4cacc7f3bfdc11818d111f7e2d0201bc6e3b49d45/annotated_doc-0.0.4-py3-none-any.whl
   name: annotated-doc
   version: 0.0.4
@@ -38215,19 +38187,6 @@ packages:
   version: 5.12.1
   sha256: e10cbf41b21233ec5e20adfc170cf60edd77abead86a97dc708fff55a8a886c7
   requires_python: '>=3.6'
-- pypi: https://files.pythonhosted.org/packages/25/0e/87f0df958babfed8e6e446aec787bcc9c3a54a5bffcbe230247e1bd7e131/htseq-2.1.2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
-  name: htseq
-  version: 2.1.2
-  sha256: a9a79febc9744c2490cdc4fbe71f52ef9a1dc7c8cedd4fd344b6b4dccfa0eef9
-  requires_dist:
-  - numpy
-  - pysam
-  - matplotlib>=1.4 ; extra == 'htseq-qa'
-  - scipy>=1.5.0 ; extra == 'test'
-  - pytest>=6.2.5 ; extra == 'test'
-  - pandas>=1.1.0 ; extra == 'test'
-  - matplotlib>=1.4 ; extra == 'test'
-  requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/2a/2d/d4bf65e47cea8ff2c794a600c4fd1273a7902f268757c531e0ee9f18aa58/pooch-1.9.0-py3-none-any.whl
   name: pooch
   version: 1.9.0
@@ -38266,17 +38225,6 @@ packages:
   version: 1.8.0
   sha256: 96153e77a591c8adc2ee805756c61f59fef4cf4073a9275ee86fe8cba41241f7
   requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/31/96/b852ad0773add8a7531ab9d2e591234fc6862a0d785b101d8ab8a12b9e0a/umite-0.1.1-py3-none-any.whl
-  name: umite
-  version: 0.1.1
-  sha256: b05b4ead833f4bd88170b509af727122a71b93aa42b3a541bf92a2f6041dd8a0
-  requires_dist:
-  - htseq
-  - regex
-  - rapidfuzz
-  - pytest>=5 ; extra == 'tests'
-  - snakemake>=8 ; extra == 'workflow'
-  requires_python: '>=3.7'
 - pypi: https://files.pythonhosted.org/packages/32/33/93fcc25907235c344ae73122f8a4e01d2d393ef062b4af7d2e2487a32c37/orjson-3.11.9-cp313-cp313-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
   name: orjson
   version: 3.11.9
@@ -38736,11 +38684,6 @@ packages:
   version: 1.15.0
   sha256: 7b1b9c53269061403fd5f45a8de349f16e7887653328bfa0c5f2d45299ff0a8e
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/86/79/2f5151ac001d8c74fb047036bfea9e4e897939e6587d3c4d512e46c450b1/pysam-0.24.0-cp313-cp313-macosx_10_13_x86_64.whl
-  name: pysam
-  version: 0.24.0
-  sha256: c30f746060a8944adaf5004652b4a25b2460a07360fb01be2b6b38f883fae8e7
-  requires_python: '>=3.8'
 - pypi: https://files.pythonhosted.org/packages/88/0a/469e2bd01be1490336e6c8707386845655d59261543315778a3ccc7e8019/zarr-3.2.1-py3-none-any.whl
   name: zarr
   version: 3.2.1
@@ -38768,13 +38711,6 @@ packages:
   name: propcache
   version: 0.5.2
   sha256: 4db0ba63d693afd40d249bd93f842b5f144f8fcbb83de05660373bcf30517b1d
-  requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/90/79/2fc252a63bc91d3c3b234d0a3a6ad4ebc460037a23cdcdaf9285f986e6c9/rapidfuzz-3.14.5-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
-  name: rapidfuzz
-  version: 3.14.5
-  sha256: 17a34330cd2a538c1ce5d400b61ba358c5b72c654b928ff87b362e88f8b864c7
-  requires_dist:
-  - numpy ; extra == 'all'
   requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/91/47/13c0c23c134cd0f0b0addfbc3ef1477f90d891184d21689f9074b794b00c/django_pgtrigger-4.17.0-py3-none-any.whl
   name: django-pgtrigger
@@ -39132,11 +39068,6 @@ packages:
   - importlib-metadata ; extra == 'test-extras'
   - crc32c ; extra == 'test-extras'
   requires_python: '>=3.11'
-- pypi: https://files.pythonhosted.org/packages/c4/ea/066ce356c5df3c2d42b72801f768d41bf691f58f6d2a90f6334fbed39785/pysam-0.24.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
-  name: pysam
-  version: 0.24.0
-  sha256: 1448b3100f79bd00830c586a256ea21b1f701d937f5ad4318adffdb5b2933478
-  requires_python: '>=3.8'
 - pypi: https://files.pythonhosted.org/packages/c7/75/bc704ae15fee974f8fccd871305e254754167dce5f9e42d88a2def741a1d/multidict-6.7.1-cp313-cp313-macosx_10_13_x86_64.whl
   name: multidict
   version: 6.7.1
