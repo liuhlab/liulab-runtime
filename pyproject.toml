@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.22"
+version = "2026.8.4"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -95,6 +95,22 @@ platforms = ["osx-64", "linux-64"]
 
 [tool.pixi.feature.align-rna.dependencies]
 star = "*"
+
+# SMART-seq3 UMI counting. Not an aligner: `umiextract` trims the TSO+UMI off
+# R1 *before* STAR and `umicount` counts name-sorted BAMs *after* it, so umite
+# is only usable in an environment that already has STAR and samtools — which
+# is this one. A separate environment would be align-rna plus four wheels, i.e.
+# a near-duplicate solve and a second published image.
+#
+# Left on PyPI rather than conda-pinned: bioconda's `htseq` pulls loompy ->
+# numba + llvmlite + hdf5 (~40 MB) that umite never calls, while the PyPI wheel
+# needs only numpy + pysam. HTSeq ships no osx-arm64 wheel, which is one more
+# reason umite sits in this osx-64/linux-64 feature.
+#
+# PINNED, not tracked: umite is v0.1.1 with one maintainer and no git tags
+# (liuhlab/seqforge#229). Bump it deliberately, never by `pixi update`.
+[tool.pixi.feature.align-rna.pypi-dependencies]
+umite = "==0.1.1"
 
 # DNA-seq. chromap is fast for ATAC / Hi-C / ChIP-seq reads.
 [tool.pixi.feature.align-dna.dependencies]
