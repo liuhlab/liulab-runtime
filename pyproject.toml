@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
 # Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.7.22"
+version = "2026.8.6"
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
@@ -95,6 +95,7 @@ platforms = ["osx-64", "linux-64"]
 
 [tool.pixi.feature.align-rna.dependencies]
 star = "*"
+subread = "*"       # featureCounts — RNA-seq read summarization / gene counts
 
 # DNA-seq. chromap is fast for ATAC / Hi-C / ChIP-seq reads.
 [tool.pixi.feature.align-dna.dependencies]
