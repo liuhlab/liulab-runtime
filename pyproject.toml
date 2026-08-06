@@ -95,6 +95,7 @@ platforms = ["osx-64", "linux-64"]
 
 [tool.pixi.feature.align-rna.dependencies]
 star = "*"
+subread = "*"       # featureCounts — RNA-seq read summarization / gene counts
 
 # DNA-seq. chromap is fast for ATAC / Hi-C / ChIP-seq reads.
 [tool.pixi.feature.align-dna.dependencies]
