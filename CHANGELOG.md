@@ -2,6 +2,36 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.8.6
+
+- Added `subread` to `align-rna`. It ships `featureCounts` (v2.1.1), the
+  read-summarization step that turns an aligned RNA-seq BAM into per-gene
+  counts — alignment-side work, so it sits next to STAR rather than in an
+  analysis env.
+- Re-resolved the whole stack against the latest lab-package `main`s:
+  - `seqforge` `cdd0c8e` → `8770e97` — STARsolo retains a barcode-carrying
+    CRAM and emits CellRanger-comparable counts, with memory escalating on
+    retry so an under-sized job fails loudly instead of being OOM-killed; a
+    post-mapping HTML report (Results tab, QC artifacts, cross-check alerts);
+    Smart-seq3 / plate support end to end (UMI extract + count workflows, the
+    `smartseq3` KB entry, starved-cell drop, per-plate `h5ad`); read sets in
+    the KB and byte resolver, so single-end libraries resolve and compile; a
+    `source: user` record dialect; and io fixes across GEO sub-series
+    resolution, cross-batch record dedup, library-construction protocol prose
+    and modal read length. Renames: the bulk chemistry is now `bulk-rnaseq`,
+    and `read_count` is gone from the signature vocabulary.
+  - `liulab-data` `146fc3d` → `cf8a0af` — `sratools` can stream the first N
+    spots of a run without writing a FASTQ.
+  - `liulab-genome` `697e33d` → `ef60d13` — a Chromap aligner
+    (`build_chromap_index` / `get_chromap_index`).
+- `pysam` is now a direct `seqforge` dependency (it re-implements the UMI
+  counter in-tree rather than shelling out), so `pysam` — plus `filelock`,
+  `fsspec`, `huggingface-hub` and `hf-xet` — enters every env carrying the
+  `lab` feature.
+- Refreshed conda/pypi packages across every env within the pinned constraints
+  — notably `snakemake-minimal` 9.23.1 → 9.25.1, `zarr` 3.2.1 → 3.3.0,
+  `pynndescent` 0.5.13 → 0.6.0, `ruff` 0.15.22 → 0.16.1.
+
 ## 2026.7.22
 
 - Added a `update-env` pixi task (`pixi run update-env`, `scripts/update-env.sh`):
