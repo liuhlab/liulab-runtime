@@ -2,6 +2,32 @@
 
 This project uses date-based (CalVer) versioning: `YYYY.M.D`.
 
+## 2026.8.14
+
+- Re-resolved the stack against the latest lab-package `main`s:
+  - `seqforge` `8770e97` → `bbcb3bc` — the umite performance series lands:
+    the FASTQ reader cuts its lines in bulk instead of four `readline` calls
+    per record, the annotation lookup bisects a flat buffer and lends out an
+    interned set, UMI correction looks its neighbours up rather than walking
+    the whole bucket, and a plate counts on every core the rule asked for —
+    measured at 45× on a real plate. Also: every STAR workflow loads one
+    shared genome copy per run rather than one per plate; a `mem_gb` option
+    with the bulk-memory fix; UMI extraction writes a summary artifact
+    instead of printing and losing it; per-chemistry clipping for Tn5
+    read-through; `run_id` folds only the one spec that decided the config;
+    and the exclusion record is byte-stable across a bare version bump.
+  - `liulab-genome` `ef60d13` → `9d05e49` — a chimera reference concatenated
+    from canonical assemblies, plus metadata-driven genome/annotation
+    registration: a STAR index sizes `genomeChrBinNbits` from the
+    reference's shape, an index record pins the assembly it was built from,
+    an unlisted GTF can be registered by path from the CLI, and a blank
+    identifier cell reads back as unknown.
+  - `liulab-data` unchanged (`cf8a0af`).
+- Refreshed conda/pypi packages across every env within the pinned
+  constraints — notably `python` 3.13.14 → 3.13.15, `xgboost` 3.3.0 → 3.4.0,
+  `jupyterlab` 4.6.2 → 4.6.3, `openai` 2.53.0 → 3.0.0, `ruff` 0.16.1 →
+  0.16.2.
+
 ## 2026.8.6
 
 - Added `subread` to `align-rna`. It ships `featureCounts` (v2.1.1), the
