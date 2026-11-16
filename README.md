@@ -37,13 +37,13 @@ pixi run lab
 
 ## Available environments
 
-| Environment  | What it's for                                                          |
-| ------------ | --------------------------------------------------------------------- |
-| `default`    | Everyday analysis: lab packages, Jupyter, plotting, samtools, bedtools |
-| `align-rna`  | RNA-seq alignment: STAR (Linux & Intel macOS) |
-| `align-dna`  | DNA-seq alignment: chromap |
-| `ml`         | PyTorch + scvi-tools + scanpy for single-cell / ML; runs on CPU, and on the Apple GPU (MPS) on Apple Silicon |
-| `ml-gpu`     | Same stack on an NVIDIA CUDA GPU (Linux only) |
+| Environment | What it's for |
+| --- | --- |
+| `default` | Everyday analysis: lab packages, Jupyter, plotting, samtools, bedtools |
+| `align-rna` | RNA-seq alignment: STAR (Linux & Intel macOS) |
+| `align-dna` | DNA-seq alignment: chromap |
+| `ml` | PyTorch + scvi-tools + scanpy for single-cell / ML; runs on CPU, and on the Apple GPU (MPS) on Apple Silicon |
+| `ml-gpu` | Same stack on an NVIDIA CUDA GPU (Linux only) |
 
 Enter a specific one with `pixi shell -e align-rna`.
 
@@ -77,7 +77,7 @@ pixi run update-env       # report each lab package's locked vs. latest main, `p
 ```
 
 It only rewrites `pixi.lock`; follow up with `pixi install` to apply it, then record the bump
-(`CHANGELOG.md` + the `pyproject.toml` version). To move a single package instead, run
+in `CHANGELOG.md`; the release tag sets the version. To move a single package instead, run
 `pixi update <package>`.
 
 ## Containers

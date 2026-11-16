@@ -1,42 +1,67 @@
-name: CI
+# The gate, run on the pull request rather than on the branch.
+#
+# ONE job, because GitHub bills every job rounded up to a whole minute: several short jobs bill
+# far more than one longer one, and on a private repo the minutes are shared by every repo the
+# account owns. Every step after the first gate step runs even when one before it failed, so
+# a run still reports every failure.
+#
+# Every step invokes `pixi run <task>` and never a command line. The step list lives in
+# `pyproject.toml` — `check-static` names it once — so adding a step is one more word
+# there and nothing here. This repo waives conformance rule `workflow-step-tasks`, because
+# the container workflows never install pixi (the reason is in `pyproject.toml`), so this
+# file keeps the rule by hand. Keeping CI and a laptop the same is a habit, not a property
+# anything proves.
+#
+# Not shipped, deliberately: a `claude.yml`, because on a public repo anyone who can
+# comment could spend the API budget. The container workflows, `docker.yml` and
+# `ghcr-cleanup.yml`, are this repo's own: its images are how offline compute nodes get an
+# environment.
+name: ci
 
 on:
-  push:
-    branches: [main]
+  # `pull_request` tests the MERGE commit — the code that will exist after the merge, not the
+  # branch tip — and it is the only event that produces a run for a pull request from a fork.
+  # Nothing runs on a push to `main`: it would test again what the pull request just tested.
+  # `workflow_dispatch` is for checking `main` by hand.
+  #
+  # `ready_for_review` is listed because a draft runs nothing (the job's `if:` below): open a
+  # pull request as a draft, pass the local gate, then mark it ready to run CI once.
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
 
+# Keyed on the workflow and the ref, so pushing again to a pull request cancels the run it
+# supersedes. A run started by hand is never cancelled.
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  # The draft state is part of the key: a draft's run is skipped, and must not cancel the
+  # real run that marking the pull request ready starts in the same second.
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.pull_request.draft }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
 jobs:
-  lint:
-    name: lint
+  check:
+    # Skipped on a draft, which bills nothing. A run by hand has no pull request, so it runs.
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      # Every pre-commit hook runs a tool from the pixi `default` env
-      # (`entry: pixi run -e default …`, language: system), so the runner needs
-      # pixi + that env on hand — the bare `pre-commit/action` has no pixi and
-      # fails every hook with "Executable `pixi` not found".
-      - uses: prefix-dev/setup-pixi@v0.10.0
+      # A real checkout, not a source archive: `conformance` shells out to `git ls-files`
+      # and exits 2 without a `.git` — its "could not run", spelled apart from the 1 a
+      # broken rule exits, so a bad checkout never reads as a rule this repo failed.
+      - uses: actions/checkout@v7
+      - uses: prefix-dev/setup-pixi@v0.11.3
         with:
-          environments: default
+          # `default` holds the gate; `docs` is what `docs.yml` builds the site in.
+          environments: default docs
+          # Fail if `pixi.lock` no longer matches `pyproject.toml`, rather than silently
+          # solving something else. This is what makes CI run the versions the laptop ran.
           locked: true
-      - name: pre-commit run --all-files
-        run: pixi run -- pre-commit run --all-files --show-diff-on-failure --color=always
-
-  docs:
-    name: docs build (no deploy)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: prefix-dev/setup-pixi@v0.10.0
-        with:
-          environments: docs
-          locked: true
-      - name: mkdocs build --strict
-        run: pixi run -e docs docs-build
+      # `check-static` and `check` are the same thing here: this repo has no tests.
+      - run: pixi run check-static
+      # `--strict` is in the task, so a dead link or a `nav:` entry naming a missing file fails
+      # here. `-e docs`: `default` carries the site builder too, and this builds in the
+      # environment `docs.yml` deploys from. Publishing the site is `docs.yml`, on `main`.
+      - run: pixi run -e docs docs-build
+        if: ${{ !cancelled() }}

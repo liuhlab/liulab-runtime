@@ -11,11 +11,11 @@ kernel — not an up-to-date OS.
 Images are published to GHCR, one tag per environment:
 
 | Image | Contains |
-| ----- | -------- |
+| --- | --- |
 | `ghcr.io/liuhlab/liulab-runtime:align-rna` | RNA-seq alignment (STAR + QC) |
 | `ghcr.io/liuhlab/liulab-runtime:align-dna` | DNA-seq alignment (chromap + QC) |
-| `ghcr.io/liuhlab/liulab-runtime:ml`        | PyTorch (CPU/MPS) + scvi-tools + scanpy |
-| `ghcr.io/liuhlab/liulab-runtime:ml-gpu`    | The ML stack built against an NVIDIA CUDA GPU |
+| `ghcr.io/liuhlab/liulab-runtime:ml` | PyTorch (CPU/MPS) + scvi-tools + scanpy |
+| `ghcr.io/liuhlab/liulab-runtime:ml-gpu` | The ML stack built against an NVIDIA CUDA GPU |
 
 Each image holds a **single** environment (baked in — no need to pick one at
 runtime). A moving `:<env>` tag tracks the latest build; released versions are
@@ -134,7 +134,7 @@ singularity run liulab-runtime_ml.sif lab --ip=0.0.0.0 --no-browser
     Because the env is active under `exec`, these images work as drop-in tool
     containers. A Snakemake rule with `container:
     "docker://ghcr.io/liuhlab/liulab-runtime:align-rna"` run with
-    `--software-deployment-method apptainer` finds `STAR` out of the box — no
+    `--software-deployment-method apptainer` finds `STAR` with no extra setup — no
     `APPTAINERENV_PREPEND_PATH` or hand-added `.pixi/envs/*/bin`.
 
 !!! tip "Read-only image"

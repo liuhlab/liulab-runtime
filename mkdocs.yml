@@ -45,6 +45,13 @@ nav:
   - Inhouse tutorials:
       - IRCBC HPC: inhouse/ircbc.md
 
+# The agent-facing pages are not built: the site is for end users. They also carry
+# `search: exclude: true`, which conformance asks for and which a site builder that
+# ignores this key would still honour.
+exclude_docs: |
+  adr/
+  agents/
+
 markdown_extensions:
   - admonition
   - attr_list

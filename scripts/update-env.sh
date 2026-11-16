@@ -15,7 +15,7 @@
 # It only rewrites pixi.lock. To apply and record the bump afterwards:
 #   pixi install                 # materialize the new lock into your environments
 #   git diff pixi.lock           # review what moved
-#   # then add a CHANGELOG.md entry + bump [project].version in pyproject.toml (see CLAUDE.md)
+#   # then add a CHANGELOG.md entry; the release tag sets the version (see AGENTS.md)
 
 set -uo pipefail
 
@@ -56,7 +56,7 @@ main() {
   echo
 
   bold "== Done -- pixi.lock refreshed"
-  echo "Next: \`pixi install\` to apply it, then record the bump (CHANGELOG.md + pyproject version)."
+  echo "Next: \`pixi install\` to apply it, then record the bump in CHANGELOG.md; the release tag sets the version."
 }
 
 main "$@"

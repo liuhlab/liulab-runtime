@@ -2,8 +2,8 @@
 
 This page explains the tools behind **liulab-runtime** and how the
 pieces fit together. You don't need any of this to use the package — but
-it helps to know what's happening when something goes wrong, or when you
-want to add your own environment.
+it is useful when something goes wrong, or when you want to add your
+own environment.
 
 ## What is PyPI?
 
@@ -91,6 +91,7 @@ or PyPI yet — they exist only as a GitHub repository. pixi can install
 these directly from GitHub as a **PyPI (git) dependency**.
 
 That's exactly how `liulab-data` and `liulab-genome` are wired in:
+
 ```toml
 [tool.pixi.feature.lab.pypi-dependencies]
 liulab-data = { git = "https://github.com/liuhlab/liulab-data.git" }
@@ -119,8 +120,6 @@ Then run `pixi install` to fetch and build it.
     - For a **private** repo, make sure your machine can already clone it
       (e.g. via an SSH key or a cached GitHub credential); pixi uses your
       normal git access.
-
-
 
 ## How Jupyter kernels are registered
 
@@ -186,7 +185,8 @@ When you change the available environments, update the tables in
 
 ## Versioning
 
-This package uses **date-based (CalVer) versioning**: the version number
-is the date of release, e.g. `2026.6.25`. There's no API to keep stable
-here — it's an environment definition — so the date simply tells you how
-recent your copy is.
+This package uses **date-based (CalVer) versioning**: each release is a
+git tag `vYYYY.M.PATCH` — the year and month of the release, then a count
+that starts at 0 each month, e.g. `v2026.11.0`. There's no API to keep
+stable here — it's an environment definition — so the date simply tells
+you how recent your copy is.
