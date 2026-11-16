@@ -1,40 +1,49 @@
-name: Docs
-
-# Builds the MkDocs site and publishes it to the `gh-pages` branch on
-# every push to main.
+# Publishing the site to the `gh-pages` branch.
 #
-# Setup (one-off, by a maintainer):
-#   1. Let this workflow run once so it creates the `gh-pages` branch.
-#   2. Settings -> Pages -> Source: "Deploy from a branch".
-#   3. Branch: `gh-pages`, folder: `/ (root)`. Save.
+# Two halves, spelled out: build into `./site` with the same task a laptop runs, then
+# force-push that directory to `gh-pages`. `mkdocs gh-deploy` would do both, with its flags
+# on this command line rather than in the task.
+#
+# The pull request already builds the site (the `docs-build` step in `ci.yml`). This workflow adds
+# only the publish, so it runs on `main` and nowhere else.
+name: docs
 
 on:
   push:
     branches: [main]
+  # For re-publishing without a commit — a Pages setting changed, a deploy was lost.
   workflow_dispatch:
 
+# The deploy force-pushes a branch of this repository. Nothing else here writes.
 permissions:
   contents: write
 
+# NOT cancelled in flight, unlike `ci.yml`. This job replaces a published branch, and a run
+# killed between the build and the push leaves `gh-pages` holding half a site with nothing
+# queued to finish it. A superseded run is cheap; a half-written public site is not.
 concurrency:
-  group: gh-pages
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   deploy:
-    name: Build & deploy to gh-pages
+    # A private repo skips the deploy: on a free plan, GitHub Pages serves public repos only.
+    if: ${{ !github.event.repository.private }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - uses: prefix-dev/setup-pixi@v0.10.0
+      - uses: actions/checkout@v7
+      - uses: prefix-dev/setup-pixi@v0.11.3
         with:
           environments: docs
           locked: true
-      - name: Configure git identity
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: mkdocs gh-deploy
-        run: pixi run -e docs mkdocs gh-deploy --force --strict
+      # Writes `./site`. `--strict` lives in the task, so this and a laptop build the same
+      # way. `-e docs`, because `default` also carries the site builder and is far larger.
+      - run: pixi run -e docs docs-build
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          # `gh-pages` holds built output and no history anyone reads: one commit,
+          # replaced whole each deploy. This is what `mkdocs gh-deploy --force` did.
+          force_orphan: true

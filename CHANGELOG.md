@@ -1,6 +1,27 @@
 # Changelog
 
-This project uses date-based (CalVer) versioning: `YYYY.M.D`.
+Versions are date-based (CalVer). Each release is a git tag `vYYYY.M.PATCH`, PATCH
+counting from 0 each month, and the tag is where the version comes from. Releases up to
+2026.8.14 were tagged `YYYY.M.D`, with no `v`.
+
+## Unreleased
+
+- One command now checks the whole repo: `pixi run check` runs ruff, pyright, the lab's
+  writing rules (vale and markdownlint), the template's conformance rules and the pre-commit
+  hooks, and reports every failure in one run. CI runs it on each pull request as one job,
+  skips a draft, and builds the site. It no longer runs on a push to `main`.
+- The site is built by the `docs-build` task and published to `gh-pages` as one fresh commit,
+  in place of `mkdocs gh-deploy`. It has the same pages as before; the version section of
+  Background now describes the `v` tags.
+- The version comes from the git tag (hatch-vcs), not from `pyproject.toml`. Release tags take
+  a `v`; the image workflow builds on a `v` tag only, and the pinned image tag keeps its old
+  form, `:<env>-<version>` with no `v`.
+- `requires-python` is now `>=3.13`, matching the only Python any environment installs.
+- The `default` environment gains the gate's tools: pyright, vale, markdownlint-cli2 and the
+  Node.js they need. No published image changes.
+- Agent guidance moved to `AGENTS.md` (`CLAUDE.md` links to it), with a glossary and two
+  decision records: how an image keeps its environment active, and why the lock is
+  re-resolved on Linux.
 
 ## 2026.8.14
 

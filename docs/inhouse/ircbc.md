@@ -112,7 +112,7 @@ ssh-copy-id -i ~/.ssh/<LOGIN_KEY>.pub <LOGIN_USER>@<LOGIN_IP>
 On your laptop, open `~/.ssh/config` (create it if it doesn't exist) and paste
 these three blocks, filling in your placeholders:
 
-```
+```text
 # 1. Login node — light work only (editing, git, submitting jobs)
 Host ircbc
     HostName <LOGIN_IP>
@@ -186,7 +186,7 @@ ssh-copy-id -i ~/.ssh/<TRANSFER_KEY>.pub <TRANSFER_USER>@<TRANSFER_IP>
 
 Then add the transfer host to `~/.ssh/config` **on IRCBC**:
 
-```
+```text
 Host ircbc-transfer
     HostName <TRANSFER_IP>
     User <TRANSFER_USER>
@@ -352,7 +352,7 @@ ssh -f -N -L <PORT>:localhost:<PORT> <NODE>
 
 Then open this in your **laptop's browser** (use the token from the log):
 
-```
+```text
 http://localhost:<PORT>/lab?token=<token>
 ```
 
@@ -362,6 +362,7 @@ In a new notebook cell (in the browser):
 
 ```python
 import scanpy, anndata, scvi, torch
+
 print("ok", scanpy.__version__)
 ```
 

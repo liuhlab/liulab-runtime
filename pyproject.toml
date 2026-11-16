@@ -4,16 +4,25 @@ description = "Centralized package & environment manager for Liu Lab data analys
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 authors = [{ name = "Liu Lab" }]
 keywords = ["bioinformatics", "pixi", "conda", "environment", "liulab"]
-# Date-based (CalVer) versioning: YYYY.M.D
-version = "2026.8.14"
+# hatch-vcs reads the newest git tag. Never add a `version` key.
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/liuhlab/liulab-runtime"
 Issues = "https://github.com/liuhlab/liulab-runtime/issues"
 Changelog = "https://github.com/liuhlab/liulab-runtime/blob/main/CHANGELOG.md"
+
+# Nothing here is built or installed. The backend is declared so the version has one source.
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+# No `fallback-version`: that is a hand-written version string.
+[tool.hatch.version]
+source = "vcs"
 
 # ======================================================================
 #  pixi — environments & packages
@@ -160,11 +169,19 @@ cuda-version = "12.*"
 # ======================================================================
 #  Tooling features
 # ======================================================================
+# The gate's tools. On `dev`, not the base layer, so no published image carries them.
 [tool.pixi.feature.dev.dependencies]
 ruff = "*"
 pre-commit = "*"
 pre-commit-hooks = "*"   # backs the whitespace/EOF/yaml/toml checks (local hooks)
 shellcheck = "*"         # shell linter for the helper scripts (local hook)
+# Exact: Pylance is pyright, so the editor and CI must give one verdict.
+pyright = "==1.1.411"
+# Exact: the jargon map and the grade-11 number were measured against this version.
+vale = "3.19.0.*"
+markdownlint-cli2 = "*"
+# For conformance, which parses mkdocs.yml and the workflows.
+pyyaml = "*"
 
 [tool.pixi.feature.docs.dependencies]
 mkdocs-material = "*"
@@ -209,17 +226,65 @@ docs-build = "mkdocs build --strict"
 lint = "ruff check ."
 fmt = "ruff format ."
 fmt-check = "ruff format --check ."
+typecheck = "pyright"
+# `.`, never an absolute path: an absolute path matches no `.vale.ini` section and exits 0.
+# The globs stop vale walking trees it never lints.
+vale = "vale --glob='!{.pixi,site,dist,build}/**' ."
+markdownlint = "markdownlint-cli2"
+conformance = "python scripts/conformance.py"
+# The pre-commit hooks no other step covers: whitespace, end of file, YAML, TOML, merge
+# markers, large files, and shellcheck on the shell scripts. The file list is passed in
+# because `--all-files` runs `git ls-files --deduplicate`, which git before 2.31 rejects.
+hooks = "git ls-files -z | xargs -0 pre-commit run --show-diff-on-failure --files"
+# The static step list lives here and nowhere else; `check.sh` takes it as arguments.
+check-static = "bash scripts/check.sh lint fmt-check typecheck vale markdownlint conformance hooks"
+check = { depends-on = ["check-static"] }
 
 # ======================================================================
-#  ruff — light linting for the few helper scripts we keep
+#  ruff and pyright — for the few Python files the gate runs
 # ======================================================================
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+src = ["scripts"]
+# No `target-version`: ruff infers it from `requires-python`.
+extend-exclude = [".pixi", "site", "build", "dist"]
 
 [tool.ruff.lint]
-select = ["E", "W", "F", "I", "UP", "B"]
-ignore = ["E501"]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "PT",  # flake8-pytest-style
+    "PTH", # flake8-use-pathlib
+    "N",   # pep8-naming
+    "D",   # pydocstyle (numpy convention, configured below)
+    "RUF", # ruff-specific
+]
+# E501: the formatter owns line length. D203/D213: incompatible with D211/D212.
+ignore = ["E501", "D203", "D213"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.pyright]
+# CI and conformance execute these files.
+include = ["scripts", "skills"]
+exclude = ["**/__pycache__", "**/.pixi"]
+venvPath = ".pixi/envs"
+venv = "default"
+# No `pythonVersion`: taken from the interpreter in the environment above.
+typeCheckingMode = "standard"
+# Not redundant: `standard` does not check that a parameter is annotated at all.
+reportMissingParameterType = "error"
+# Deliberately NOT `reportUnknownParameterType`: it also fails annotated parameters and
+# inferred return types whose types an untyped dependency owns.
+useLibraryCodeForTypes = true
+reportMissingTypeStubs = "none"
 
 # ======================================================================
 #  liulab-runtime — docker settings
@@ -228,3 +293,25 @@ ignore = ["E501"]
 # one image tag per env (`ghcr.io/liuhlab/liulab-runtime:<env>`).
 [tool.liulab-runtime]
 docker-environments = ["align-rna", "align-dna", "ml", "ml-gpu"]
+
+# ======================================================================
+#  liulab — read by `scripts/conformance.py`; its docstring has the rules
+# ======================================================================
+# The declared agent-facing set. Keys are path prefixes matched against `git ls-files`, not
+# globs; a trailing `/` matches a directory. Values name the Vale Length rule, or `false`.
+[tool.liulab.agent-docs]
+"AGENTS.md" = "LengthDoc"
+"GLOSSARY.md" = false         # capped per entry by conformance, not per file
+"docs/agents/" = "LengthDoc"
+"skills/" = "LengthDoc"
+"docs/adr/" = "LengthAdr"
+"docs/research/" = false
+
+# Keyed by rule name, value the reason. Per-rule, never per-file; no expiry; printed on every
+# run.
+[tool.liulab.waived]
+workflow-step-tasks = """docker.yml and ghcr-cleanup.yml run on runners that never install \
+pixi: one builds the images with docker, the other prunes the registry with the GitHub API. \
+Routing their few shell steps through `pixi run` would install an environment in every image \
+build and cleanup job to run a command the runner already has. ci.yml and docs.yml keep the \
+rule by hand: every step there is `pixi run <task>`."""

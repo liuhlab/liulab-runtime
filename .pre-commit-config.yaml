@@ -1,7 +1,9 @@
 # Pre-commit hooks for liulab-runtime.
 #
 # Install once per clone:  pixi run -- pre-commit install
-# Run on all files:        pixi run -- pre-commit run --all-files
+# Run on all files:        pixi run hooks   (a step of `pixi run check`)
+#
+# Only the checks no other gate step makes. ruff is the `lint` and `fmt-check` steps.
 #
 # Every hook runs a tool from the pixi `dev` env (via `pixi run -e default`,
 # language: system) — pre-commit never creates its own pip/virtualenv. So all
@@ -40,20 +42,10 @@ repos:
         name: check for added large files
         entry: pixi run -e default -- check-added-large-files --maxkb=500
         language: system
-      - id: ruff-check
-        name: ruff check
-        entry: pixi run -e default -- ruff check --fix --force-exclude
-        language: system
-        types_or: [python, pyi]
-        require_serial: true
-      - id: ruff-format
-        name: ruff format
-        entry: pixi run -e default -- ruff format --force-exclude
-        language: system
-        types_or: [python, pyi]
-        require_serial: true
       - id: shellcheck
         name: shellcheck
-        entry: pixi run -e default -- shellcheck
+        # SC2004 off: `scripts/check.sh` is the template's, kept byte-identical, and writes
+        # `pids[$i]`, a style finding with no behaviour behind it.
+        entry: pixi run -e default -- shellcheck --exclude=SC2004
         language: system
         types: [shell]

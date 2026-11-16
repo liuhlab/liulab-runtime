@@ -12,20 +12,27 @@ dist/
 # Jupyter
 .ipynb_checkpoints/
 
-# Docs build
+# Docs build. `.cache/` is mkdocs' download cache.
 site/
+.cache/
 
 # Tooling caches
 .ruff_cache/
 .mypy_cache/
+.pytest_cache/
+.coverage
 
 # Editors / OS
 .idea/
 .vscode/
 .DS_Store
 
-# Claude Code local settings
+# Agent products. Never a blanket `/.claude/`: name the machine-local files only.
 .claude/settings.local.json
+.claude/worktrees/
+# Installer output, from `python skills/install.py --target codex|gemini`.
+/.codex/
+/.gemini/
 
 playground/
 .lamin

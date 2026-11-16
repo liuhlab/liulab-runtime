@@ -67,7 +67,6 @@ This reads the recipe in `pyproject.toml`, downloads everything, and
 sets up each environment. The first run can take a while; later
 runs are fast because pixi caches what it downloads.
 
-
 ### 3. Activate an environment
 
 To start working, "enter" an environment. This puts all of its tools on
@@ -93,7 +92,7 @@ pixi run envs        # shortcut for: pixi workspace environment list
 ```
 
 !!! tip "Run one command without entering a shell"
-    Use `pixi run` to execute a single command inside an environment:
+    Use `pixi run` to run a single command inside an environment:
 
     ```bash
     pixi run -e align-rna STAR --version
@@ -133,13 +132,13 @@ again to pick it up.
 
 ## Available environments
 
-| Environment  | Contents                                                            | Platforms |
-| ------------ | ------------------------------------------------------------------- | --------- |
-| `default`    | `liulab-data`, `liulab-genome`, `seqforge`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
-| `align-rna`  | RNA-seq aligner + shared read processing & QC: STAR, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, Intel macOS (Apple Silicon via Rosetta) |
-| `align-dna`  | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, macOS |
-| `ml`         | PyTorch, scvi-tools, scanpy for single-cell / deep-learning analysis; CPU everywhere, plus the Apple GPU (MPS) on Apple Silicon | Linux, macOS |
-| `ml-gpu`     | The same stack built against an NVIDIA CUDA GPU | Linux + NVIDIA GPU |
+| Environment | Contents | Platforms |
+| --- | --- | --- |
+| `default` | `liulab-data`, `liulab-genome`, `seqforge`, Jupyter Lab, seaborn, pandas, numpy, samtools, bedtools | Linux, macOS |
+| `align-rna` | RNA-seq aligner + shared read processing & QC: STAR, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, Intel macOS (Apple Silicon via Rosetta) |
+| `align-dna` | DNA-seq aligner + shared read processing & QC: chromap, samtools, sambamba, fastp, fastqc, multiqc, repaq | Linux, macOS |
+| `ml` | PyTorch, scvi-tools, scanpy for single-cell / deep-learning analysis; CPU everywhere, plus the Apple GPU (MPS) on Apple Silicon | Linux, macOS |
+| `ml-gpu` | The same stack built against an NVIDIA CUDA GPU | Linux + NVIDIA GPU |
 
 !!! warning "Apple Silicon & `align-rna`"
     STAR has no Apple Silicon (`osx-arm64`) build, so `align-rna` cannot

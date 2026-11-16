@@ -6,9 +6,10 @@ name: Docker
 # the `docker-environments` list in pyproject.toml — edit it there.
 #
 # Tag a release to publish pinned images, e.g.:
-#   git tag 2026.7.3 && git push origin 2026.7.3
+#   git tag v2026.11.0 && git push origin v2026.11.0
 # or run manually from the Actions tab (workflow_dispatch) to refresh the
-# moving `:<env>` tags without a release.
+# moving `:<env>` tags without a release. The pinned image tag drops the `v`
+# (`:align-rna-2026.11.0`), the form every earlier release has.
 #
 # Setup (one-off, by a maintainer): pushing to GHCR uses the built-in
 # GITHUB_TOKEN — no secret to create. The `packages: write` permission below is
@@ -18,8 +19,7 @@ name: Docker
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'      # CalVer, e.g. 2026.7.3
-      - 'v[0-9]+.[0-9]+.[0-9]+'     # v-prefixed, e.g. v2026.7.3
+      - 'v[0-9]+.[0-9]+.[0-9]+'     # CalVer vYYYY.M.PATCH, the tag hatch-vcs reads
   workflow_dispatch:                 # allow manual runs from the Actions tab
 
 concurrency:
@@ -39,7 +39,7 @@ jobs:
     outputs:
       envs: ${{ steps.read.outputs.envs }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - id: read
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
@@ -58,7 +58,7 @@ jobs:
       matrix:
         env: ${{ fromJSON(needs.matrix.outputs.envs) }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       # The ml-gpu image is ~12 GB; reclaim runner disk before building. Done
       # inline (no third-party action) to avoid a supply-chain/repro risk from
@@ -89,7 +89,7 @@ jobs:
           flavor: latest=false       # no bare :latest — it's ambiguous per-env
           tags: |
             type=raw,value=${{ matrix.env }}
-            type=raw,value=${{ matrix.env }}-${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
+            type=match,pattern=v(.*),group=1,prefix=${{ matrix.env }}-,enable=${{ github.ref_type == 'tag' }}
 
       - name: Build & push
         uses: docker/build-push-action@v7
