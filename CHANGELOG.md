@@ -4,7 +4,7 @@ Versions are date-based (CalVer). Each release is a git tag `vYYYY.M.PATCH`, PAT
 counting from 0 each month, and the tag is where the version comes from. Releases up to
 2026.8.14 were tagged `YYYY.M.D`, with no `v`.
 
-## 2026.11.0
+## Unreleased
 
 - One command now checks the whole repo: `pixi run check` runs ruff, pyright, the lab's
   writing rules (vale and markdownlint), the template's conformance rules and the pre-commit
