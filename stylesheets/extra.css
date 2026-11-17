@@ -1,0 +1,6 @@
+/* Slightly larger body text for readability.
+   Material's default is 0.8rem; bump it a touch. Adjust this one number
+   (e.g. 0.9rem) if you want it larger still. */
+.md-typeset {
+  font-size: 0.85rem;
+}
